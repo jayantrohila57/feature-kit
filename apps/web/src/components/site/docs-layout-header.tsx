@@ -14,7 +14,7 @@ export function DocsLayoutHeader() {
 	return (
 		<FeatureKitHeader
 			actions={<DocsHeaderActions />}
-			className="[grid-area:header] top-(--fd-docs-row-1) layout:[--fd-header-height:--spacing(14)]"
+			className="[grid-area:header] top-(--fd-docs-row-1) z-40 layout:[--fd-header-height:--spacing(14)] h-(--fd-header-height) box-border"
 			layout="docs"
 			navMode="docs"
 			leading={

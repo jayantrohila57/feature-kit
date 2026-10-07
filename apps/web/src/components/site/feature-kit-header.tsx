@@ -55,6 +55,7 @@ export function FeatureKitHeader({
 	className,
 	leading,
 	actions,
+	layout = "site",
 	navMode = "marketing",
 }: FeatureKitHeaderProps) {
 	const [open, setOpen] = useState(false)
@@ -82,7 +83,8 @@ export function FeatureKitHeader({
 			)}>
 			<nav
 				className={cn(
-					"mx-auto flex h-14 w-full max-w-none items-center justify-between px-4 lg:px-6",
+					"mx-auto flex w-full max-w-none items-center justify-between px-4 lg:px-6",
+					layout === "docs" ? "h-full min-h-0" : "h-14",
 				)}>
 				<div className="flex min-w-0 items-center gap-5">
 					{leading}

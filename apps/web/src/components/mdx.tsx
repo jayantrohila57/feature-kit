@@ -4,6 +4,7 @@ import type { MDXComponents } from "mdx/types"
 import { BreadcrumbsDemo } from "@/components/docs/breadcrumbs-demo"
 import { ChangelogRssLink } from "@/components/docs/changelog-rss-link"
 import { DocsCallout } from "@/components/docs/docs-callout"
+import { ExamplesGrid } from "@/components/docs/examples-grid"
 import { DocsInstall } from "@/components/docs/docs-install"
 import { ComponentPreview } from "@/components/docs/component-preview"
 import { PlaygroundLink } from "@/components/docs/playground-link"
@@ -30,6 +31,7 @@ export function getMDXComponents(components?: MDXComponents) {
 		PropsTable,
 		DocsInstall,
 		DocsCallout,
+		ExamplesGrid,
 		ChangelogRssLink,
 		BreadcrumbsDemo,
 		FormKitBasicExample,

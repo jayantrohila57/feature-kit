@@ -43,7 +43,9 @@ html {
 #nd-docs-layout [data-sidebar-placeholder],
 #nd-docs-layout #nd-toc {
 	top: var(--fd-docs-row-2) !important;
+	z-index: 30;
 	height: calc(var(--fd-docs-height) - var(--fd-docs-row-2)) !important;
+	max-height: calc(var(--fd-docs-height) - var(--fd-docs-row-2)) !important;
 }
 
 #nd-page {
