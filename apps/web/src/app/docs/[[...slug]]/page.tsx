@@ -3,7 +3,9 @@ import { DocsBody, DocsDescription, DocsPage, DocsTitle } from "fumadocs-ui/layo
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
+import { DocsPageFooter } from "@/components/docs/docs-page-footer"
 import { getMDXComponents } from "@/components/mdx"
+import { getDocsFooterItems } from "@/lib/docs-footer"
 import { source } from "@/lib/source"
 
 export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
@@ -13,8 +15,18 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
 
 	const MDX = page.data.body
 
+	const { previous, next } = getDocsFooterItems(params.slug)
+	const footerItems = {
+		...(previous ? { previous } : {}),
+		...(next ? { next } : {}),
+	}
+
 	return (
-		<DocsPage toc={page.data.toc}>
+		<DocsPage
+			footer={{ enabled: true, items: footerItems }}
+			slots={{ footer: DocsPageFooter }}
+			tableOfContent={{ enabled: true }}
+			toc={page.data.toc}>
 			<DocsTitle>{page.data.title}</DocsTitle>
 			<DocsDescription>{page.data.description}</DocsDescription>
 			<DocsBody>

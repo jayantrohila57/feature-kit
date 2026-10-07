@@ -3,44 +3,175 @@ title: Data table
 description: TanStack Table with toolbar, filters, selection, and optional URL sync.
 ---
 
-**`data-table`** wraps TanStack Table with a toolbar, pagination, row selection, filters, and optional query-string sync via `nuqs`.
+**`data-table`** is a listing kit built on TanStack Table. It bundles toolbar search, column filters, sorting, pagination, row selection, bulk actions, optional URL sync (`nuqs`), and persisted column preferences.
 
-**When to use it:** admin lists, directories, and any page that needs search, filters, or bulk actions.
+## When to use it
 
-## Live preview
+- Admin catalogs, IAM lists, audit logs, and any screen with **search + filters + paging**
+- Flows that need **row selection** and a **bulk action bar** (export, delete, assign)
+- Listings that should **share state in the URL** (page, limit, sort, filters) for refresh-safe bookmarks
 
-<ComponentPreview>
-  <TableBasicExample />
-</ComponentPreview>
+Skip URL sync (`syncUrl={false}`) for embedded tables on detail pages or docs previews.
 
-## Example
+## Installation
+
+<DocsInstall
+  packages={["data-table", "layout"]}
+  importExample={`import type { ColumnDef } from "data-table"
+import {
+  DataTable,
+  DataTableColumnHeader,
+  DataTableNuqsAdapter,
+  commonColumns,
+} from "data-table"`}
+  note="Wrap your app (or docs site) with DataTableNuqsAdapter when syncUrl is true. ConfirmationDialogProvider from layout is required for destructive bulk actions."
+/>
+
+Mount providers once at the app root (see `apps/web/src/app/providers.tsx`):
 
 ```tsx
-"use client"
+<DataTableNuqsAdapter>
+  <ConfirmationDialogProvider>{children}</ConfirmationDialogProvider>
+</DataTableNuqsAdapter>
+```
+
+## Usage
+
+### Minimal table
+
+<ComponentPreview
+  code={`"use client"
 
 import type { ColumnDef } from "data-table"
 import { DataTable, DataTableColumnHeader, commonColumns } from "data-table"
 
-const columns: ColumnDef<Row>[] = [
-  ...commonColumns.selectColumn<Row>(),
+const columns: ColumnDef<Person>[] = [
+  ...commonColumns.selectColumn<Person>(),
   {
     accessorKey: "name",
     header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
   },
+  {
+    accessorKey: "email",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Email" />,
+  },
 ]
 
 <DataTable
-  tableId="my-list"
+  tableId="people"
   columns={columns}
   data={rows}
   displayKey="name"
   selectionKey={(row) => row.id}
   syncUrl={false}
+/>`}>
+  <TableBasicExample />
+</ComponentPreview>
+
+### Columns
+
+- Use **`DataTableColumnHeader`** for sortable labels.
+- Import **`commonColumns.selectColumn()`** for the selection checkbox column.
+- Declare filters in column `meta.filter` or pass **`filterDefinitions`** for toolbar-only filters.
+- Pass **`filterOptions`** from the server for distinct facet values (not derived from the current page rows).
+
+### URL sync
+
+When `syncUrl={true}` (default):
+
+- `page`, `limit`, sort, search, and filter keys are written to the query string.
+- Client listings read params via `useEffectiveSearchParams` inside the kit.
+- Set `urlServerRefresh={true}` on server-driven pages so RSC refetches after shallow updates.
+
+<PlaygroundLink href="/docs/examples/table/url-sync">URL sync preview</PlaygroundLink>
+
+## Recipes
+
+| Recipe | Example |
+| --- | --- |
+| Toolbar filters | [Filters](/docs/examples/table/filters) |
+| Bulk export bar | [Bulk actions](/docs/examples/table/bulk-actions) |
+| Row actions menu | [Row actions](/docs/examples/table/row-actions) |
+| Loading / empty | [Loading](/docs/examples/table/loading), [Empty](/docs/examples/table/empty) |
+
+### Server-driven pagination
+
+Pass **`pageCount`** and **`rowCount`** when data is paged on the server. The kit uses manual pagination; your loader fetches the current slice.
+
+```tsx
+<DataTable
+  tableId="accounts"
+  columns={columns}
+  data={pageRows}
+  rowCount={total}
+  pageCount={Math.ceil(total / limit)}
+  displayKey="name"
+  syncUrl={true}
+  urlServerRefresh={true}
 />
 ```
 
-Wrap your app in **`DataTableNuqsAdapter`** when you set `syncUrl={true}` on listing pages.
+### Embedded table
+
+```tsx
+<DataTable
+  tableId="audit-on-detail"
+  columns={columns}
+  data={rows}
+  displayKey="action"
+  syncUrl={false}
+  hideViewOptions
+/>
+```
+
+## API reference
+
+### `DataTable` (core)
+
+<PropsTable
+  title="DataTable props"
+  props={[
+    { name: "columns", type: "ColumnDef<TData>[]", description: "TanStack column definitions." },
+    { name: "data", type: "TData[]", description: "Rows for the current page or full client list." },
+    { name: "tableId", type: "string", description: "Persists column visibility in localStorage." },
+    { name: "displayKey", type: "keyof TData | string", description: "Column id used for toolbar search." },
+    { name: "selectionKey", type: "(row) => string", description: "Stable id for cross-page selection." },
+    { name: "enableRowSelection", type: "boolean | (row) => boolean", default: "true", description: "Disable all selection or per row." },
+    { name: "bulkActions", type: "ReactNode", description: "Usually BulkActionBar + actions." },
+    { name: "pageCount", type: "number", description: "Total pages when using server pagination." },
+    { name: "rowCount", type: "number", description: "Total rows across pages." },
+    { name: "syncUrl", type: "boolean", default: "true", description: "Sync table state to the URL." },
+    { name: "urlShallow", type: "boolean", default: "true", description: "Shallow routing for URL updates." },
+    { name: "urlServerRefresh", type: "boolean", default: "false", description: "Trigger RSC refresh after URL writes." },
+    { name: "filterOptions", type: "Record<string, ColumnFilterOption[]>", description: "Facet options keyed by filter id." },
+    { name: "filterDefinitions", type: "DataTableFilterDefinition[]", description: "Toolbar filters without column meta." },
+    { name: "emptyState", type: "DataTableEmptyState", description: "Custom empty UI." },
+    { name: "isFetching / isPending", type: "boolean", description: "Show body skeleton during refetch or initial load." },
+  ]}
+/>
+
+### Toolbar & display helpers
+
+| Export | Role |
+| --- | --- |
+| `DataTableToolbar` | Composed inside the kit; override panels via `toolbar*` className props |
+| `DataTableViewOptions` | Column visibility manager |
+| `DataTablePagination` | Footer pager (used internally) |
+| `BulkActionBar`, `BulkExportAction` | Selection chrome |
+| `useCrossPageSelection` | Read selection across pages |
+
+## Gotchas
+
+<DocsCallout title="filterOptions scope">
+  Distinct filter values must come from the **full dataset** (or server facets), not from `data` on the current page—otherwise options shrink as users paginate.
+</DocsCallout>
+
+<DocsCallout title="Nuqs adapter">
+  Without `DataTableNuqsAdapter`, URL sync hooks throw at runtime. Add the adapter before any `syncUrl={true}` table mounts.
+</DocsCallout>
+
+<DocsCallout variant="warning" title="Suspense">
+  `DataTable` is wrapped in `Suspense` for search params. Provide a fallback or parent Suspense boundary on App Router pages.
+</DocsCallout>
 
 <PlaygroundLink href="/docs/examples/table/basic">More table previews</PlaygroundLink>
-
-**Key props:** `tableId` (persists column visibility), `displayKey` (toolbar search column), `selectionKey`, `syncUrl`, `bulkActions` (e.g. export bar).

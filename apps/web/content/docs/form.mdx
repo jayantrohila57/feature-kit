@@ -3,20 +3,45 @@ title: Form
 description: FormKit and FieldKit — Zod schemas with React Hook Form.
 ---
 
-The **`form`** package gives you **FormKit** for create/edit flows and **FieldKit** for filter rows or other inline fields without a submit button.
+The **`form`** workspace package ships **FormKit** (submit flows) and **FieldKit** (inline filters without a submit button). Both render through the same field registry (`FormKit.Field`) and share Zod + React Hook Form wiring.
 
-**When to use it:** any screen driven by a Zod schema—profile forms, settings, or toolbar filters.
+## When to use it
 
-## Live preview
+| Pattern | Use |
+| --- | --- |
+| **FormKit** | Create/edit screens with validation, server errors, and submit/reset actions |
+| **FieldKit** | Toolbar filters, drawer filters, or any UI where you own `values` / `onValuesChange` |
+| **Low-level `Field*` exports** | Custom layouts outside FormKit/FieldKit (advanced) |
 
-<ComponentPreview>
-  <FormKitBasicExample />
-</ComponentPreview>
+Reach for FormKit when the page has a single schema and an `onSubmit`. Reach for FieldKit when the parent already stores filter state (often next to a `DataTable`).
 
-## Example (FormKit)
+## Installation
 
-```tsx
-"use client"
+<DocsInstall
+  packages={["form", "layout"]}
+  importExample={`import { FormKit } from "form"
+import { FieldKit } from "form/field-kit"
+import { FormSection } from "layout"`}
+  note="Form sections and layout chrome live in the layout package. Apps also need next-intl messages for field labels if you use translated error keys."
+/>
+
+## Anatomy
+
+FormKit is a compound component:
+
+- **`FormKit`** — creates the form context from `schema` + `defaultValues`
+- **`FormKit.Field`** — dispatches to the correct control from `type`
+- **`FormKit.Actions`** — footer row for buttons
+- **`FormKit.Submit`** / **`FormKit.Reset`** — wired to form state (`isPending`, dirty, etc.)
+
+FieldKit mirrors the same `Field` API with `mode="controlled"` (default) or `mode="uncontrolled"`.
+
+## Usage
+
+### Basic profile form
+
+<ComponentPreview
+  code={`"use client"
 
 import { FormKit } from "form"
 import { FormSection } from "layout"
@@ -25,21 +50,199 @@ import { z } from "zod"
 const schema = z.object({
   name: z.string().min(1),
   email: z.string().email(),
+  role: z.enum(["viewer", "editor", "admin"]),
+  notify: z.boolean(),
 })
 
-<FormKit schema={schema} defaultValues={{ name: "", email: "" }} onSubmit={save}>
-  <FormSection title="Profile">
-    <FormKit.Field type="text" name="name" label="Name" required />
-    <FormKit.Field type="text" name="email" label="Email" required />
-  </FormSection>
-  <FormKit.Actions>
-    <FormKit.Submit label="Save" />
-  </FormKit.Actions>
-</FormKit>
+export function ProfileForm() {
+  return (
+    <FormKit
+      schema={schema}
+      defaultValues={{ name: "", email: "", role: "viewer", notify: true }}
+      onSubmit={async (values) => {
+        await saveProfile(values)
+      }}>
+      <FormSection title="Profile">
+        <FormKit.Field type="text" name="name" label="Full name" required />
+        <FormKit.Field type="text" name="email" label="Email" inputType="email" required />
+        <FormKit.Field type="select" name="role" label="Role" options={roleOptions} />
+        <FormKit.Field type="switch" name="notify" label="Email notifications" />
+      </FormSection>
+      <FormKit.Actions>
+        <FormKit.Reset label="Reset" />
+        <FormKit.Submit label="Save" pendingLabel="Saving…" />
+      </FormKit.Actions>
+    </FormKit>
+  )
+}`}>
+  <FormKitBasicExample />
+</ComponentPreview>
+
+### Field types
+
+`FormKit.Field` accepts a discriminated `type`. Supported values in this repo:
+
+| `type` | Control |
+| --- | --- |
+| `text` | Text input (`inputType`: `text`, `email`, `tel`, `password`) |
+| `textarea` | Multiline text |
+| `select` / `multi-select` | Searchable lists |
+| `checkbox` / `switch` | Boolean |
+| `checkbox-choice-card` / `switch-choice-card` / `radio-choice-card` | Card-style choices |
+| `radio-group` | Radio list |
+| `date` / `date-range` / `month` / `quarter` / `time` | Date & time pickers |
+
+See [Field types example](/docs/examples/form/field-types) for a live matrix.
+
+### Filter row (FieldKit)
+
+Use FieldKit when there is no form submit—only value changes:
+
+```tsx
+import { FieldKit } from "form/field-kit"
+import { z } from "zod"
+
+const filterSchema = z.object({
+  q: z.string(),
+  status: z.enum(["all", "active", "archived"]),
+})
+
+<FieldKit
+  schema={filterSchema}
+  values={filters}
+  onValuesChange={setFilters}>
+  <FieldKit.Field type="text" name="q" label="Search" />
+  <FieldKit.Field type="select" name="status" label="Status" options={statusOptions} />
+</FieldKit>
 ```
 
-FieldKit uses the same `Field` types with `mode="controlled"` when you own the state (see the filters preview).
+<PlaygroundLink href="/docs/examples/form/field-kit">FieldKit filters preview</PlaygroundLink>
 
-<PlaygroundLink href="/docs/examples/form/basic">More form previews</PlaygroundLink>
+## Recipes
 
-**Useful exports:** `form`, `form/field-kit`, `form/field`. Helpers like `applyServerErrors` live on the main `form` entry.
+### Server validation errors
+
+Map API failures with `mapServerError` or call `applyServerErrors` from the `form` package after a failed mutation. FormKit focuses the first invalid field when Zod client validation fails (`focusFirstError`).
+
+<PlaygroundLink href="/docs/examples/form/validation">Validation & server errors preview</PlaygroundLink>
+
+### Multi-section pages
+
+Set `scrollBody={false}` on FormKit when sections live in a parent scroll container (long settings pages). Wrap each group in `FormSection` from `layout`.
+
+### Pending submit state
+
+Pass `isPending` to FormKit while the mutation runs, or let Submit manage disabled state from internal form state. Use `pendingLabel` on `FormKit.Submit` for loading copy.
+
+## API reference
+
+### `FormKit`
+
+<PropsTable
+  title="FormKit props"
+  props={[
+    {
+      name: "schema",
+      type: "ZodTypeAny",
+      description: "Zod schema used for resolver validation and output typing.",
+    },
+    {
+      name: "defaultValues",
+      type: "DefaultValues<z.input<TSchema>>",
+      description: "Initial values; must satisfy the schema input shape.",
+    },
+    {
+      name: "onSubmit",
+      type: "(values: z.output<TSchema>) => void | Promise<void>",
+      description: "Called with parsed output when client validation passes.",
+    },
+    {
+      name: "isPending",
+      type: "boolean",
+      default: "false",
+      description: "Disables submit and shows pending UI on Submit.",
+    },
+    {
+      name: "resetOnSuccess",
+      type: "boolean | \"keepDirtyValues\" | DefaultValues",
+      description: "Reset strategy after a successful submit.",
+    },
+    {
+      name: "mapServerError",
+      type: "(error: unknown) => MapServerErrorResult",
+      description: "Maps thrown errors to field or form messages.",
+    },
+    {
+      name: "translateError",
+      type: "(message: string) => string",
+      description: "Localizes Zod / server message keys.",
+    },
+    {
+      name: "scrollBody",
+      type: "boolean",
+      default: "true",
+      description: "When false, omit internal scroll body for nested page layouts.",
+    },
+  ]}
+/>
+
+### `FieldKit`
+
+<PropsTable
+  title="FieldKit props"
+  props={[
+    {
+      name: "schema",
+      type: "ZodTypeAny",
+      description: "Shape of filter or inline field values.",
+    },
+    {
+      name: "mode",
+      type: "\"controlled\" | \"uncontrolled\"",
+      default: "\"controlled\"",
+      description: "Controlled uses `values` + `onValuesChange`; uncontrolled uses `defaultValues`.",
+    },
+    {
+      name: "values",
+      type: "z.input<TSchema>",
+      description: "Required in controlled mode.",
+    },
+    {
+      name: "onValuesChange",
+      type: "(values) => void",
+      description: "Called when any field changes in controlled mode.",
+    },
+  ]}
+/>
+
+### `FormKit.Submit` / `FormKit.Reset`
+
+<PropsTable
+  title="Action props"
+  props={[
+    { name: "label", type: "ReactNode", description: "Button label." },
+    { name: "pendingLabel", type: "ReactNode", description: "Shown on Submit while pending." },
+    { name: "disabled", type: "boolean", description: "Force disabled state." },
+    { name: "className", type: "string", description: "Optional class on the button." },
+  ]}
+/>
+
+## Gotchas
+
+<DocsCallout title="Client components">
+  FormKit and FieldKit are client components. Import them from client files or wrap in a `"use client"` module.
+</DocsCallout>
+
+<DocsCallout title="Numbers">
+  Avoid `type="number"` inputs. Use `text` with `inputMode="numeric"` and Zod coercion if you need numeric fields—plain number inputs drop leading zeros.
+</DocsCallout>
+
+<DocsCallout variant="warning" title="i18n">
+  Table and form kits expect `next-intl` for pagination and some labels. The playground app loads `messages/en.json` in `apps/web/src/app/providers.tsx`.
+</DocsCallout>
+
+## Examples
+
+<PlaygroundLink href="/docs/examples/form/basic">Basic form</PlaygroundLink> · <PlaygroundLink href="/docs/examples/form/field-types">All field types</PlaygroundLink> · <PlaygroundLink href="/docs/examples/form/validation">Validation</PlaygroundLink>
+
+**Package exports:** `form`, `form/field-kit`, `form/field` (low-level field components).

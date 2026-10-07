@@ -3,31 +3,138 @@ title: Layout
 description: Breadcrumbs, navigation buttons, form sections, and confirmation dialogs.
 ---
 
-**`layout`** holds shared chrome: wayfinding, form section titles, empty states, and a global confirmation dialog.
+The **`layout`** package collects **wayfinding**, **form page structure**, and **global confirm dialogs** so list and form screens feel consistent across apps in the monorepo.
 
-**When to use it:** any routed page that should match the rest of the app’s list/form patterns.
+## When to use it
 
-## Live preview
+| Component | Use when |
+| --- | --- |
+| `Breadcrumbs` | Hierarchical routes with a shared trail |
+| `GoBackButton` | Detail pages that should return to a list or parent |
+| `FormSection` / `FormLayout` | Group fields with title, description, and spacing |
+| `EmptyState` / `ContentEmpty` | Zero-data placeholders with optional actions |
+| `ConfirmationDialogProvider` | Any destructive or irreversible action |
+| `UtilityIconButton` | Docs, refresh, and info affordances in toolbars |
 
-<ComponentPreview>
+## Installation
+
+<DocsInstall
+  packages={["layout"]}
+  importExample={`import {
+  Breadcrumbs,
+  GoBackButton,
+  FormSection,
+  EmptyState,
+} from "layout"
+import { ConfirmationDialogProvider, useConfirmationDialog } from "layout/confirmation-dialog"`}
+/>
+
+Register **`ConfirmationDialogProvider`** once near the root (before any `useConfirmationDialog` call):
+
+```tsx
+// apps/web/src/app/providers.tsx
+<ConfirmationDialogProvider>
+  {children}
+</ConfirmationDialogProvider>
+```
+
+## Usage
+
+### Breadcrumbs
+
+<ComponentPreview code={`import { Breadcrumbs } from "layout"
+
+// Reads route segments / your app's breadcrumb config
+<Breadcrumbs />`}>
   <BreadcrumbsDemo />
 </ComponentPreview>
 
-## Example
+Pair with **`GoBackButton`** on nested detail routes:
 
 ```tsx
-import { GoBackButton, Breadcrumbs, FormSection } from "layout"
+import { GoBackButton } from "layout"
 
 <GoBackButton fallbackHref="/docs" />
-<Breadcrumbs />
+```
 
-<FormSection title="Details" description="Optional helper text.">
-  {/* fields */}
+### Form sections
+
+```tsx
+import { FormSection } from "layout"
+
+<FormSection title="Account" description="Identifiers visible to admins.">
+  {/* FormKit.Field children */}
 </FormSection>
 ```
 
-Mount **`ConfirmationDialogProvider`** once (see `apps/web/src/app/providers.tsx`) before using `useConfirmationDialog()` for delete confirms.
+`FormLayout` and `FormLayoutActionsHint` help align action bars on long forms (sticky footers, scroll hints).
 
-<PlaygroundLink href="/docs/examples/layout/breadcrumbs">More layout previews</PlaygroundLink>
+### Confirmation dialog
 
-**Common imports:** `layout`, `layout/breadcrumb`, `layout/navigation`, `layout/confirmation-dialog`.
+```tsx
+"use client"
+
+import { useConfirmationDialog } from "layout/confirmation-dialog"
+
+const { confirm } = useConfirmationDialog()
+
+const ok = await confirm({
+  title: "Delete row?",
+  description: "This cannot be undone.",
+  variant: "destructive",
+  confirmLabel: "Delete",
+})
+
+if (ok) {
+  await deleteRow()
+}
+```
+
+## API reference
+
+### `ConfirmationOptions`
+
+<PropsTable
+  title="confirm() options"
+  props={[
+    { name: "title", type: "string", description: "Dialog title; falls back to common.confirmAction." },
+    { name: "description", type: "string", description: "Required body copy." },
+    { name: "variant", type: "\"default\" | \"destructive\"", default: "\"default\"", description: "Destructive styles for delete flows." },
+    { name: "confirmLabel", type: "string", description: "Primary button; defaults to common.continue." },
+    { name: "cancelLabel", type: "string", description: "Secondary button; defaults to common.cancel." },
+  ]}
+/>
+
+### `EmptyState`
+
+<PropsTable
+  title="EmptyState props"
+  props={[
+    { name: "title", type: "ReactNode", description: "Primary message." },
+    { name: "description", type: "ReactNode", description: "Supporting text." },
+    { name: "icon", type: "EmptyStateIcon", description: "Preset or custom icon slot." },
+    { name: "action", type: "EmptyStateAction", description: "Optional CTA button config." },
+  ]}
+/>
+
+### Utility buttons
+
+| Export | Purpose |
+| --- | --- |
+| `UtilityIconButton` | Generic icon button with tooltip |
+| `DocsIconButton` / `InfoIconButton` | Standard help affordances |
+| `RefreshIconButton` | Toolbar refresh with loading state |
+
+## Gotchas
+
+<DocsCallout title="i18n for confirms">
+  Confirmation copy uses `next-intl` keys under `common.*` when labels are omitted. Load messages in the host app like the web playground does.
+</DocsCallout>
+
+<DocsCallout title="Breadcrumb data">
+  Breadcrumbs expect your router or layout to expose segments. See `layout/breadcrumb` utilities for URL helpers.
+</DocsCallout>
+
+<PlaygroundLink href="/docs/examples/layout/breadcrumbs">Breadcrumbs preview</PlaygroundLink> · <PlaygroundLink href="/docs/examples/layout/utility-buttons">Utility buttons</PlaygroundLink>
+
+**Subpaths:** `layout/breadcrumb`, `layout/navigation`, `layout/confirmation-dialog`, `layout/form-layout`.

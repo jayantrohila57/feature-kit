@@ -3,16 +3,23 @@ title: Getting started
 description: Install the monorepo and open the playground.
 ---
 
-## Run locally
+Feature Kit is a **pnpm monorepo** of workspace packages. This guide covers running the docs playground, wiring a kit into your app, and the providers most screens expect.
 
-Requires Node.js 24+ and pnpm 9+.
+## Prerequisites
+
+- **Node.js 24+**
+- **pnpm 9+**
+
+## Run the playground
 
 ```bash
+git clone https://github.com/jayantrohila57/feature-kit.git
+cd feature-kit
 pnpm install
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000), then open [/docs](/docs) for kit overviews and live previews.
+Open [http://localhost:3000](http://localhost:3000) for the landing page and [/docs](/docs) for kit documentation with live previews.
 
 Production build (Vercel uses `apps/web` as the app root):
 
@@ -20,30 +27,74 @@ Production build (Vercel uses `apps/web` as the app root):
 pnpm build
 ```
 
-## Use a kit in the monorepo
+## Monorepo layout
 
-Add a workspace dependency in your app’s `package.json`:
+| Path | Contents |
+| --- | --- |
+| `apps/web` | Next.js docs site and examples |
+| `feature/*` | Kits: `form`, `data-table`, `layout`, `uploader`, … |
+| `packages/ui` | Shared shadcn-style primitives |
+| `packages/format`, `packages/config` | Helpers and TS config |
 
-```json
-"form": "workspace:*"
-```
+## Add a kit to your app
 
-List the package in `transpilePackages` in `next.config.ts` (see `apps/web` for the full list).
+<DocsInstall
+  packages={["form", "data-table", "layout"]}
+  importExample={`import { FormKit } from "form"
+import { DataTable, DataTableNuqsAdapter } from "data-table"
+import { FormSection, Breadcrumbs } from "layout"`}
+/>
 
-Import by package name:
+List every workspace kit you import in **`transpilePackages`** inside `apps/web/next.config.ts` (copy the full list when adding packages).
+
+## Required providers
+
+Most examples assume the playground providers in `apps/web/src/app/providers.tsx`:
+
+| Provider | Package | Purpose |
+| --- | --- | --- |
+| `NextIntlClientProvider` | `next-intl` | Table pagination, confirms, field copy |
+| `ThemeProvider` | `next-themes` | Light/dark |
+| `ConfirmationDialogProvider` | `layout` | `useConfirmationDialog` |
+| `DataTableNuqsAdapter` | `data-table` | URL sync for listings |
+| `TooltipProvider` | `ui` | Tooltips in tables and fields |
 
 ```tsx
-import { FormKit } from "form"
-import { DataTable } from "data-table"
-import { FormSection, Breadcrumbs } from "layout"
+export function Providers({ children }: { children: ReactNode }) {
+  return (
+    <NextIntlClientProvider locale="en" messages={messages}>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <TooltipProvider>
+          <ConfirmationDialogProvider>
+            <DataTableNuqsAdapter>{children}</DataTableNuqsAdapter>
+          </ConfirmationDialogProvider>
+        </TooltipProvider>
+      </ThemeProvider>
+    </NextIntlClientProvider>
+  )
+}
 ```
 
-The web app wraps providers you’ll often need—`DataTableNuqsAdapter` for URL-synced tables and `ConfirmationDialogProvider` for confirms (`apps/web/src/app/providers.tsx`).
+## Documentation map
+
+1. [Introduction](/docs) — package overview
+2. Kit pages — **Form**, **Data table**, **Layout**, **Uploader**, **UI**
+3. [Examples](/docs/examples) — isolated previews per scenario
+
+Each kit page follows the same recipe: **when to use → install → preview + code → recipes → props → gotchas → examples**.
 
 ## Other workspace packages
 
-- **`export`** — CSV/XLSX download helpers (used by table bulk export)
-- **`format`** — masks and locale-aware formatting
-- **`preferences`** — theme/locale cookies for host apps
+| Package | Role |
+| --- | --- |
+| `export` | CSV/XLSX download helpers (table bulk export, uploader templates) |
+| `format` | Masks and locale-aware formatting |
+| `preferences` | Theme/locale cookies for host apps |
 
-Details live in each package’s `package.json` `exports` and in the source under `feature/*` and `packages/*`.
+Inspect `package.json` `exports` and `feature/*/src` for the full public API.
+
+## Next steps
+
+- Build a form with [Form](/docs/form)
+- Add a listing with [Data table](/docs/data-table)
+- Browse [Examples](/docs/examples) for copy-paste starting points

@@ -6,7 +6,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
 	return (
 		<div className="flex min-h-dvh flex-col">
 			<FeatureKitHeader />
-			{children}
+			<div className="relative flex flex-1 flex-col">{children}</div>
 		</div>
 	)
 }
