@@ -1,6 +1,6 @@
 import { findNeighbour } from "fumadocs-core/page-tree"
 import { createRelativeLink } from "fumadocs-ui/mdx"
-import { DocsBody, DocsDescription, DocsPage, DocsTitle } from "fumadocs-ui/layouts/docs/page"
+import { DocsBody, DocsDescription, DocsTitle } from "fumadocs-ui/layouts/docs/page"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
@@ -22,13 +22,7 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
 	const next = neighbours.next ? { name: String(neighbours.next.name), url: neighbours.next.url } : null
 
 	return (
-		<DocsPage
-			full={page.data.full}
-			toc={page.data.toc}
-			tableOfContent={{ enabled: false }}
-			tableOfContentPopover={{ enabled: false }}
-			breadcrumb={{ enabled: false }}
-			footer={{ enabled: false }}>
+		<article className="mx-auto w-full max-w-6xl min-w-0">
 			<DocsTitle>{page.data.title}</DocsTitle>
 			<DocsDescription>{page.data.description}</DocsDescription>
 			<DocsBody>
@@ -39,7 +33,7 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
 				/>
 			</DocsBody>
 			<DocsPager previous={previous} next={next} />
-		</DocsPage>
+		</article>
 	)
 }
 

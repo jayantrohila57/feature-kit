@@ -1,5 +1,12 @@
 import Link from "next/link"
 
+const kitLinks = [
+	{ href: "/docs/form", label: "Form" },
+	{ href: "/docs/data-table", label: "Data table" },
+	{ href: "/docs/layout", label: "Layout" },
+	{ href: "/docs/uploader", label: "Uploader" },
+]
+
 export default function HomePage() {
 	return (
 		<main className="mx-auto flex min-h-screen w-full max-w-3xl flex-col justify-center gap-8 px-6 py-16">
@@ -14,6 +21,17 @@ export default function HomePage() {
 				href="/docs">
 				Read the docs
 			</Link>
+			<p className="text-muted-foreground text-sm">
+				Kits:{" "}
+				{kitLinks.map((item, index) => (
+					<span key={item.href}>
+						{index > 0 ? " · " : null}
+						<Link className="text-foreground underline underline-offset-4 hover:text-primary" href={item.href}>
+							{item.label}
+						</Link>
+					</span>
+				))}
+			</p>
 		</main>
 	)
 }
