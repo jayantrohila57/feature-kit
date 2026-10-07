@@ -22,3 +22,8 @@ html {
 .bg-fd-overlay {
 	background-color: var(--color-fd-overlay, rgb(0 0 0 / 0.45)) !important;
 }
+
+/* Docs: align chrome with site header (max width + calm surfaces) */
+[data-fd-layout="docs"] {
+	--fd-layout-width: 64rem;
+}

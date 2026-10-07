@@ -12,10 +12,10 @@ export function docsLayoutOptions(): BaseLayoutProps {
 		},
 		links: [],
 		searchToggle: {
-			enabled: true,
+			enabled: false,
 		},
 		themeSwitch: {
-			enabled: true,
+			enabled: false,
 		},
 	}
 }
