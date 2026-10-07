@@ -4,7 +4,7 @@ import { FeatureKitHeader } from "@/components/site/feature-kit-header"
 
 export default function SiteLayout({ children }: { children: ReactNode }) {
 	return (
-		<div className="flex min-h-screen flex-col">
+		<div className="flex min-h-dvh flex-col">
 			<FeatureKitHeader />
 			{children}
 		</div>
