@@ -23,7 +23,30 @@ html {
 	background-color: var(--color-fd-overlay, rgb(0 0 0 / 0.45)) !important;
 }
 
-/* Docs: align chrome with site header (max width + calm surfaces) */
-[data-fd-layout="docs"] {
+/* Docs chrome: tighter sidebar, calmer TOC, less outer gutter */
+#nd-docs-layout {
 	--fd-layout-width: 64rem;
 }
+
+@media (min-width: 768px) {
+	#nd-docs-layout {
+		--fd-sidebar-width: 15rem;
+	}
+}
+
+@media (max-width: 1279px) {
+	#nd-docs-layout {
+		--fd-toc-width: 0px;
+	}
+
+	#nd-docs-layout [grid-area="toc"] {
+		display: none;
+	}
+}
+
+@media (min-width: 1280px) {
+	#nd-docs-layout {
+		--fd-toc-width: 13rem;
+	}
+}
+

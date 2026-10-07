@@ -1,6 +1,6 @@
 "use client"
 
-import { FeatureKitHeader, HeaderCtas } from "@/components/site/feature-kit-header"
+import { DocsHeaderCtas, FeatureKitHeader } from "@/components/site/feature-kit-header"
 import { cn } from "@/packages/ui/lib/utils"
 import { buttonVariants } from "fumadocs-ui/components/ui/button"
 import { useDocsLayout } from "fumadocs-ui/layouts/docs"
@@ -12,11 +12,12 @@ export function DocsLayoutHeader() {
 
 	return (
 		<FeatureKitHeader
-			actions={<HeaderCtas />}
+			actions={<DocsHeaderCtas />}
 			className={cn(
 				"[grid-area:header] top-(--fd-docs-row-1) layout:[--fd-header-height:--spacing(14)]",
 				"data-[transparent=false]:bg-fd-background/80 data-[transparent=false]:backdrop-blur-sm",
 			)}
+			layout="docs"
 			leading={
 				SidebarTrigger ? (
 					<SidebarTrigger

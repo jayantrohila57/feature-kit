@@ -23,9 +23,10 @@ type FeatureKitHeaderProps = {
 	className?: string
 	leading?: ReactNode
 	actions?: ReactNode
+	layout?: "site" | "docs"
 }
 
-export function FeatureKitHeader({ className, leading, actions }: FeatureKitHeaderProps) {
+export function FeatureKitHeader({ className, leading, actions, layout = "site" }: FeatureKitHeaderProps) {
 	const [open, setOpen] = useState(false)
 	const scrolled = useScroll(10)
 	const pathname = usePathname()
@@ -51,7 +52,11 @@ export function FeatureKitHeader({ className, leading, actions }: FeatureKitHead
 					: "border-transparent",
 				className,
 			)}>
-			<nav className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between px-4">
+			<nav
+				className={cn(
+					"mx-auto flex h-14 w-full items-center justify-between px-4",
+					layout === "site" ? "max-w-5xl" : "w-full max-w-none",
+				)}>
 				<div className="flex min-w-0 items-center gap-5">
 					{leading}
 					<Link
@@ -189,6 +194,14 @@ export function HeaderCtas() {
 				<Link href="/docs">Docs</Link>
 			</Button>
 		</>
+	)
+}
+
+export function DocsHeaderCtas() {
+	return (
+		<Button asChild className="h-8" variant="outline">
+			<a href={githubUrl} rel="noreferrer noopener" target="_blank">GitHub</a>
+		</Button>
 	)
 }
 

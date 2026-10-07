@@ -26,9 +26,13 @@ export function DataTablePagination<TData>() {
   const pageIndex = pagination.pageIndex
   const start = total === 0 ? 0 : pageIndex * limit + 1
   const end = total === 0 ? 0 : Math.min(total, (pageIndex + 1) * limit)
-  // TanStack reports -1 when `pageCount` is unknown; treat that as a single page.
-  const pageCount = Math.max(1, table.getPageCount())
+  const rawPageCount = table.getPageCount()
+  const resolvedPageCount =
+    rawPageCount >= 0 ? rawPageCount : total === 0 ? 1 : Math.max(1, Math.ceil(total / limit))
+  const pageCount = Math.max(1, resolvedPageCount)
   const lastPageIndex = pageCount - 1
+  const canPreviousPage = pageIndex > 0
+  const canNextPage = pageIndex < lastPageIndex
 
   const handlePageChange = (nextPageIndex: number, actionId: "first" | "previous" | "next" | "last") => {
     const target = Math.min(Math.max(0, nextPageIndex), lastPageIndex)
@@ -69,7 +73,7 @@ export function DataTablePagination<TData>() {
             <PaginationNavButton
               label={t("dataTable.pagination.first")}
               onClick={() => handlePageChange(0, "first")}
-              disabled={!table.getCanPreviousPage() || isLocked}
+              disabled={!canPreviousPage || isLocked}
               loading={isActionLoading("first")}>
               <ChevronsLeft
                 aria-hidden="true"
@@ -82,7 +86,7 @@ export function DataTablePagination<TData>() {
             <PaginationNavButton
               label={t("dataTable.pagination.previous")}
               onClick={() => handlePageChange(pageIndex - 1, "previous")}
-              disabled={!table.getCanPreviousPage() || isLocked}
+              disabled={!canPreviousPage || isLocked}
               loading={isActionLoading("previous")}>
               <ChevronLeft
                 aria-hidden="true"
@@ -109,7 +113,7 @@ export function DataTablePagination<TData>() {
             <PaginationNavButton
               label={t("dataTable.pagination.next")}
               onClick={() => handlePageChange(pageIndex + 1, "next")}
-              disabled={!table.getCanNextPage() || isLocked}
+              disabled={!canNextPage || isLocked}
               loading={isActionLoading("next")}>
               <ChevronRight
                 aria-hidden="true"
@@ -122,7 +126,7 @@ export function DataTablePagination<TData>() {
             <PaginationNavButton
               label={t("dataTable.pagination.last")}
               onClick={() => handlePageChange(lastPageIndex, "last")}
-              disabled={!table.getCanNextPage() || isLocked}
+              disabled={!canNextPage || isLocked}
               loading={isActionLoading("last")}>
               <ChevronsRight
                 aria-hidden="true"
