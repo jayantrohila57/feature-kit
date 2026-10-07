@@ -22,9 +22,3 @@ html {
 .bg-fd-overlay {
 	background-color: var(--color-fd-overlay, rgb(0 0 0 / 0.45)) !important;
 }
-
-/* Safety: never show broken docs layout chrome if a stray layout mounts */
-#nd-docs-layout #nd-sidebar,
-#nd-docs-layout aside[aria-label="Sidebar"] {
-	display: none !important;
-}
