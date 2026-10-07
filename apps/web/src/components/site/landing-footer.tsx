@@ -1,6 +1,7 @@
 import Link from "next/link"
 
 import { GitHubIcon } from "@/components/site/github-icon"
+import { ThemeToggle } from "@/components/site/theme-toggle"
 import { githubUrl, kitLinks } from "@/lib/site-nav"
 import { Button } from "@/packages/ui/components/button"
 
@@ -16,7 +17,7 @@ const footerColumns: { title: string; links: FooterLink[] }[] = [
 		links: [
 			{ label: "Introduction", href: "/docs" },
 			{ label: "Getting started", href: "/docs/getting-started" },
-			{ label: "Examples", href: "/docs/examples" },
+			{ label: "Showcase", href: "/docs/examples" },
 		],
 	},
 	{
@@ -41,8 +42,8 @@ export function LandingFooter() {
 	const year = new Date().getFullYear()
 
 	return (
-		<footer className="mt-auto border-t">
-			<div className="mx-auto max-w-5xl px-4">
+		<footer className="mt-auto border-t border-border bg-background">
+			<div className="w-full px-4 lg:px-6">
 				<div className="grid grid-cols-2 gap-8 py-8 md:grid-cols-4">
 					{footerColumns.map((column) => (
 						<div key={column.title}>
@@ -74,7 +75,15 @@ export function LandingFooter() {
 
 				<div className="flex flex-wrap items-center justify-between gap-4 py-5">
 					<div className="flex items-center gap-2">
-						<Button asChild size="icon" variant="outline">
+						<ThemeToggle
+							className="dark:border-border dark:bg-muted/40 dark:hover:border-border dark:hover:bg-muted"
+							variant="outline"
+						/>
+						<Button
+							asChild
+							className="dark:border-border dark:bg-muted/40 dark:hover:border-border dark:hover:bg-muted"
+							size="icon"
+							variant="outline">
 							<a aria-label="GitHub" href={githubUrl} rel="noreferrer noopener" target="_blank">
 								<GitHubIcon className="size-4" />
 							</a>

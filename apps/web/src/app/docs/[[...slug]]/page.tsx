@@ -3,9 +3,11 @@ import { DocsBody, DocsDescription, DocsPage, DocsTitle } from "fumadocs-ui/layo
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
+import { DocsPageActions } from "@/components/docs/docs-page-actions"
 import { DocsPageFooter } from "@/components/docs/docs-page-footer"
 import { getMDXComponents } from "@/components/mdx"
 import { getDocsFooterItems } from "@/lib/docs-footer"
+import { docsMarkdownApiPath } from "@/lib/docs-markdown-path"
 import { source } from "@/lib/source"
 
 export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
@@ -23,11 +25,21 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
 
 	return (
 		<DocsPage
+			full
+			className="max-w-none"
 			footer={{ enabled: true, items: footerItems }}
 			slots={{ footer: DocsPageFooter }}
 			tableOfContent={{ enabled: true }}
 			toc={page.data.toc}>
-			<DocsTitle>{page.data.title}</DocsTitle>
+			<div className="not-prose flex flex-wrap items-center justify-between gap-3">
+				<DocsTitle className="min-w-0 flex-1">{page.data.title}</DocsTitle>
+				<DocsPageActions
+					markdownUrl={docsMarkdownApiPath(params.slug)}
+					pagePath={page.url}
+					{...(previous ? { previous } : {})}
+					{...(next ? { next } : {})}
+				/>
+			</div>
 			<DocsDescription>{page.data.description}</DocsDescription>
 			<DocsBody>
 				<MDX

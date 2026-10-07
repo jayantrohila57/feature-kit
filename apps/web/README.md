@@ -18,6 +18,20 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
+### Turbopack HMR panics (Next.js 16)
+
+Dev uses Turbopack by default. If the terminal shows repeated `FATAL` panics or `EcmascriptMergedChunkVersion … no longer exists`, Turbopack’s HMR cache is usually stale—not a production build failure.
+
+1. Stop the dev server (Ctrl+C).
+2. Clear the dev cache: `rm -rf apps/web/.next` (from the repo root).
+3. Start again: `pnpm dev`.
+
+If panics keep happening while editing global CSS (e.g. Tailwind v4 `@utility` in `globals.css`), use the Webpack dev server until you finish those edits:
+
+```bash
+pnpm --filter web dev:webpack
+```
+
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More

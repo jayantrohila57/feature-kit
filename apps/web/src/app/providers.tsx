@@ -16,7 +16,7 @@ const nestedMessages = nestFlatMessages(messages as Record<string, unknown>)
 
 export function Providers({ children }: { children: ReactNode }) {
 	return (
-		<NextIntlClientProvider locale="en" messages={nestedMessages}>
+		<NextIntlClientProvider locale="en" messages={nestedMessages} timeZone="UTC">
 			<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
 				<TooltipProvider>
 					<ConfirmationDialogProvider>

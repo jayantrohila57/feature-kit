@@ -2,6 +2,7 @@ import defaultMdxComponents from "fumadocs-ui/mdx"
 import type { MDXComponents } from "mdx/types"
 
 import { BreadcrumbsDemo } from "@/components/docs/breadcrumbs-demo"
+import { ChangelogRssLink } from "@/components/docs/changelog-rss-link"
 import { DocsCallout } from "@/components/docs/docs-callout"
 import { DocsInstall } from "@/components/docs/docs-install"
 import { ComponentPreview } from "@/components/docs/component-preview"
@@ -29,6 +30,7 @@ export function getMDXComponents(components?: MDXComponents) {
 		PropsTable,
 		DocsInstall,
 		DocsCallout,
+		ChangelogRssLink,
 		BreadcrumbsDemo,
 		FormKitBasicExample,
 		FormKitFieldTypesExample,

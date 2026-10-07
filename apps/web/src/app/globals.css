@@ -23,9 +23,31 @@ html {
 	background-color: var(--color-fd-overlay, rgb(0 0 0 / 0.45)) !important;
 }
 
-/* Docs chrome: tighter sidebar, calmer TOC, less outer gutter */
+/* Docs chrome: full-width main column; sidebar + TOC keep fixed tracks */
+#nd-docs-layout main[data-layout-main] {
+	justify-items: stretch;
+}
+
+/* Full-width header row: sticky sidebar/TOC must offset below Feature Kit header (h-14) */
 #nd-docs-layout {
-	--fd-layout-width: 64rem;
+	--fd-header-height: 3.5rem;
+}
+
+/* Search lives in Feature Kit docs header; hide Fumadocs sidebar chrome triggers */
+#nd-docs-layout #nd-sidebar [data-search-full],
+#nd-docs-layout #nd-sidebar [data-search],
+#nd-docs-layout [data-sidebar-panel] [data-search] {
+	display: none !important;
+}
+
+#nd-docs-layout [data-sidebar-placeholder],
+#nd-docs-layout #nd-toc {
+	top: var(--fd-docs-row-2) !important;
+	height: calc(var(--fd-docs-height) - var(--fd-docs-row-2)) !important;
+}
+
+#nd-page {
+	max-width: none;
 }
 
 @media (min-width: 768px) {
@@ -65,4 +87,50 @@ figure.shiki pre {
 
 figure.shiki pre code {
 	white-space: inherit;
+}
+
+/* Landing testimonials: seamless vertical marquee (duplicate track, translate -50%) */
+@keyframes landing-testimonials-scroll-up {
+	from {
+		transform: translate3d(0, 0, 0);
+	}
+	to {
+		transform: translate3d(0, -50%, 0);
+	}
+}
+
+@keyframes landing-testimonials-scroll-down {
+	from {
+		transform: translate3d(0, -50%, 0);
+	}
+	to {
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+@utility animate-landing-testimonials-up {
+	animation: landing-testimonials-scroll-up var(--landing-testimonials-duration, 45s) linear infinite;
+}
+
+@utility animate-landing-testimonials-down {
+	animation: landing-testimonials-scroll-down var(--landing-testimonials-duration, 50s) linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.animate-landing-testimonials-up,
+	.animate-landing-testimonials-down {
+		animation: none;
+	}
+
+	.landing-testimonials-scroll {
+		display: none;
+	}
+
+	.landing-testimonials-static {
+		display: flex;
+	}
+
+	.landing-testimonials-fade {
+		display: none;
+	}
 }

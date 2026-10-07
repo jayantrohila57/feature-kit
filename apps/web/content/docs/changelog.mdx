@@ -1,0 +1,49 @@
+---
+title: Changelog
+description: Latest updates and announcements for Feature Kit docs and packages.
+---
+
+<ChangelogRssLink />
+
+Release notes for the documentation site (`apps/web`) and published workspace packages. New entries go at the **top** of this file under a dated `##` heading—see [changelog workflow](/docs/changelog#for-maintainers) below.
+
+## October 2026 — Docs site polish
+
+Docs and marketing pages now share a consistent header, theme, and page chrome.
+
+- **Docs header** — Custom layout header with in-docs search (Ctrl+K), version label in the sidebar, and streamlined mobile nav.
+- **Landing** — Reworked hero, feature grid, FAQ, testimonials, and contact sections on the marketing home page.
+- **Theme** — Light/dark toggle wired through `next-themes` with shared tokens in `globals.css`.
+- **Page actions** — Copy page as Markdown (via `/api/docs/markdown`), previous/next footer links, and playground shortcuts on kit pages.
+- **Markdown export** — Raw MDX source served for each docs slug for LLM and offline workflows.
+
+## September 2026 — Documentation launch
+
+Initial public docs for the monorepo kits.
+
+- **Getting started** — Install, monorepo layout, and provider setup.
+- **Kit guides** — Form, data table, layout, uploader, and UI primitives with live previews and props tables.
+- **Examples** — Focused routes under `/docs/examples` for tables, forms, layout, and uploader patterns.
+
+## For maintainers
+
+<DocsCallout title="Adding a changelog entry">
+
+1. Open `apps/web/content/docs/changelog.mdx`.
+2. Insert a new section **above** the previous release (newest first):
+
+```md
+## Month YYYY — Short title
+
+One-line summary of the release.
+
+- **Area** — What changed and why it matters.
+- **Area** — Another bullet.
+```
+
+3. Run `pnpm --filter web lint` and `pnpm --filter web check-types` if you touched TypeScript.
+4. Commit with your feature PR or release PR.
+
+Full maintainer notes: `apps/web/docs/changelog-workflow.md` in the repo.
+
+</DocsCallout>

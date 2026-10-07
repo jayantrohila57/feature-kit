@@ -1,20 +1,19 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared"
 
 import { DocsLayoutHeader } from "@/components/site/docs-layout-header"
-import { HiddenNavTitle } from "@/components/site/hidden-nav-title"
+import { DocsSidebarNavTitle } from "@/components/site/docs-sidebar-nav-title"
 
 export function docsLayoutOptions(): BaseLayoutProps {
 	return {
 		nav: {
 			enabled: true,
-			title: null,
-			url: "/",
 			component: <DocsLayoutHeader />,
 		},
-		links: [],
 		slots: {
-			navTitle: HiddenNavTitle,
+			navTitle: DocsSidebarNavTitle,
 		},
+		links: [],
+		// Search UI lives in DocsHeaderSearch; RootProvider SearchProvider keeps Ctrl+K.
 		searchToggle: {
 			enabled: false,
 		},
