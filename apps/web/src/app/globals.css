@@ -50,3 +50,19 @@ html {
 	}
 }
 
+/* Fumadocs Shiki blocks: wrap long lines instead of forcing horizontal scroll */
+figure.shiki .fd-scroll-container {
+	overflow-x: auto;
+}
+
+figure.shiki pre {
+	min-width: 0 !important;
+	width: 100% !important;
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+	word-break: break-word;
+}
+
+figure.shiki pre code {
+	white-space: inherit;
+}
