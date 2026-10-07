@@ -4,13 +4,22 @@ export function baseOptions(): BaseLayoutProps {
 	return {
 		nav: {
 			title: "Feature Kit",
+			url: "/",
+			transparentMode: "none",
 		},
 		githubUrl: "https://github.com/jayantrohila57/feature-kit",
 		links: [
 			{
-				text: "Examples",
-				url: "/examples",
+				text: "Home",
+				url: "/",
+				on: "nav",
 			},
 		],
+		searchToggle: {
+			enabled: true,
+		},
+		themeSwitch: {
+			enabled: true,
+		},
 	}
 }

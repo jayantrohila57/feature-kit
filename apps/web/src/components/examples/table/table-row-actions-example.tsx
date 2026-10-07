@@ -19,7 +19,7 @@ function DemoRowViewAction(props: RowActionComponentProps<DemoPerson>) {
 	return (
 		<RowActionView<DemoPerson>
 			{...props}
-			href={`/examples/table/row-actions?highlight=${props.data.id}`}
+			href={`/docs/examples/table/row-actions?highlight=${props.data.id}`}
 			label="View"
 		/>
 	)

@@ -7,12 +7,18 @@ description: Breadcrumbs, navigation buttons, form sections, and confirmation di
 
 **When to use it:** any routed page that should match the rest of the app’s list/form patterns.
 
+## Live preview
+
+<ComponentPreview>
+  <BreadcrumbsDemo />
+</ComponentPreview>
+
 ## Example
 
 ```tsx
 import { GoBackButton, Breadcrumbs, FormSection } from "layout"
 
-<GoBackButton fallbackHref="/examples" />
+<GoBackButton fallbackHref="/docs" />
 <Breadcrumbs />
 
 <FormSection title="Details" description="Optional helper text.">
@@ -22,6 +28,6 @@ import { GoBackButton, Breadcrumbs, FormSection } from "layout"
 
 Mount **`ConfirmationDialogProvider`** once (see `apps/web/src/app/providers.tsx`) before using `useConfirmationDialog()` for delete confirms.
 
-<PlaygroundLink href="/examples/layout/breadcrumbs">Layout examples</PlaygroundLink>
+<PlaygroundLink href="/docs/examples/layout/breadcrumbs">More layout previews</PlaygroundLink>
 
 **Common imports:** `layout`, `layout/breadcrumb`, `layout/navigation`, `layout/confirmation-dialog`.

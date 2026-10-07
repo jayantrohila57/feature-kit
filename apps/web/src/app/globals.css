@@ -11,3 +11,12 @@
 html {
 	scrollbar-gutter: stable;
 }
+
+/* Solid search popover/header (avoid transparent chrome on the marketing + docs shell) */
+[data-search-full] {
+	background-color: var(--color-fd-popover, var(--popover));
+}
+
+.bg-fd-popover {
+	background-color: var(--color-fd-popover, hsl(var(--popover)));
+}

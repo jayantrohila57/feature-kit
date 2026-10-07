@@ -6,6 +6,14 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts")
 const withMDX = createMDX()
 
 const nextConfig: NextConfig = {
+	async redirects() {
+		return [
+			{ source: "/examples", destination: "/docs/examples", permanent: false },
+			{ source: "/examples/:path*", destination: "/docs/examples/:path*", permanent: false },
+			{ source: "/form", destination: "/docs/examples/form/basic", permanent: false },
+			{ source: "/table", destination: "/docs/examples/table/basic", permanent: false },
+		]
+	},
 	transpilePackages: [
 		"data-table",
 		"export",
