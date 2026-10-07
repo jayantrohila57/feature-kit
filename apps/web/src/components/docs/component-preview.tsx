@@ -60,8 +60,8 @@ export function ComponentPreview({
 					<div className="w-full min-w-0">{children}</div>
 				</div>
 			) : (
-				<pre className="max-h-[28rem] overflow-auto p-4 text-xs leading-relaxed">
-					<code>{code}</code>
+				<pre className="max-h-[28rem] overflow-x-auto overflow-y-auto p-4 text-xs leading-relaxed whitespace-pre-wrap break-words">
+					<code className="whitespace-pre-wrap break-words">{code}</code>
 				</pre>
 			)}
 		</div>

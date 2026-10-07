@@ -18,6 +18,7 @@ export function DocsLayoutHeader() {
 				"data-[transparent=false]:bg-fd-background/80 data-[transparent=false]:backdrop-blur-sm",
 			)}
 			layout="docs"
+			navMode="docs"
 			leading={
 				SidebarTrigger ? (
 					<SidebarTrigger

@@ -10,11 +10,18 @@ const inflight = new Map<string, Promise<ComponentType<never>>>()
  * (that blank frame collapses the form grid, then expands it when the field appears).
  */
 export function useLazyField<P>(key: string, loader: () => Promise<ComponentType<P>>): ComponentType<P> | null {
+  const [mounted, setMounted] = useState(false)
   const [Comp, setComp] = useState<ComponentType<P> | null>(
     () => (cache.get(key) as ComponentType<P> | undefined) ?? null,
   )
 
   useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!mounted) return
+
     const cached = cache.get(key) as ComponentType<P> | undefined
     if (cached) {
       setComp(() => cached)
@@ -39,7 +46,9 @@ export function useLazyField<P>(key: string, loader: () => Promise<ComponentType
     return () => {
       alive = false
     }
-  }, [key, loader])
+  }, [key, loader, mounted])
+
+  if (!mounted) return null
 
   return Comp
 }

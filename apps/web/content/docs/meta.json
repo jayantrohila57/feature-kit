@@ -1,14 +1,3 @@
 {
-	"pages": [
-		"index",
-		"getting-started",
-		"---Kits---",
-		"form",
-		"data-table",
-		"layout",
-		"uploader",
-		"ui",
-		"---Examples---",
-		"...examples"
-	]
+	"pages": ["index", "getting-started", "...examples"]
 }

@@ -24,9 +24,17 @@ type FeatureKitHeaderProps = {
 	leading?: ReactNode
 	actions?: ReactNode
 	layout?: "site" | "docs"
+	/** Docs layout: hide Kits/Examples mega-menus (sidebar covers navigation). */
+	navMode?: "marketing" | "docs"
 }
 
-export function FeatureKitHeader({ className, leading, actions, layout = "site" }: FeatureKitHeaderProps) {
+export function FeatureKitHeader({
+	className,
+	leading,
+	actions,
+	layout = "site",
+	navMode = "marketing",
+}: FeatureKitHeaderProps) {
 	const [open, setOpen] = useState(false)
 	const scrolled = useScroll(10)
 	const pathname = usePathname()
@@ -64,7 +72,7 @@ export function FeatureKitHeader({ className, leading, actions, layout = "site" 
 						href="/">
 						Feature Kit
 					</Link>
-					<DesktopNav pathname={pathname} />
+					<DesktopNav navMode={navMode} pathname={pathname} />
 				</div>
 
 				<div className="hidden items-center gap-2 md:flex">{actions ?? <HeaderCtas />}</div>
@@ -83,37 +91,104 @@ export function FeatureKitHeader({ className, leading, actions, layout = "site" 
 
 			<MobileMenu className="flex flex-col justify-between gap-2 overflow-y-auto" open={open}>
 				<div className="flex w-full flex-col gap-y-2">
-					<span className="text-sm">Kits</span>
-					{kitLinks.map((link) => (
-						<MobileNavLink key={link.href} {...link} />
-					))}
-					<span className="text-sm">Examples</span>
-					{exampleFeaturedLinks.map((link) => (
-						<MobileNavLink key={link.href} {...link} />
-					))}
-					{exampleQuickLinks.map((link) => (
-						<MobileNavLink key={link.href} {...link} compact />
-					))}
-					<Link
-						className="rounded-lg px-2 py-2 font-medium text-sm hover:bg-accent active:bg-muted dark:active:bg-muted/50"
-						href="/docs/getting-started">
-						Getting started
-					</Link>
+					{navMode === "marketing" ? (
+						<>
+							<span className="text-sm">Kits</span>
+							{kitLinks.map((link) => (
+								<MobileNavLink key={link.href} {...link} />
+							))}
+							<span className="text-sm">Examples</span>
+							{exampleFeaturedLinks.map((link) => (
+								<MobileNavLink key={link.href} {...link} />
+							))}
+							{exampleQuickLinks.map((link) => (
+								<MobileNavLink key={link.href} {...link} compact />
+							))}
+							<Link
+								className="rounded-lg px-2 py-2 font-medium text-sm hover:bg-accent active:bg-muted dark:active:bg-muted/50"
+								href="/docs/getting-started">
+								Getting started
+							</Link>
+						</>
+					) : (
+						<>
+							<Link
+								className="rounded-lg px-2 py-2 font-medium text-sm hover:bg-accent active:bg-muted dark:active:bg-muted/50"
+								href="/docs">
+								Documentation
+							</Link>
+							<Link
+								className="rounded-lg px-2 py-2 font-medium text-sm hover:bg-accent active:bg-muted dark:active:bg-muted/50"
+								href="/docs/getting-started">
+								Getting started
+							</Link>
+							<Link
+								className="rounded-lg px-2 py-2 font-medium text-sm hover:bg-accent active:bg-muted dark:active:bg-muted/50"
+								href="/docs/examples">
+								Examples
+							</Link>
+							<span className="pt-2 text-muted-foreground text-xs">Kits</span>
+							{kitLinks.map((link) => (
+								<MobileNavLink key={link.href} {...link} compact />
+							))}
+						</>
+					)}
 				</div>
 				<div className="mt-5 flex flex-col gap-2">
 					<Button asChild className="h-8 w-full" variant="outline">
 						<a href={githubUrl} rel="noreferrer noopener" target="_blank">GitHub</a>
 					</Button>
-					<Button asChild className="h-8 w-full">
-						<Link href="/docs">Docs</Link>
-					</Button>
+					{navMode === "marketing" ? (
+						<Button asChild className="h-8 w-full">
+							<Link href="/docs">Docs</Link>
+						</Button>
+					) : null}
 				</div>
 			</MobileMenu>
 		</header>
 	)
 }
 
-function DesktopNav({ pathname }: { pathname: string }) {
+function DesktopNav({
+	navMode,
+	pathname,
+}: {
+	navMode: FeatureKitHeaderProps["navMode"]
+	pathname: string
+}) {
+	if (navMode === "docs") {
+		return (
+			<NavigationMenu className="hidden md:flex">
+				<NavigationMenuList>
+					<NavigationMenuItem>
+						<NavigationMenuLink asChild>
+							<Link
+								className={cn(
+									"rounded-md px-4 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-foreground",
+									isDocsRootActive(pathname) && "bg-muted font-medium text-foreground",
+								)}
+								href="/docs">
+								Documentation
+							</Link>
+						</NavigationMenuLink>
+					</NavigationMenuItem>
+					<NavigationMenuItem>
+						<NavigationMenuLink asChild>
+							<Link
+								className={cn(
+									"rounded-md px-4 py-2 text-sm hover:bg-accent",
+									isGettingStartedActive(pathname) && "bg-muted font-medium",
+								)}
+								href="/docs/getting-started">
+								Getting started
+							</Link>
+						</NavigationMenuLink>
+					</NavigationMenuItem>
+				</NavigationMenuList>
+			</NavigationMenu>
+		)
+	}
+
 	return (
 		<NavigationMenu className="hidden md:flex">
 			<NavigationMenuList>
@@ -182,6 +257,10 @@ function DesktopNav({ pathname }: { pathname: string }) {
 
 function isGettingStartedActive(pathname: string) {
 	return pathname === "/docs/getting-started" || pathname.startsWith("/docs/getting-started/")
+}
+
+function isDocsRootActive(pathname: string) {
+	return pathname === "/docs" || pathname.startsWith("/docs/")
 }
 
 export function HeaderCtas() {
