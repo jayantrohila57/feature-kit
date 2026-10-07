@@ -1,0 +1,42 @@
+---
+title: Selection
+description: Row selection and cross-page selection state for bulk operations.
+---
+
+Selection uses TanStack row selection with optional cross-page memory via `useCrossPageSelection`.
+
+<PlaygroundLink href="/examples/table/basic">DataTable — basic</PlaygroundLink>
+
+## Installation
+
+```tsx
+import { useCrossPageSelection } from "data-table/selection"
+import { commonColumns } from "data-table"
+```
+
+## Row selection column
+
+```tsx
+const columns = [
+  ...commonColumns.selectColumn<Row>(),
+  // ...
+]
+```
+
+## Enable / disable per row
+
+```tsx
+<DataTable
+  enableRowSelection={(row) => row.original.status !== "archived"}
+  selectionKey={(row) => row.id}
+/>
+```
+
+## Cross-page selection
+
+`useCrossPageSelection` tracks selected ids across pagination changes—used by the bulk actions example to keep selection when users change pages.
+
+## Notes
+
+- `selectionKey` must return a stable string or number for each row.
+- Disable selection entirely with `enableRowSelection={false}` and omit the select column.

@@ -1,0 +1,40 @@
+---
+title: Preferences
+description: Theme and locale preference cookies with bootstrap script for Next.js apps.
+icon: Settings
+---
+
+`preferences` persists theme/locale choices in cookies and exposes helpers to read/write them on server and client.
+
+## Installation
+
+```tsx
+import {
+  PreferenceBootstrapScript,
+  persistAppPreferences,
+  parseAppPreferences,
+  type AppPreferences,
+} from "preferences"
+```
+
+Subpaths: `preferences/bootstrap`, `preferences/prefs-route`, `preferences/prefs.server`, `preferences/prefs.client`.
+
+## Bootstrap
+
+`PreferenceBootstrapScript` applies stored preferences before paint to avoid theme flash—wire in root layout when adopting the full shell pattern.
+
+## Cookie API
+
+| Export | Role |
+| --- | --- |
+| `readAppPreferencesFromCookieHeader` | Server components / middleware |
+| `readAppPreferencesFromDocumentCookie` | Client read |
+| `writeAppPreferencesToDocumentCookie` | Client write |
+| `persistAppPreferences` / `persistAppPreferencesOnServer` | Merge + persist |
+
+Constants: `PREFS_COOKIE_NAME`, `THEME_STORAGE_KEY`, `PREFS_LOCALES`, `PREFS_RTL_LOCALES`.
+
+## Notes
+
+- The playground uses `next-themes` directly; preferences package is for host apps that need shared cookie shape across services.
+- Pair with `format/effective-preferences` when formatting depends on locale.

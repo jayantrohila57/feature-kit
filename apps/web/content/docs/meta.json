@@ -1,0 +1,17 @@
+{
+	"root": true,
+	"pages": [
+		"(root)",
+		"form",
+		"data-table",
+		"layout",
+		"uploader",
+		"---Packages---",
+		"ui",
+		"export",
+		"preferences",
+		"format",
+		"examples",
+		"changelog"
+	]
+}

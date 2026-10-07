@@ -1,0 +1,64 @@
+---
+title: Field types
+description: Supported FormKit.Field and FieldKit.Field type discriminators.
+---
+
+All fields render through `fieldRegistry` in `form/field`. Use the `type` prop on `FormKit.Field` or `FieldKit.Field`.
+
+<PlaygroundLink href="/examples/form/field-types">FormKit — field types</PlaygroundLink>
+
+## Installation
+
+```tsx
+import { FormKit, fieldRegistry } from "form"
+```
+
+Individual primitives (`FieldText`, `FieldSelect`, …) are exported from `form/field` when you need them outside FormKit.
+
+## Supported types
+
+| `type` | Control |
+| --- | --- |
+| `text` | Text input (`inputType`, masks via `allowedChars`, `transform`) |
+| `textarea` | Multiline text |
+| `select` | Searchable single select |
+| `multi-select` | Searchable multi select with badges |
+| `checkbox` | Single checkbox |
+| `checkbox-choice-card` | Card-style checkbox group |
+| `switch` | Toggle |
+| `switch-choice-card` | Card-style switch group |
+| `radio-group` | Radio list |
+| `radio-choice-card` | Card-style radios |
+| `date` | Date picker |
+| `date-range` | Start/end dates |
+| `month` | Month picker |
+| `quarter` | Quarter picker |
+| `time` | Time input |
+
+## Shared field props
+
+Every field accepts `name`, `label`, `description`, `helperText`, `placeholder`, `required`, `size` (`sm` \| `md` \| `lg` from `FIELD_SIZES`), and conditional flags:
+
+- `disabled`, `hidden` — boolean or `(ctx) => boolean` based on current values
+- `loading` — shows skeleton while async options load
+- `readOnly` — non-editable display
+
+Select-like fields accept `options: FieldOption[]` with optional `icon`, `keywords`, and `description`.
+
+## Usage
+
+```tsx
+<FormKit.Field type="date-range" name="period" label="Period" required />
+<FormKit.Field
+  type="multi-select"
+  name="tags"
+  label="Tags"
+  options={tagOptions}
+  showSelectedCount
+/>
+```
+
+## Notes
+
+- Prefer `inputType="tel"` / `email` over `type="number"` for numeric strings (leading zeros are preserved).
+- Combobox internals (`SearchableSelect`, `SearchableMultiSelect`) are exported from `form` for custom UIs.

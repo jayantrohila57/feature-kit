@@ -1,0 +1,89 @@
+---
+title: Installation
+description: Clone the monorepo, install dependencies, and add workspace kits to a Next.js app.
+---
+
+## Monorepo setup
+
+**Requirements:** Node.js 24+, pnpm 9+.
+
+```bash
+git clone https://github.com/jayantrohila57/feature-kit.git
+cd feature-kit
+pnpm install
+pnpm dev
+```
+
+The dev server runs `apps/web` on port 3000. Production builds target the same app (`pnpm build` from the repo root).
+
+## Workspace packages
+
+Kits live under `feature/*` and `packages/*`. Reference them from an app with `workspace:*`:
+
+```json
+{
+  "dependencies": {
+    "form": "workspace:*",
+    "data-table": "workspace:*",
+    "layout": "workspace:*",
+    "uploader": "workspace:*",
+    "ui": "workspace:*"
+  }
+}
+```
+
+## Next.js configuration
+
+Transpile TypeScript sources from workspace packages:
+
+```ts
+// apps/web/next.config.ts
+const nextConfig = {
+  transpilePackages: [
+    "data-table",
+    "export",
+    "format",
+    "form",
+    "layout",
+    "preferences",
+    "ui",
+  ],
+}
+```
+
+## Global styles
+
+Import shared tokens once in your app stylesheet:
+
+```css
+@import "ui/globals.css";
+```
+
+The playground also loads Fumadocs UI presets in `apps/web/src/app/globals.css` for documentation pages.
+
+## App providers
+
+The playground wraps the tree with adapters kits expect:
+
+```tsx
+import { DataTableNuqsAdapter } from "data-table"
+import { ConfirmationDialogProvider } from "layout/confirmation-dialog"
+
+export function Providers({ children }) {
+  return (
+    <ConfirmationDialogProvider>
+      <DataTableNuqsAdapter>{children}</DataTableNuqsAdapter>
+    </ConfirmationDialogProvider>
+  )
+}
+```
+
+See `apps/web/src/app/providers.tsx` for the full stack (next-intl, themes, toasts).
+
+## Typechecking
+
+```bash
+pnpm check-types
+```
+
+Each package exposes its own `check-types` script; the root runs them recursively.

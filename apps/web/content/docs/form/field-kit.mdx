@@ -1,0 +1,54 @@
+---
+title: FieldKit
+description: Inline schema-driven fields for toolbars and controlled filter state.
+---
+
+FieldKit shares field components with FormKit but omits submit/reset actions—ideal for search rows and filter panels.
+
+<PlaygroundLink href="/examples/form/field-kit">FieldKit — filters</PlaygroundLink>
+
+## Installation
+
+```tsx
+import { FieldKit } from "form"
+// or
+import { FieldKit } from "form/field-kit"
+```
+
+## Uncontrolled
+
+```tsx
+<FieldKit schema={schema} defaultValues={{ q: "" }}>
+  <FieldKit.Field type="text" name="q" label="Search" size="sm" />
+</FieldKit>
+```
+
+## Controlled
+
+Mirror external state for table filters or parent-driven queries:
+
+```tsx
+<FieldKit
+  schema={filterSchema}
+  mode="controlled"
+  values={filters}
+  onValuesChange={setFilters}>
+  <FieldKit.Field type="multi-select" name="status" label="Status" options={options} size="sm" />
+</FieldKit>
+```
+
+## API
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| `schema` | `ZodType` | Shape of filter values |
+| `mode` | `"uncontrolled" \| "controlled"` | Default `"uncontrolled"` |
+| `values` | object | Required when `mode="controlled"` |
+| `defaultValues` | object | Initial values when uncontrolled |
+| `onValuesChange` | `(values) => void` | Fires on every change in controlled mode |
+| `className` | `string` | Wrapper around `FieldGroup` |
+
+## Notes
+
+- Validation runs through the same Zod resolver as FormKit; use `.optional()` or permissive schemas for live filters.
+- Pair with [Data table filters](/docs/data-table/filters) when filters should also sync to the URL.

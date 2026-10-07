@@ -1,0 +1,34 @@
+---
+title: Introduction
+description: Composable React kits for schema-driven forms, data tables, layout chrome, and spreadsheet import.
+---
+
+Feature Kit is a **pnpm monorepo** of workspace packages you can copy patterns from or depend on directly inside your Next.js apps. Each kit targets a recurring product surface—create/edit forms, filterable tables, navigation chrome, and bulk import—while sharing the same `ui` primitives and Tailwind theme.
+
+## Why Feature Kit
+
+| Problem | Kit |
+| --- | --- |
+| Repeatable form layouts with validation | `form` — FormKit, FieldKit, Zod + React Hook Form |
+| List pages with filters, URL state, bulk actions | `data-table` — TanStack Table composition |
+| Consistent breadcrumbs, back affordances, dialogs | `layout` |
+| CSV/XLSX import with client-side validation | `uploader` |
+| Buttons, fields, tables, overlays | `ui` (shadcn-style) |
+
+Supporting packages (`export`, `format`, `preferences`) power exports, locale-aware formatting, and persisted theme/locale cookies when you wire them in your host app.
+
+## How docs and examples relate
+
+- **Documentation** (`/docs`) explains installation, APIs, and recipes.
+- **Playground** (`/examples`) runs real components against demo data—every major doc section links to a matching example route when one exists.
+
+<PlaygroundLink href="/examples">Browse all examples</PlaygroundLink>
+
+## Stack
+
+- Next.js 16, React 19, Tailwind CSS 4
+- React Hook Form + Zod 4 (`form`)
+- TanStack Table + nuqs URL sync (`data-table`)
+- next-intl in the web app for kit copy (playground only today)
+
+Next: [Installation](/docs/installation) or jump to [FormKit](/docs/form).

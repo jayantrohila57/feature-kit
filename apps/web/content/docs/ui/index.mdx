@@ -1,0 +1,35 @@
+---
+title: UI package
+description: shadcn-style primitives, utilities, and global styles shared by all kits.
+icon: Component
+---
+
+`packages/ui` is consumed as the workspace package **`ui`**. Kits import components via `@/packages/ui/...` path aliases in their source; apps may use the same alias or re-export wrappers.
+
+## Installation
+
+In app CSS:
+
+```css
+@import "ui/globals.css";
+```
+
+Components:
+
+```tsx
+import { Button } from "@/packages/ui/components/button"
+import { cn } from "@/packages/ui/lib/utils"
+```
+
+Exports: `./components/*`, `./lib/*`, `./hooks/*`, `./globals.css`, `./postcss.config`.
+
+## Conventions
+
+- Built with Radix primitives (`radix-ui` package), `class-variance-authority`, and `tailwind-merge`.
+- `components.json` tracks shadcn metadata for adding new primitives.
+- Theme tokens and sidebar variables live in `globals.css` (`@theme inline`).
+
+## Notes
+
+- Do not duplicate buttons/inputs inside feature kits—extend `ui` instead.
+- Fumadocs docs use a separate preset layered in `apps/web/src/app/globals.css`; kit pages use the same underlying theme variables where possible.

@@ -1,0 +1,100 @@
+---
+title: Getting started
+description: Add your first FormKit form and DataTable list in a Next.js page.
+---
+
+This guide uses the same import paths as `apps/web`. Adapt paths if you vendor packages into another repo.
+
+## 1. FormKit — profile form
+
+Create a client component with a Zod schema and `FormKit` fields:
+
+```tsx
+"use client"
+
+import { FormKit } from "form"
+import { FormSection } from "layout"
+import { z } from "zod"
+
+const schema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email(),
+  role: z.enum(["viewer", "editor", "admin"]),
+})
+
+export function ProfileForm() {
+  return (
+    <FormKit
+      schema={schema}
+      defaultValues={{ name: "", email: "", role: "viewer" }}
+      resetOnSuccess
+      onSubmit={async (values) => {
+        console.log(values)
+      }}>
+      <FormSection title="Profile">
+        <FormKit.Field type="text" name="name" label="Name" required />
+        <FormKit.Field type="text" name="email" label="Email" required />
+        <FormKit.Field type="select" name="role" label="Role" options={roleOptions} />
+      </FormSection>
+      <FormKit.Actions>
+        <FormKit.Submit label="Save" />
+      </FormKit.Actions>
+    </FormKit>
+  )
+}
+```
+
+<PlaygroundLink href="/examples/form/basic">FormKit — basic</PlaygroundLink>
+
+## 2. DataTable — client list
+
+Define columns with TanStack `ColumnDef` types re-exported from `data-table`:
+
+```tsx
+"use client"
+
+import type { ColumnDef } from "data-table"
+import { DataTable, DataTableColumnHeader, commonColumns } from "data-table"
+
+export function PeopleTable({ rows }: { rows: Person[] }) {
+  const columns: ColumnDef<Person>[] = [
+    ...commonColumns.selectColumn<Person>(),
+    {
+      accessorKey: "name",
+      header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
+    },
+  ]
+
+  return (
+    <DataTable
+      tableId="people"
+      columns={columns}
+      data={rows}
+      displayKey="name"
+      selectionKey={(row) => row.id}
+      syncUrl={false}
+    />
+  )
+}
+```
+
+Use `syncUrl={false}` for embedded tables; set `syncUrl` to `true` on listing pages that should mirror filters in the query string (requires `DataTableNuqsAdapter` in your providers).
+
+<PlaygroundLink href="/examples/table/basic">DataTable — basic</PlaygroundLink>
+
+## 3. Layout chrome
+
+Wrap example or settings routes with breadcrumbs and a back control:
+
+```tsx
+import { Breadcrumbs, GoBackButton } from "layout"
+
+<GoBackButton fallbackHref="/examples" />
+<Breadcrumbs />
+```
+
+## Next steps
+
+- [FormKit reference](/docs/form) — props, field types, validation
+- [Data table](/docs/data-table) — filters, bulk actions, URL sync
+- [Examples index](/docs/examples) — full playground map

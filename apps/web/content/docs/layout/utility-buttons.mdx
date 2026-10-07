@@ -1,0 +1,46 @@
+---
+title: Utility buttons
+description: Icon buttons with shared tooltip, loading, and navigation behavior.
+---
+
+Utility buttons wrap consistent patterns for back navigation and lightweight actions.
+
+<PlaygroundLink href="/examples/layout/utility-buttons">Layout — utility buttons</PlaygroundLink>
+
+## Installation
+
+```tsx
+import {
+  GoBackButton,
+  DocsIconButton,
+  InfoIconButton,
+  RefreshIconButton,
+  UtilityIconButton,
+} from "layout/navigation"
+```
+
+## Go back
+
+```tsx
+<GoBackButton fallbackHref="/examples" />
+```
+
+`shouldUseFallbackOnBack` and `DEFAULT_BACK_FALLBACK_HREF` help when history is empty.
+
+## Other utilities
+
+| Component | Typical use |
+| --- | --- |
+| `DocsIconButton` | Link to documentation |
+| `InfoIconButton` | Contextual help |
+| `RefreshIconButton` | Refetch with loading state |
+| `UtilityIconButton` | Base for custom icon actions |
+
+## API (GoBackButton)
+
+| Prop | Description |
+| --- | --- |
+| `fallbackHref` | Navigate here when `history.length` is insufficient |
+| `className` | Button styling |
+
+Skeleton variant: `GoBackButtonSkeleton`.

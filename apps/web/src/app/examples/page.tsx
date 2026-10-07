@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-import { formExamples, tableExamples, uploaderExamples } from "@/lib/examples-catalog"
+import { formExamples, layoutExamples, tableExamples, uploaderExamples } from "@/lib/examples-catalog"
 
 function ExampleList({
 	title,
@@ -37,11 +37,16 @@ export default function ExamplesIndexPage() {
 				<h1 className="font-semibold text-3xl tracking-tight">Examples</h1>
 				<p className="max-w-2xl text-muted-foreground text-sm leading-6">
 					Runnable samples for FormKit, FieldKit, DataTable, and Uploader. Use these as copy-paste starting points
-					in your app.
+					in your app. API reference lives in the{" "}
+					<Link className="text-foreground underline underline-offset-4" href="/docs">
+						docs
+					</Link>
+					.
 				</p>
 			</div>
 			<ExampleList title="Form" basePath="/examples/form" items={formExamples} />
 			<ExampleList title="Table" basePath="/examples/table" items={tableExamples} />
+			<ExampleList title="Layout" basePath="/examples/layout" items={layoutExamples} />
 			<ExampleList title="Uploader" basePath="/examples/uploader" items={uploaderExamples} />
 		</div>
 	)

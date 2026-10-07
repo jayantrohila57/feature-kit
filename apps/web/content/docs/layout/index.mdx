@@ -1,0 +1,43 @@
+---
+title: Layout
+description: Breadcrumbs, navigation utilities, form sections, empty states, and dialogs.
+icon: PanelLeft
+---
+
+The `layout` package centralizes chrome shared across forms and tables.
+
+## Installation
+
+```tsx
+import { FormSection, Breadcrumbs, GoBackButton, EmptyState } from "layout"
+```
+
+Subpaths: `layout/breadcrumb`, `layout/navigation`, `layout/form-layout`, `layout/confirmation-dialog`, `layout/common`.
+
+## Form sections
+
+```tsx
+import { FormSection } from "layout"
+
+<FormSection title="Billing" description="Invoicing details.">
+  {/* fields */}
+</FormSection>
+```
+
+Layout class constants (`FORM_LAYOUT_ROOT_CLASS`, `FORM_LAYOUT_FOOTER_CLASS`, …) align multi-section forms with consistent spacing.
+
+## Empty states
+
+```tsx
+import { EmptyState } from "layout"
+
+<EmptyState title="No projects" description="Create one to get started." />
+```
+
+## Docs map
+
+| Page | Topic |
+| --- | --- |
+| [Breadcrumbs](/docs/layout/breadcrumbs) | Path-derived navigation |
+| [Utility buttons](/docs/layout/utility-buttons) | Back, docs, refresh icon buttons |
+| [Confirmation dialog](/docs/layout/confirmation-dialog) | Promise-style confirms |

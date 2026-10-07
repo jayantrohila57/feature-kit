@@ -1,0 +1,74 @@
+---
+title: DataTable
+description: TanStack Table with toolbar, pagination, selection, and optional URL sync.
+icon: Table
+---
+
+`DataTable` is the root component for listing pages. It composes column definitions, a toolbar, pagination, and optional bulk actions.
+
+<PlaygroundLink href="/examples/table/basic">DataTable — basic</PlaygroundLink>
+
+## Installation
+
+```tsx
+import type { ColumnDef } from "data-table"
+import {
+  DataTable,
+  DataTableColumnHeader,
+  commonColumns,
+  DataTableNuqsAdapter,
+} from "data-table"
+```
+
+Wrap your app with `DataTableNuqsAdapter` when using `syncUrl` (see [URL sync](/docs/data-table/url-sync)).
+
+## Usage
+
+```tsx
+<DataTable
+  tableId="accounts"
+  columns={columns}
+  data={rows}
+  displayKey="name"
+  selectionKey={(row) => row.id}
+  syncUrl={false}
+/>
+```
+
+## Core props
+
+| Prop | Description |
+| --- | --- |
+| `columns` | TanStack `ColumnDef[]` |
+| `data` | Current page rows |
+| `tableId` | Persists column visibility in `localStorage` |
+| `displayKey` | Column id for toolbar search (`table.getColumn`) |
+| `selectionKey` | Stable row id for selection state |
+| `enableRowSelection` | `boolean` or per-row function; default `true` |
+| `bulkActions` | React node (usually `BulkActionBar`) |
+| `pageCount` / `rowCount` | Server-driven pagination totals |
+| `initialPageIndex` / `initialPageSize` / `initialSortBy` / `initialSortDir` | Hydrate from URL or defaults |
+| `filterOptions` | Distinct values per filter key (full dataset) |
+| `filterDefinitions` | Toolbar filters when columns omit meta |
+| `pinnedFilterKeys` | Filters that stay visible on the toolbar |
+| `syncUrl` | Sync pagination, search, sort, filters to query string |
+| `urlShallow` / `urlServerRefresh` / `canonicalizeUrl` | Fine-tune URL navigation behavior |
+| `onPaginationChange` | Callback when `syncUrl={false}` |
+| `emptyState` | Custom empty UI |
+| `fullscreen` | Full-screen dialog toggle |
+| `toolbarLeading` / `toolbarTrailing` / `toolbarAfterSearch` | Toolbar slots |
+
+## Related modules
+
+| Doc | Topic |
+| --- | --- |
+| [Toolbar](/docs/data-table/toolbar) | Search, chips, add-filter menu |
+| [Filters](/docs/data-table/filters) | Faceted and column filters |
+| [Selection](/docs/data-table/selection) | Cross-page selection |
+| [Bulk actions](/docs/data-table/bulk-actions) | Floating bar and export |
+| [URL sync](/docs/data-table/url-sync) | nuqs + `useEffectiveSearchParams` |
+
+## Notes
+
+- Use `commonColumns.selectColumn()` for checkbox column; omit when `enableRowSelection={false}`.
+- `DataTableLoading` and skeleton variants cover in-flight client refetches—see playground [loading example](/examples/table/loading).
