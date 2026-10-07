@@ -28,7 +28,7 @@ export function DocsLayoutHeader() {
 			}
 			className={cn(
 				"[grid-area:header] top-(--fd-docs-row-1) layout:[--fd-header-height:--spacing(14)]",
-				"border-b backdrop-blur-sm data-[transparent=false]:bg-fd-background/80",
+				"data-[transparent=false]:bg-fd-background/80 data-[transparent=false]:backdrop-blur-sm",
 			)}
 			leading={
 				SidebarTrigger ? (

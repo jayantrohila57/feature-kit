@@ -4,7 +4,7 @@ import { kitLinks } from "@/lib/site-nav"
 
 export default function HomePage() {
 	return (
-		<main className="mx-auto flex w-full max-w-3xl flex-1 flex-col justify-center gap-8 px-6 py-16">
+		<main className="mx-auto flex w-full max-w-3xl flex-1 flex-col justify-center gap-8 px-6 py-16 min-h-[calc(100dvh-3.5rem+1px)]">
 			<div className="flex flex-col gap-2">
 				<h1 className="font-semibold text-3xl tracking-tight">Feature Kit</h1>
 				<p className="text-muted-foreground text-sm leading-6">
