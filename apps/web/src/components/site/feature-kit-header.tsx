@@ -46,9 +46,12 @@ export function FeatureKitHeader({ className, leading, actions }: FeatureKitHead
 
 	return (
 		<header
+			data-transparent={scrolled ? "false" : "true"}
 			className={cn(
-				"sticky top-0 z-50 w-full border-transparent border-b",
-				scrolled && "border-border bg-background/95 backdrop-blur-lg supports-[backdrop-filter]:bg-background/50",
+				"sticky top-0 z-50 w-full border-b transition-colors",
+				scrolled
+					? "border-border bg-background/95 backdrop-blur-lg supports-[backdrop-filter]:bg-background/50"
+					: "border-transparent",
 				className,
 			)}>
 			<nav className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between px-4">
@@ -147,14 +150,14 @@ export function FeatureKitHeader({ className, leading, actions }: FeatureKitHead
 				<div className="flex w-full flex-col gap-y-2">
 					<span className="text-sm">Kits</span>
 					{kitLinks.map((link) => (
-						<NavListItem key={link.href} {...link} />
+						<MobileNavLink key={link.href} {...link} />
 					))}
 					<span className="text-sm">Examples</span>
 					{exampleFeaturedLinks.map((link) => (
-						<NavListItem key={link.href} {...link} />
+						<MobileNavLink key={link.href} {...link} />
 					))}
 					{exampleQuickLinks.map((link) => (
-						<NavListItem key={link.href} {...link} compact />
+						<MobileNavLink key={link.href} {...link} compact />
 					))}
 					<Link className="rounded-md px-2 py-2 font-medium text-sm hover:bg-accent" href="/docs">
 						Docs
@@ -237,25 +240,45 @@ function NavListItem({
 	description,
 	icon: Icon,
 	href,
-	compact = false,
 	className,
 	...props
-}: ComponentProps<typeof NavigationMenuLink> & SiteNavLink & { compact?: boolean }) {
+}: ComponentProps<typeof NavigationMenuLink> & SiteNavLink) {
 	return (
 		<NavigationMenuLink asChild className={cn("w-full flex-row gap-x-2", className)} {...props}>
 			<Link className="flex w-full items-center gap-3 rounded-md p-1 hover:bg-accent/60" href={href}>
-				<div
-					className={cn(
-						"flex items-center justify-center rounded-md border bg-background/40 shadow-sm",
-						compact ? "size-9" : "aspect-square size-12",
-					)}>
-					<Icon className={cn("text-foreground", compact ? "size-4" : "size-5")} />
-				</div>
-				<div className="flex min-w-0 flex-col items-start justify-center">
-					<span className="font-medium text-sm">{title}</span>
-					{description ? <span className="text-muted-foreground text-xs">{description}</span> : null}
-				</div>
+				<NavLinkIcon compact={false} icon={Icon} />
+				<NavLinkText description={description} title={title} />
 			</Link>
 		</NavigationMenuLink>
+	)
+}
+
+function MobileNavLink({ title, description, icon: Icon, href, compact = false }: SiteNavLink & { compact?: boolean }) {
+	return (
+		<Link className="flex w-full items-center gap-3 rounded-md p-1 hover:bg-accent/60" href={href}>
+			<NavLinkIcon compact={compact} icon={Icon} />
+			<NavLinkText description={description} title={title} />
+		</Link>
+	)
+}
+
+function NavLinkIcon({ icon: Icon, compact }: { icon: SiteNavLink["icon"]; compact: boolean }) {
+	return (
+		<div
+			className={cn(
+				"flex shrink-0 items-center justify-center rounded-md border bg-background/40 shadow-sm",
+				compact ? "size-9" : "aspect-square size-12",
+			)}>
+			<Icon className={cn("text-foreground", compact ? "size-4" : "size-5")} />
+		</div>
+	)
+}
+
+function NavLinkText({ title, description }: { title: string; description?: string | undefined }) {
+	return (
+		<div className="flex min-w-0 flex-col items-start justify-center">
+			<span className="font-medium text-sm">{title}</span>
+			{description ? <span className="text-muted-foreground text-xs">{description}</span> : null}
+		</div>
 	)
 }
