@@ -1,5 +1,5 @@
 @import "ui/globals.css";
-@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/shadcn.css";
 @import "fumadocs-ui/css/preset.css";
 
 @source "../../**/*.{ts,tsx}";
@@ -10,4 +10,21 @@
 
 html {
 	scrollbar-gutter: stable;
+}
+
+/* Fumadocs search: opaque modal surface (Tailwind fd tokens + shadcn bridge) */
+.bg-fd-popover,
+[data-fd-search-dialog] {
+	background-color: var(--color-fd-popover, var(--popover)) !important;
+	color: var(--color-fd-popover-foreground, var(--popover-foreground));
+}
+
+.bg-fd-overlay {
+	background-color: var(--color-fd-overlay, rgb(0 0 0 / 0.45)) !important;
+}
+
+/* Safety: never show broken docs layout chrome if a stray layout mounts */
+#nd-docs-layout #nd-sidebar,
+#nd-docs-layout aside[aria-label="Sidebar"] {
+	display: none !important;
 }

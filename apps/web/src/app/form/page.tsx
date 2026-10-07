@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation"
 
 export default function LegacyFormPage() {
-	redirect("/examples/form/basic")
+	redirect("/docs/examples/form/basic")
 }

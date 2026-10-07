@@ -7,6 +7,12 @@ The **`form`** package gives you **FormKit** for create/edit flows and **FieldKi
 
 **When to use it:** any screen driven by a Zod schema—profile forms, settings, or toolbar filters.
 
+## Live preview
+
+<ComponentPreview>
+  <FormKitBasicExample />
+</ComponentPreview>
+
 ## Example (FormKit)
 
 ```tsx
@@ -32,8 +38,8 @@ const schema = z.object({
 </FormKit>
 ```
 
-FieldKit uses the same `Field` types with `mode="controlled"` when you own the state (see the filters example).
+FieldKit uses the same `Field` types with `mode="controlled"` when you own the state (see the filters preview).
 
-<PlaygroundLink href="/examples/form/basic">Form examples</PlaygroundLink>
+<PlaygroundLink href="/docs/examples/form/basic">More form previews</PlaygroundLink>
 
 **Useful exports:** `form`, `form/field-kit`, `form/field`. Helpers like `applyServerErrors` live on the main `form` entry.

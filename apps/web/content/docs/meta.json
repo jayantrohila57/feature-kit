@@ -2,10 +2,13 @@
 	"pages": [
 		"index",
 		"getting-started",
+		"---Kits---",
 		"form",
 		"data-table",
 		"layout",
 		"uploader",
-		"ui"
+		"ui",
+		"---Examples---",
+		"...examples"
 	]
 }

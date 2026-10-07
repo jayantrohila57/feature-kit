@@ -15,7 +15,7 @@ export function UtilityButtonsDemo() {
 	return (
 		<div className="flex flex-col gap-4">
 			<div className="flex flex-wrap items-center gap-2 rounded-lg border border-border bg-muted/30 p-4">
-				<GoBackButton fallbackHref="/examples" />
+				<GoBackButton fallbackHref="/docs" />
 				<DocsIconButton href="https://example.com/docs" page="utility-buttons" />
 				<RefreshIconButton minPendingMs={600} onRefresh={handleRefresh} />
 			</div>

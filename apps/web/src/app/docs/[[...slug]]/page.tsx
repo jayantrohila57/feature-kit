@@ -1,8 +1,10 @@
+import { findNeighbour } from "fumadocs-core/page-tree"
 import { createRelativeLink } from "fumadocs-ui/mdx"
-import { DocsBody, DocsDescription, DocsPage, DocsTitle } from "fumadocs-ui/layouts/docs/page"
+import { DocsBody, DocsDescription, DocsTitle } from "fumadocs-ui/layouts/docs/page"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
+import { DocsPager } from "@/components/docs/docs-pager"
 import { getMDXComponents } from "@/components/mdx"
 import { source } from "@/lib/source"
 
@@ -12,9 +14,15 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
 	if (!page) notFound()
 
 	const MDX = page.data.body
+	const tree = source.getPageTree()
+	const neighbours = findNeighbour(tree, page.url)
+	const previous = neighbours.previous
+		? { name: String(neighbours.previous.name), url: neighbours.previous.url }
+		: null
+	const next = neighbours.next ? { name: String(neighbours.next.name), url: neighbours.next.url } : null
 
 	return (
-		<DocsPage toc={page.data.toc} full={page.data.full}>
+		<article className="mx-auto w-full max-w-6xl min-w-0">
 			<DocsTitle>{page.data.title}</DocsTitle>
 			<DocsDescription>{page.data.description}</DocsDescription>
 			<DocsBody>
@@ -24,7 +32,8 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
 					})}
 				/>
 			</DocsBody>
-		</DocsPage>
+			<DocsPager previous={previous} next={next} />
+		</article>
 	)
 }
 

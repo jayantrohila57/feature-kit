@@ -7,6 +7,12 @@ description: TanStack Table with toolbar, filters, selection, and optional URL s
 
 **When to use it:** admin lists, directories, and any page that needs search, filters, or bulk actions.
 
+## Live preview
+
+<ComponentPreview>
+  <TableBasicExample />
+</ComponentPreview>
+
 ## Example
 
 ```tsx
@@ -35,6 +41,6 @@ const columns: ColumnDef<Row>[] = [
 
 Wrap your app in **`DataTableNuqsAdapter`** when you set `syncUrl={true}` on listing pages.
 
-<PlaygroundLink href="/examples/table/basic">Table examples</PlaygroundLink>
+<PlaygroundLink href="/docs/examples/table/basic">More table previews</PlaygroundLink>
 
 **Key props:** `tableId` (persists column visibility), `displayKey` (toolbar search column), `selectionKey`, `syncUrl`, `bulkActions` (e.g. export bar).

@@ -18,7 +18,7 @@ export function UploaderBasicExample() {
 			columns: demoAccountUploaderColumns,
 			defaultMode: "create",
 			transport: "records",
-			historyHref: "/examples",
+			historyHref: "/docs/examples",
 		}),
 		[],
 	)

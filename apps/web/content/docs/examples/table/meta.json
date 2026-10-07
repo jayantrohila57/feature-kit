@@ -1,0 +1,4 @@
+{
+	"title": "Table",
+	"pages": ["basic", "empty", "loading", "filters", "bulk-actions", "row-actions", "url-sync"]
+}
