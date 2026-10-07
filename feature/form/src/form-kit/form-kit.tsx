@@ -12,6 +12,7 @@ import {
   type ReactNode,
   type SetStateAction,
   use,
+  useEffect,
   useLayoutEffect,
   useState,
 } from "react"
@@ -137,15 +138,20 @@ function FormKitReset({ label = "Reset", className, disabled }: FormKitResetProp
 
 function FormKitActions({ children, className }: { children: React.ReactNode; className?: string }) {
   const setActions = use(FormKitActionsContext)
+  const [hydrated, setHydrated] = useState(false)
+
+  useEffect(() => {
+    setHydrated(true)
+  }, [])
 
   useLayoutEffect(() => {
-    if (!setActions) return
+    if (!hydrated || !setActions) return
 
     setActions(<div className={cn(FORM_KIT_ACTIONS_CLASS, className)}>{children}</div>)
     return () => setActions(null)
-  }, [setActions, children, className])
+  }, [hydrated, setActions, children, className])
 
-  if (!setActions) {
+  if (!setActions || !hydrated) {
     return <div className={cn(FORM_KIT_ACTIONS_CLASS, className)}>{children}</div>
   }
 
