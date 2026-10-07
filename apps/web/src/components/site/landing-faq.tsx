@@ -1,7 +1,14 @@
 "use client"
 
 import type { ReactNode } from "react"
-import { ChevronDown } from "lucide-react"
+import {
+	ChevronDown,
+	GitPullRequest,
+	Layers,
+	Palette,
+	Rocket,
+	type LucideIcon,
+} from "lucide-react"
 import Link from "next/link"
 import { useCallback, useState } from "react"
 
@@ -23,6 +30,7 @@ type FaqItem = {
 type FaqCategory = {
 	id: string
 	label: string
+	icon: LucideIcon
 	items: FaqItem[]
 }
 
@@ -30,6 +38,7 @@ const FAQ_CATEGORIES: FaqCategory[] = [
 	{
 		id: "getting-started",
 		label: "Getting started",
+		icon: Rocket,
 		items: [
 			{
 				id: "prerequisites",
@@ -98,6 +107,7 @@ const FAQ_CATEGORIES: FaqCategory[] = [
 	{
 		id: "kits-architecture",
 		label: "Kits & architecture",
+		icon: Layers,
 		items: [
 			{
 				id: "monorepo-layout",
@@ -165,6 +175,7 @@ const FAQ_CATEGORIES: FaqCategory[] = [
 	{
 		id: "customization",
 		label: "Customization",
+		icon: Palette,
 		items: [
 			{
 				id: "required-providers",
@@ -227,6 +238,7 @@ const FAQ_CATEGORIES: FaqCategory[] = [
 	{
 		id: "contributing-support",
 		label: "Contributing & support",
+		icon: GitPullRequest,
 		items: [
 			{
 				id: "open-source",
@@ -363,6 +375,7 @@ export function LandingFaq() {
 						aria-label="FAQ categories">
 						{FAQ_CATEGORIES.map((category) => {
 							const isActive = category.id === activeCategoryId
+							const CategoryIcon = category.icon
 							return (
 								<Button
 									key={category.id}
@@ -370,11 +383,15 @@ export function LandingFaq() {
 									variant={isActive ? "secondary" : "ghost"}
 									size="sm"
 									className={cn(
-										"h-auto justify-start px-3 py-2 text-left font-normal md:w-full",
+										"h-auto justify-start gap-2 px-3 py-2 text-left font-normal md:w-full",
 										isActive && "font-medium",
 									)}
 									onClick={() => selectCategory(category.id)}
 									aria-current={isActive ? "true" : undefined}>
+									<CategoryIcon
+										aria-hidden
+										className="size-5 shrink-0 text-primary transition-colors"
+									/>
 									<span className="text-sm">{category.label}</span>
 								</Button>
 							)

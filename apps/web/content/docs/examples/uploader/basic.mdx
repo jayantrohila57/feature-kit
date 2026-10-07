@@ -6,3 +6,28 @@ description: Spreadsheet import dialog with template download, validation, and a
 <ComponentPreview>
   <UploaderBasicExample />
 </ComponentPreview>
+
+## How it works
+
+This demo uses records transport. The uploader downloads an XLSX template, parses the selected file in the browser, checks required columns for `create` mode, and calls a local mock handler. `redirectOnSuccess={false}` keeps the preview on the docs page instead of navigating to import history.
+
+## Customize it
+
+Replace the demo columns with your `UploaderColumn[]` definitions and replace the handler with your mutation:
+
+```tsx
+<CommonUploaderButton
+  config={config}
+  triggerLabel="Import accounts"
+  onUpload={async ({ mode, records }) => {
+    return importAccounts({ mode, records })
+  }}
+/>
+```
+
+Use `transport: "file"` and `onUploadFile` when the server should parse the original file. Keep server-side validation in place for both modes.
+
+## Related
+
+- [Uploader overview](/docs/uploader)
+- [Table empty state](/docs/examples/table/empty)

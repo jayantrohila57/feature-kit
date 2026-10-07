@@ -1,3 +1,16 @@
 {
-	"pages": ["index", "getting-started", "changelog", "...examples"]
+	"pages": [
+		"index",
+		"getting-started",
+		"architecture",
+		"installation",
+		"providers",
+		"ui",
+		"form",
+		"data-table",
+		"layout",
+		"uploader",
+		"changelog",
+		"...examples"
+	]
 }

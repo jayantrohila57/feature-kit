@@ -68,14 +68,59 @@ const columns: ColumnDef<Person>[] = [
   <TableBasicExample />
 </ComponentPreview>
 
-### Columns
+## Columns
 
-- Use **`DataTableColumnHeader`** for sortable labels.
-- Import **`commonColumns.selectColumn()`** for the selection checkbox column.
-- Declare filters in column `meta.filter` or pass **`filterDefinitions`** for toolbar-only filters.
-- Pass **`filterOptions`** from the server for distinct facet values (not derived from the current page rows).
+`DataTable` accepts TanStack `ColumnDef` objects. Keep the row type explicit and give
+the table a stable `displayKey` for toolbar search. Use accessor columns for values
+that can be sorted or filtered, and display columns for controls such as selection
+and row actions.
 
-### URL sync
+```tsx
+const columns: ColumnDef<Account>[] = [
+  ...commonColumns.selectColumn<Account>(),
+  {
+    accessorKey: "name",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
+  },
+]
+```
+
+- Use `DataTableColumnHeader` for sortable labels.
+- Import `commonColumns.selectColumn()` for the selection checkbox column.
+- Declare filters in column `meta.filter` or pass `filterDefinitions` for toolbar-only filters.
+- Pass `filterOptions` from the server for distinct facet values.
+
+## Toolbar and filters
+
+The built-in toolbar can contain search, column filters, active filter chips, an
+add-filter menu, view options, and custom controls. Add custom controls with
+`toolbarLeading`, `toolbarAfterSearch`, or `toolbarTrailing`.
+
+Use `filterDefinitions` when a filter does not map to a visible column. Keep
+`filterOptions` keyed by the filter key (`meta.filter.key`, or the column id).
+Options should represent the full result set, not only the current page.
+
+## Sorting and pagination
+
+Sorting and pagination are client-side when `data` contains the complete collection.
+For server-driven listings, return only the requested slice and pass both
+`rowCount` and `pageCount`. The host application owns the request and maps table
+state to its API query.
+
+```tsx
+<DataTable
+  tableId="accounts"
+  columns={columns}
+  data={pageRows}
+  displayKey="name"
+  rowCount={total}
+  pageCount={Math.ceil(total / limit)}
+  syncUrl
+  urlServerRefresh
+/>
+```
+
+## URL synchronization
 
 When `syncUrl={true}` (default):
 
@@ -84,6 +129,81 @@ When `syncUrl={true}` (default):
 - Set `urlServerRefresh={true}` on server-driven pages so RSC refetches after shallow updates.
 
 <PlaygroundLink href="/docs/examples/table/url-sync">URL sync preview</PlaygroundLink>
+
+Use `DataTableNuqsAdapter` once above tables that use URL synchronization.
+`syncUrl` defaults to `true`; set `syncUrl={false}` for embedded tables. Keep
+`urlShallow` enabled for shallow query-string updates, and add `urlServerRefresh`
+when a server component must refetch after the update. `canonicalizeUrl={false}`
+prevents initial page and limit values from being written to the URL.
+
+## Selection and bulk actions
+
+Add `commonColumns.selectColumn()` and provide a stable `selectionKey` when rows
+can remain selected across pages. `enableRowSelection` can disable selection
+globally or return `false` for individual rows. Compose `BulkActionBar` with
+`BulkClearSelectionAction`, `BulkExportCsvAction`, or `BulkExportXlsxAction` through
+the `bulkActions` prop. Destructive actions require the layout
+`ConfirmationDialogProvider`.
+
+For custom workflows, `useCrossPageSelection({ selectionKey, data })` returns
+`selectedRows`, `selectedCount`, `rowSelection`, `onRowSelectionChange`,
+`getRowId`, and `clearSelection`. Send selected stable IDs to the server; do not
+assume the current `data` array contains every selected row.
+
+## Row actions
+
+Use `RowActionsMenu` with `RowActionView`, `RowActionEdit`, and `RowActionDelete`
+for common per-row operations. Keep authorization and mutation requests in the
+host application, and confirm destructive operations before sending them.
+
+## Expanded rows
+
+Pass `renderExpanded` to render detail content beneath a row. Use
+`getRowCanExpand` to restrict expansion, `showExpandColumn={false}` to remove the
+per-row chevron, and `initialExpanded` to control the initial state. The callback
+receives the TanStack row, so use `row.original` for domain data.
+
+```tsx
+<DataTable
+  {...tableProps}
+  renderExpanded={(row) => <AccountActivity accountId={row.original.id} />}
+  getRowCanExpand={(row) => row.original.activityCount > 0}
+/>
+```
+
+## View options and persistence
+
+`DataTable` shows column visibility controls by default. Use
+`initialColumnVisibility` for defaults and `hideViewOptions` when the table should
+not expose them. A `tableId` enables persisted column preferences in local storage;
+use a stable, page-specific value and avoid reusing it for different row shapes.
+`DataTableViewOptions` is also exported for custom compositions.
+
+## Fullscreen
+
+Set `fullscreen` to `true` or pass `{ title }` to add the fullscreen toggle. The
+kit provides `DataTableFullscreenToggle`, `DataTableFullscreenDialog`, and
+`DataTableFullscreenPlaceholder` for custom compositions. Fullscreen is useful
+for wide operational lists; keep an accessible exit control.
+
+## Loading, empty, and error states
+
+Use `isPending` for an initial fetch with no rows and `isFetching` for a refetch
+where the existing table should remain recognizable. `skeletonVariant` can be
+`"card"` for card-style rows. Pass an `emptyState` with `title`, `description`,
+and an optional `{ label, url }` action for a no-results state.
+
+`DataTableLoading` and `DataTableError` are public exports for page-level fallbacks.
+Distinguish a filtered-empty result from an unavailable or failed request, and put
+retry or clear-filter actions in the host application.
+
+## Server-driven data
+
+Server-driven tables still use a client `DataTable` for interaction. The host
+application should read query parameters, fetch authorized data, calculate
+`rowCount` and `pageCount`, and pass the current slice to the table. Add
+`urlServerRefresh` when URL changes must trigger an App Router server refresh.
+The kit does not own API calls, authorization, query construction, or business rules.
 
 ## Recipes
 

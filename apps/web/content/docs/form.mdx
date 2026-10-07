@@ -3,7 +3,7 @@ title: Form
 description: FormKit and FieldKit — Zod schemas with React Hook Form.
 ---
 
-The **`form`** workspace package ships **FormKit** (submit flows) and **FieldKit** (inline filters without a submit button). Both render through the same field registry (`FormKit.Field`) and share Zod + React Hook Form wiring.
+The **`form`** workspace package provides schema-driven controls for product forms and inline field surfaces. `FormKit` owns the submit lifecycle; `FieldKit` owns field state without adding a submit button. Both use Zod, React Hook Form, and the same field registry.
 
 ## When to use it
 
@@ -24,6 +24,17 @@ import { FieldKit } from "form/field-kit"
 import { FormSection } from "layout"`}
   note="Form sections and layout chrome live in the layout package. Apps also need next-intl messages for field labels if you use translated error keys."
 />
+
+## Choose an API
+
+| Need | Use |
+| --- | --- |
+| Create or edit data with submit, reset, pending, and server-error handling | `FormKit` |
+| Controlled filters or inline fields next to a table | `FieldKit` |
+| A custom layout around one control | `Field*` exports from `form` or `form/field` |
+| Searchable option controls | `SearchableSelect` or `SearchableMultiSelect` |
+
+`FormKit` and `FieldKit` are client components. Keep the schema and default values in the client component that renders them.
 
 ## Anatomy
 
@@ -60,7 +71,8 @@ export function ProfileForm() {
       schema={schema}
       defaultValues={{ name: "", email: "", role: "viewer", notify: true }}
       onSubmit={async (values) => {
-        await saveProfile(values)
+        // Replace this with your mutation or API call.
+        await Promise.resolve(values)
       }}>
       <FormSection title="Profile">
         <FormKit.Field type="text" name="name" label="Full name" required />
@@ -94,6 +106,19 @@ export function ProfileForm() {
 
 See [Field types example](/docs/examples/form/field-types) for a live matrix.
 
+## Validation
+
+Pass a Zod schema to `FormKit`. The resolver validates before `onSubmit` runs and focuses the first invalid field. Use Zod for interaction feedback, but keep authoritative business validation on the server.
+
+```tsx
+const schema = z.object({
+  email: z.string().email("Enter a valid email"),
+  terms: z.boolean().refine(Boolean, "Accept the terms"),
+})
+```
+
+The [validation example](/docs/examples/form/validation) demonstrates string, numeric-string, regex, range, and boolean rules.
+
 ### Filter row (FieldKit)
 
 Use FieldKit when there is no form submit—only value changes:
@@ -122,7 +147,9 @@ const filterSchema = z.object({
 
 ### Server validation errors
 
-Map API failures with `mapServerError` or call `applyServerErrors` from the `form` package after a failed mutation. FormKit focuses the first invalid field when Zod client validation fails (`focusFirstError`).
+Map API failures with `mapServerError` or call `applyServerErrors` from the `form` package after a failed mutation. `FormKit` calls the mapper when `onSubmit` throws, applies field/form errors, and focuses the first invalid field. The mapper returns the public `MapServerErrorResult` shape; the package also exports `mapUnknownServerError`, `resolveFieldErrorMessage`, and `focusFirstError`.
+
+Do not call an undocumented form method to set errors. Throw the mutation error from `onSubmit` and provide `mapServerError`, or use `applyServerErrors(form.setError, mapped)` in a custom React Hook Form integration.
 
 <PlaygroundLink href="/docs/examples/form/validation">Validation & server errors preview</PlaygroundLink>
 
@@ -130,9 +157,25 @@ Map API failures with `mapServerError` or call `applyServerErrors` from the `for
 
 Set `scrollBody={false}` on FormKit when sections live in a parent scroll container (long settings pages). Wrap each group in `FormSection` from `layout`.
 
-### Pending submit state
+### Loading and pending states
 
-Pass `isPending` to FormKit while the mutation runs, or let Submit manage disabled state from internal form state. Use `pendingLabel` on `FormKit.Submit` for loading copy.
+Use `isPending` for an external mutation state. `FormKit.Submit` also disables itself while React Hook Form is submitting and displays `pendingLabel`. `FormKit.Reset` is disabled while `isPending`. For initial data loading, render the appropriate `Field*Skeleton` export before mounting the editable form; skeletons are separate controls, not a `FormKit` prop.
+
+## FieldKit
+
+`FieldKit` is useful when the host owns the values:
+
+```tsx
+<FieldKit
+  schema={filterSchema}
+  mode="controlled"
+  values={filters}
+  onValuesChange={setFilters}>
+  <FieldKit.Field type="text" name="q" label="Search" />
+</FieldKit>
+```
+
+Controlled mode uses `values` and `onValuesChange`. Uncontrolled mode uses `defaultValues`; `mode` defaults to `"uncontrolled"` in the implementation. FieldKit has no submit, reset, or success lifecycle. See the [FieldKit example](/docs/examples/form/field-kit) for a controlled filter surface.
 
 ## API reference
 
@@ -199,7 +242,7 @@ Pass `isPending` to FormKit while the mutation runs, or let Submit manage disabl
     {
       name: "mode",
       type: "\"controlled\" | \"uncontrolled\"",
-      default: "\"controlled\"",
+      default: "\"uncontrolled\"",
       description: "Controlled uses `values` + `onValuesChange`; uncontrolled uses `defaultValues`.",
     },
     {
@@ -214,6 +257,33 @@ Pass `isPending` to FormKit while the mutation runs, or let Submit manage disabl
     },
   ]}
 />
+
+## Advanced usage
+
+### Reset after success
+
+Set `resetOnSuccess` to `true`, `"keepDirtyValues"`, or an object of default values. `true` restores the original `defaultValues`; `"keepDirtyValues"` preserves edits that were made while the submission completed.
+
+### Multi-section forms
+
+Use `FormSection` from `layout` to group fields. Set `scrollBody={false}` when the surrounding page owns scrolling. `FormKit.Actions` places submit controls in the form action area.
+
+### Low-level field controls
+
+The package exports `FieldText`, `FieldSelect`, `FieldDate`, `FieldDateRange`, `FieldMonth`, `FieldQuarter`, `FieldTime`, boolean/card/radio variants, skeletons, `fieldRegistry`, and `FormFieldView`. Use these when composing a custom field layout; use `FormKit.Field` or `FieldKit.Field` for normal schema-driven forms.
+
+## API and exports
+
+The package export map supports:
+
+| Import | Use |
+| --- | --- |
+| `form` | `FormKit`, `FieldKit`, field controls, comboboxes, utilities, and public types |
+| `form/field-kit` | `FieldKit` and its public types |
+| `form/form-kit` | `FormKit` and its public types |
+| `form/field` | field controls and field types |
+
+The root package also re-exports `Controller`, `useFormContext`, `useFormState`, and `useWatch` from React Hook Form. Internal source paths under `feature/form/src` are not package imports.
 
 ### `FormKit.Submit` / `FormKit.Reset`
 

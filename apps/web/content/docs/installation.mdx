@@ -1,0 +1,81 @@
+---
+title: Installation
+description: Add Feature Kit workspace packages to an application in this repository.
+---
+
+Feature Kit is currently organized as a pnpm workspace. The supported local integration path is to use the workspace packages directly; the docs do not assume that the packages are published to npm.
+
+## Clone the repository
+
+```bash
+git clone https://github.com/jayantrohila57/feature-kit.git
+cd feature-kit
+pnpm install
+pnpm dev
+```
+
+The docs playground runs at [http://localhost:3000/docs](http://localhost:3000/docs).
+
+## Add workspace packages
+
+Add the packages your screen uses to the consuming app's `package.json`:
+
+```json
+{
+  "dependencies": {
+    "data-table": "workspace:*",
+    "form": "workspace:*",
+    "layout": "workspace:*",
+    "ui": "workspace:*",
+    "uploader": "workspace:*"
+  }
+}
+```
+
+Only add the packages you need. Feature packages declare their own workspace dependencies.
+
+## Configure Next.js
+
+When a Next.js app consumes source from workspace packages, include every imported feature package in `transpilePackages`:
+
+```ts
+const nextConfig = {
+  transpilePackages: ["data-table", "form", "layout", "ui", "uploader"],
+}
+
+export default nextConfig
+```
+
+Use the actual package names from your imports. Do not copy internal `apps/web` aliases into a separate application.
+
+## Load styles
+
+Import the shared UI stylesheet once from the application root:
+
+```css
+@import "ui/globals.css";
+```
+
+Feature kits rely on the shared semantic tokens. Loading separate copies of the stylesheet per feature can create inconsistent themes.
+
+## Verify the setup
+
+```bash
+pnpm check-types
+pnpm lint
+pnpm build
+```
+
+Then confirm that a kit imports without a module-resolution error and that the required providers are mounted. Continue with [Providers](/docs/providers) and [Theming](/docs/ui).
+
+## Package exports
+
+Use package-root exports for consumer code:
+
+```tsx
+import { FormKit } from "form"
+import { DataTable } from "data-table"
+import { FormSection } from "layout"
+```
+
+For a complete export list, inspect the relevant package `package.json` and its `src/index.ts`. Internal source paths are implementation details unless a package explicitly exposes a subpath.

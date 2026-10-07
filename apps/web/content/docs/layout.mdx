@@ -3,7 +3,9 @@ title: Layout
 description: Breadcrumbs, navigation buttons, form sections, and confirmation dialogs.
 ---
 
-The **`layout`** package collects **wayfinding**, **form page structure**, and **global confirm dialogs** so list and form screens feel consistent across apps in the monorepo.
+The **`layout`** package provides workflow chrome around feature screens: route-derived wayfinding, back navigation, form sections, empty states, utility actions, and a promise-based confirmation dialog.
+
+It does not own routing, data fetching, or business rules. The host application supplies those concerns.
 
 ## When to use it
 
@@ -38,16 +40,30 @@ Register **`ConfirmationDialogProvider`** once near the root (before any `useCon
 </ConfirmationDialogProvider>
 ```
 
+## Mental model
+
+```text
+route → Breadcrumbs / GoBackButton
+screen structure → FormSection / FormLayout
+application states → EmptyState
+irreversible action → ConfirmationDialogProvider
+toolbar affordances → UtilityIconButton
+```
+
+Use the package when a screen needs consistent workflow behavior around a form, table, or import flow. Use lower-level `ui` primitives when you need a one-off visual element.
+
 ## Usage
 
 ### Breadcrumbs
 
 <ComponentPreview code={`import { Breadcrumbs } from "layout"
 
-// Reads route segments / your app's breadcrumb config
+// Reads the current pathname and search params
 <Breadcrumbs />`}>
   <BreadcrumbsDemo />
 </ComponentPreview>
+
+`Breadcrumbs` generates labels from route segments, compresses long trails into an ellipsis menu, and includes a copy-URL action. It is hidden below the medium breakpoint. The optional `locale` is reserved for host-app home resolution.
 
 Pair with **`GoBackButton`** on nested detail routes:
 
@@ -67,7 +83,25 @@ import { FormSection } from "layout"
 </FormSection>
 ```
 
-`FormLayout` and `FormLayoutActionsHint` help align action bars on long forms (sticky footers, scroll hints).
+`FormLayout` and `FormLayoutActionsHint` help align action bars on long forms (sticky footers, scroll hints). `FormSection` is only structure; `FormKit` owns field values and submission.
+
+### Empty states
+
+Use `EmptyState` for an actionable screen state, not as a replacement for a table's loading or error handling:
+
+```tsx
+<EmptyState
+  title="No accounts yet"
+  description="Create an account to start managing access."
+  action={{ label: "Create account", onClick: openCreateDialog }}
+/>
+```
+
+Keep the distinction clear in copy:
+
+- no data: explain what the screen represents and offer setup
+- filtered empty: offer a clear-filters action
+- no permission: explain access without exposing protected details
 
 ### Confirmation dialog
 
@@ -78,17 +112,19 @@ import { useConfirmationDialog } from "layout/confirmation-dialog"
 
 const { confirm } = useConfirmationDialog()
 
-const ok = await confirm({
+const confirmed = await confirm({
   title: "Delete row?",
   description: "This cannot be undone.",
   variant: "destructive",
   confirmLabel: "Delete",
 })
 
-if (ok) {
+if (confirmed) {
   await deleteRow()
 }
 ```
+
+`confirm()` resolves to a boolean. The provider renders the dialog and handles focus; your action remains responsible for authorization, mutation, pending state, and error feedback. Calling the hook outside `ConfirmationDialogProvider` throws.
 
 ## API reference
 
@@ -125,6 +161,8 @@ if (ok) {
 | `DocsIconButton` / `InfoIconButton` | Standard help affordances |
 | `RefreshIconButton` | Toolbar refresh with loading state |
 
+`DocsIconButton`, `InfoIconButton`, and `RefreshIconButton` are specialized `UtilityIconButton` instances. They are client components and use tooltips, so keep an accessible label and register the app's tooltip provider.
+
 ## Gotchas
 
 <DocsCallout title="i18n for confirms">
@@ -141,3 +179,9 @@ if (ok) {
 </div>
 
 **Subpaths:** `layout/breadcrumb`, `layout/navigation`, `layout/confirmation-dialog`, `layout/form-layout`.
+
+## Accessibility and troubleshooting
+
+Breadcrumb links, the current-page label, and the copy action have accessible names. Back and utility buttons expose labels through translations and tooltips. Confirmation dialogs should be triggered by a labeled control so keyboard users can identify the action.
+
+If confirmation fails at runtime, check that the provider is mounted above the calling client component. If breadcrumbs show unexpected labels, inspect the pathname segments and the host app's home URL configuration; labels are derived from the URL, not a custom item list.

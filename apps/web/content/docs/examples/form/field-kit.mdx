@@ -6,3 +6,9 @@ description: Controlled filter surface (search + multi-select) without a full su
 <ComponentPreview>
   <FieldKitFiltersExample />
 </ComponentPreview>
+
+## How it works
+
+The parent stores the filter object and passes it back through `values`. `FieldKit` calls `onValuesChange` as fields change, so it can sit beside a table or drive a URL-state adapter without introducing a submit button.
+
+This example uses controlled mode and a multi-select. For a self-contained inline field surface, use `mode="uncontrolled"` with `defaultValues`.

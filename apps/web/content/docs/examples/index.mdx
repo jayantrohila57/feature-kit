@@ -3,8 +3,36 @@ title: Examples
 description: Runnable previews for each kit — embedded in the docs.
 ---
 
-Examples are **isolated previews** embedded in the docs site. Each page mounts one scenario so you can compare behavior before copying code into your app.
+Examples are isolated, runnable previews embedded in the docs site. Each page mounts one scenario so you can compare behavior before copying code into your app.
 
 Kit overview pages ([Form](/docs/form), [Data table](/docs/data-table), etc.) hold installation steps, props tables, and gotchas. Use this index to jump straight to a scenario.
+
+## Choose a starting point
+
+| Goal | Example path |
+| --- | --- |
+| Learn the smallest table composition | [Basic table](/docs/examples/table/basic) |
+| Add URL-backed table state | [URL sync](/docs/examples/table/url-sync) |
+| Handle selection and actions | [Bulk actions](/docs/examples/table/bulk-actions) |
+| Understand route chrome | [Breadcrumbs](/docs/examples/layout/breadcrumbs) |
+| Add utility affordances | [Utility buttons](/docs/examples/layout/utility-buttons) |
+| Import spreadsheet records | [Basic uploader](/docs/examples/uploader/basic) |
+| Build a validated form | [Form validation](/docs/examples/form/validation) |
+
+## How to read an example
+
+Each preview is a docs-site client example. Check the linked source component for complete imports and host-app wiring. The examples use local demo handlers; replace those handlers with your API or mutation and keep server authorization and validation in the host application.
+
+Recommended progression:
+
+1. Start with the smallest example for the kit.
+2. Add one state concern, such as loading, empty, validation, or URL synchronization.
+3. Combine kits in a screen workflow: breadcrumbs and form sections around a form, or table actions with confirmation.
+
+## Cross-kit workflows
+
+- **User management:** [breadcrumbs](/docs/examples/layout/breadcrumbs) → [validation](/docs/examples/form/validation) → [bulk actions](/docs/examples/table/bulk-actions). The layout package supplies wayfinding, FormKit owns form state, and DataTable owns listing interactions.
+- **Spreadsheet onboarding:** [empty states](/docs/examples/table/empty) → [basic uploader](/docs/examples/uploader/basic). Use an empty state to explain setup, then let the uploader handle template, parsing, and feedback.
+- **Production listing:** [URL sync](/docs/examples/table/url-sync) → [row actions](/docs/examples/table/row-actions). Keep fetching and authorization in the host app; pass the resulting data and action callbacks into the feature components.
 
 <ExamplesGrid />

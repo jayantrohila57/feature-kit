@@ -3,7 +3,7 @@ title: Getting started
 description: Install the monorepo and open the playground.
 ---
 
-Feature Kit is a **pnpm monorepo** of workspace packages. This guide covers running the docs playground, wiring a kit into your app, and the providers most screens expect.
+Feature Kit is a **pnpm monorepo** of workspace packages. This guide gets a fresh checkout running, then points to the foundation pages for application integration.
 
 ## Prerequisites
 
@@ -45,11 +45,11 @@ import { DataTable, DataTableNuqsAdapter } from "data-table"
 import { FormSection, Breadcrumbs } from "layout"`}
 />
 
-List every workspace kit you import in **`transpilePackages`** inside `apps/web/next.config.ts` (copy the full list when adding packages).
+List every workspace kit you import in **`transpilePackages`** inside `apps/web/next.config.ts`. See [Installation](/docs/installation) for the complete integration path.
 
-## Required providers
+## Configure providers
 
-Most examples assume the playground providers in `apps/web/src/app/providers.tsx`:
+Most examples assume the playground providers in `apps/web/src/app/providers.tsx`. Their roles and a reusable composition are documented in [Providers](/docs/providers).
 
 | Provider | Package | Purpose |
 | --- | --- | --- |
@@ -59,27 +59,13 @@ Most examples assume the playground providers in `apps/web/src/app/providers.tsx
 | `DataTableNuqsAdapter` | `data-table` | URL sync for listings |
 | `TooltipProvider` | `ui` | Tooltips in tables and fields |
 
-```tsx
-export function Providers({ children }: { children: ReactNode }) {
-  return (
-    <NextIntlClientProvider locale="en" messages={messages}>
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <TooltipProvider>
-          <ConfirmationDialogProvider>
-            <DataTableNuqsAdapter>{children}</DataTableNuqsAdapter>
-          </ConfirmationDialogProvider>
-        </TooltipProvider>
-      </ThemeProvider>
-    </NextIntlClientProvider>
-  )
-}
-```
-
 ## Documentation map
 
-1. [Introduction](/docs) — package overview
-2. Kit pages — **Form**, **Data table**, **Layout**, **Uploader**, **UI**
-3. [Examples](/docs/examples) — isolated previews per scenario
+1. [Introduction](/docs) — positioning and composition model
+2. [Architecture](/docs/architecture) — package boundaries and ownership
+3. [Installation](/docs/installation) and [Providers](/docs/providers) — app setup
+4. Kit pages — **Form**, **Data table**, **Layout**, **Uploader**, **UI**
+5. [Examples](/docs/examples) — isolated previews per scenario
 
 Each kit page follows the same recipe: **when to use → install → preview + code → recipes → props → gotchas → examples**.
 

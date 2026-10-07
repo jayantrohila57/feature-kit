@@ -7,3 +7,14 @@ full: true
 <ComponentPreview>
   <TableLoadingExample />
 </ComponentPreview>
+
+## What this demonstrates
+
+`isPending` keeps the table structure visible while the data is being
+refetched. Use this state for an initial load or a server refresh when
+preserving the current table context is more useful than replacing the table
+with a page-level spinner.
+
+The preview uses local rows so the loading state is deterministic. In a
+server-driven table, pass the same flag while the request for `data`,
+`rowCount`, or filter options is pending.

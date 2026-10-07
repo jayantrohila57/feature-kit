@@ -3,7 +3,7 @@ title: UI
 description: Shared components and styles for all kits.
 ---
 
-**`ui`** (`packages/ui`) is the shadcn-style design system for Feature Kit: primitives, tokens, and global styles that **`form`**, **`data-table`**, **`layout`**, and **`uploader`** compose.
+**`ui`** (`packages/ui`) is the shared foundation for Feature Kit: primitives, semantic tokens, and global styles that `form`, `data-table`, `layout`, and `uploader` compose. It is not a replacement for those workflow kits.
 
 ## When to use it
 
@@ -31,6 +31,8 @@ Load global styles once in the app root:
 
 Feature kits depend on `packages/ui` as a workspace package; you do not publish UI separately when working inside the monorepo.
 
+For an application integration checklist, see [Installation](/docs/installation).
+
 ## Structure
 
 | Area | Location |
@@ -50,13 +52,33 @@ Kits re-use `Button`, `Input`, `Select`, `Dialog`, `Table`, and field shells fro
 
 ### Theming
 
-CSS variables in `globals.css` define `--background`, `--foreground`, `--primary`, and sidebar/chart tokens. `next-themes` toggles light/dark at the app level (`apps/web/src/app/providers.tsx`).
+CSS variables in `globals.css` define semantic roles such as `--background`, `--foreground`, `--primary`, and sidebar/chart tokens. `next-themes` toggles light/dark at the app level (`apps/web/src/app/providers.tsx`).
+
+Use roles rather than hard-coding a color in a feature component:
+
+| Token role | Used for | Example |
+| --- | --- | --- |
+| `background` | Application surfaces | Page body |
+| `foreground` | Primary text | Headings |
+| `muted` | Secondary content | Descriptions |
+| `border` | Separation | Cards and tables |
+| `primary` | Main action | Submit button |
+| `destructive` | Dangerous action | Delete |
+
+Override tokens at the application theme layer when your product needs a different visual language. Keep shared roles consistent so feature kits retain readable states in both modes.
 
 ### Adding a component
 
 1. Scaffold the primitive under `packages/ui/src/components/`.
 2. Export from the package if other features need it.
 3. Reference it from a feature kit instead of from app code when the control is reusable.
+
+## Composition rules
+
+- Use a feature kit when it owns a workflow state or repeated interaction.
+- Use a UI primitive for a local control or a small visual composition.
+- Add a local wrapper when the composition is specific to one product domain.
+- Contribute a primitive to `ui` only when multiple feature packages need the same behavior.
 
 ## Relationship to kits
 

@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation"
 import { type ComponentProps, type ReactNode, useEffect, useState } from "react"
 import { createPortal } from "react-dom"
 
+import { LambdaIcon } from "@/components/icons/lambda-icon"
 import { GitHubIcon } from "@/components/site/github-icon"
 import { ThemeToggle } from "@/components/site/theme-toggle"
 import { MenuToggleIcon } from "@/components/site/menu-toggle-icon"
@@ -31,13 +32,15 @@ type FeatureKitBrandLinkProps = Omit<ComponentProps<typeof Link>, "href"> & {
 export function FeatureKitBrandLink({ className, href = "/", ...props }: FeatureKitBrandLinkProps) {
 	return (
 		<Link
+			aria-label="Feature Kit home"
 			className={cn(
-				"shrink-0 rounded-lg px-3 py-2.5 font-semibold text-sm tracking-tight hover:bg-muted dark:hover:bg-muted/50",
+				"inline-flex shrink-0 items-center gap-2 rounded-lg px-3 py-2.5 font-semibold text-sm tracking-tight hover:bg-muted dark:hover:bg-muted/50",
 				className,
 			)}
 			href={href}
 			{...props}>
-			Feature Kit
+			<LambdaIcon className="size-4 shrink-0 text-primary" strokeWidth={2.25} />
+			<span>Feature Kit</span>
 		</Link>
 	)
 }

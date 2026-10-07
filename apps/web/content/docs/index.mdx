@@ -3,9 +3,23 @@ title: Introduction
 description: Open-source UI kits for forms, tables, layout, and import flows in React and Next.js.
 ---
 
-**Feature Kit** is a pnpm monorepo of workspace packages built on shadcn-style primitives, React Hook Form, Zod, and TanStack Table. It targets **product engineers** who want opinionated, copy-friendly patterns for admin UIs—not a hosted component SaaS.
+**Feature Kit** is a collection of opinionated, composable building blocks for real product workflows. It helps product engineers build forms, data listings, application layout, and spreadsheet imports without rebuilding the same state and interaction patterns for every screen.
 
-This documentation site runs the kits inside **`apps/web`**: each kit page includes **live previews**, **install snippets**, **usage recipes**, and **props tables** sourced from the real TypeScript types in `feature/*`.
+The repository is a pnpm monorepo. The `ui` package provides primitives and tokens; `feature/*` packages compose those primitives into workflow-level APIs. The host application still owns domain data, API calls, permissions, and business rules.
+
+## The composition model
+
+```text
+UI primitives
+    ↓
+Feature-level composition
+    ↓
+Workflow patterns
+    ↓
+Production application screens
+```
+
+Choose a lower-level UI component for a local control. Choose a feature kit when the screen needs behavior such as validation, URL state, selection, import validation, or confirmation flows.
 
 ## How to read these docs
 
@@ -15,9 +29,9 @@ Pages follow a consistent structure (similar to shadcn/ui app docs):
 2. **Installation** — workspace dependency + import
 3. **Preview + code** — toggle between live UI and sample source
 4. **Recipes** — common combinations (URL sync, server errors, bulk actions)
-5. **API reference** — props tables aligned with source types
-6. **Gotchas** — pitfalls we hit in production apps
-7. **Examples** — links to focused previews under `/docs/examples`
+5. **API reference** — props and exports aligned with source types
+6. **Troubleshooting** — practical integration pitfalls
+7. **Examples** — focused previews under `/docs/examples`
 
 ## Kits at a glance
 
@@ -29,14 +43,12 @@ Pages follow a consistent structure (similar to shadcn/ui app docs):
 | [Uploader](/docs/uploader) | CSV/XLSX import dialog with validation |
 | [UI](/docs/ui) | Shared buttons, fields, tables, and global styles |
 
-## Quick start
+## Start here
 
-<DocsInstall
-  packages={["form"]}
-  importExample={`import { FormKit } from "form"`}
-/>
-
-Then follow [Getting started](/docs/getting-started) for providers, `transpilePackages`, and local dev commands.
+1. Read [Getting started](/docs/getting-started) to run the playground.
+2. Review [Architecture](/docs/architecture) to understand ownership boundaries.
+3. Follow [Installation](/docs/installation) and [Providers](/docs/providers) for app integration.
+4. Build a [form](/docs/form) or [data table](/docs/data-table).
 
 ## Examples index
 

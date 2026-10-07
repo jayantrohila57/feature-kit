@@ -25,7 +25,7 @@ export function LandingFeatureGrid() {
 									)}>
 									<Icon
 										aria-hidden
-										className="size-5 text-muted-foreground transition-colors group-hover:text-foreground"
+										className="size-5 text-primary transition-colors"
 									/>
 									<span className="font-medium text-sm tracking-tight">{kit.title}</span>
 									{kit.description ? (

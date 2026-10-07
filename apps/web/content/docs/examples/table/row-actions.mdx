@@ -7,3 +7,17 @@ full: true
 <ComponentPreview>
   <TableRowActionsExample />
 </ComponentPreview>
+
+## What this demonstrates
+
+The row menu separates navigation and mutation actions. Keep authorization and
+the request itself in the host application, and use the confirmation provider
+for destructive operations.
+
+`RowActionView` receives the selected row and builds a route from its stable
+identifier. `RowActionDelete` handles the confirmation and pending interaction;
+the `onDelete` callback is where the application should call its delete
+endpoint and invalidate the listing.
+
+The preview uses a delayed local callback so the success toast and pending
+state are visible without mutating shared demo data.

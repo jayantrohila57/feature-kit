@@ -6,3 +6,19 @@ description: Icon actions with shared tooltip and loading behavior (back, docs, 
 <ComponentPreview>
   <UtilityButtonsDemo />
 </ComponentPreview>
+
+## What this demonstrates
+
+The preview composes three independent actions: `GoBackButton` uses a fallback
+route, `DocsIconButton` links to the relevant documentation, and
+`RefreshIconButton` owns its pending and disabled state while the host
+application performs the refresh.
+
+Replace the demo timeout with a real refetch or mutation. Keep the callback
+idempotent because users can activate refresh repeatedly after the pending
+state finishes.
+
+## Related
+
+- [Layout overview](/docs/layout)
+- [Breadcrumbs](/docs/examples/layout/breadcrumbs)

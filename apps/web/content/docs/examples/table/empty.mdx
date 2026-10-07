@@ -7,3 +7,13 @@ full: true
 <ComponentPreview>
   <TableEmptyExample />
 </ComponentPreview>
+
+## What this demonstrates
+
+The table has no rows, so it renders the supplied `emptyState` instead of an
+empty grid. Keep the message specific to the state: “No people yet” is
+different from “No results match your filters.”
+
+For a filtered-empty state, keep the current filters visible and provide a
+clear-filters action in the surrounding toolbar. The host application owns
+the action that creates the first record.

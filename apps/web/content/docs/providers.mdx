@@ -1,0 +1,56 @@
+---
+title: Providers
+description: Mount the context providers required by Feature Kit workflows.
+---
+
+Providers are application-level dependencies. Mount them once near the root of the client tree instead of wrapping each form or table separately.
+
+## Provider roles
+
+| Provider | Why it exists |
+| --- | --- |
+| `NextIntlClientProvider` | Supplies translated labels and messages used by controls |
+| `ThemeProvider` | Applies light, dark, or system theme state |
+| `TooltipProvider` | Provides tooltip context for compact controls |
+| `ConfirmationDialogProvider` | Resolves asynchronous confirmation requests |
+| `DataTableNuqsAdapter` | Enables URL-backed DataTable state |
+
+Not every screen needs every provider. The adapter is required when a table uses URL synchronization, and the confirmation provider is required by flows that call `useConfirmationDialog`.
+
+## Recommended composition
+
+```tsx
+"use client"
+
+import { NextIntlClientProvider } from "next-intl"
+import { ThemeProvider } from "next-themes"
+import { DataTableNuqsAdapter } from "data-table"
+import { ConfirmationDialogProvider } from "layout"
+// `ui` exposes primitives through subpath exports.
+import { TooltipProvider } from "ui/components/tooltip"
+
+export function Providers({ children, messages }) {
+  return (
+    <NextIntlClientProvider locale="en" messages={messages}>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <TooltipProvider>
+          <ConfirmationDialogProvider>
+            <DataTableNuqsAdapter>{children}</DataTableNuqsAdapter>
+          </ConfirmationDialogProvider>
+        </TooltipProvider>
+      </ThemeProvider>
+    </NextIntlClientProvider>
+  )
+}
+```
+
+The exact message-loading code depends on the host application. Keep it in the app rather than inside a feature package.
+
+## When a provider is missing
+
+- URL-synced tables can fail when `DataTableNuqsAdapter` is absent.
+- Confirmation hooks cannot resolve without `ConfirmationDialogProvider`.
+- Tooltip-triggered controls may warn or fail without `TooltipProvider`.
+- Theme toggles need `ThemeProvider` and the matching `class` strategy.
+
+See [Getting started](/docs/getting-started) for the playground's provider setup and [Data table](/docs/data-table) for URL-state usage.

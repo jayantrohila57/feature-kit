@@ -6,3 +6,9 @@ description: Zod rules, client errors, and focus on the first invalid field afte
 <ComponentPreview>
   <FormKitValidationExample />
 </ComponentPreview>
+
+## How it works
+
+The schema runs through the FormKit resolver before `onSubmit`. Try an empty username, an invalid username, a non-numeric age, an age outside the allowed range, or an unchecked terms box. The first invalid control receives focus after submission.
+
+This example covers client-side interaction feedback. For authoritative backend rules, throw the API error from `onSubmit` and map it with the `mapServerError` prop described in the [form guide](/docs/form).

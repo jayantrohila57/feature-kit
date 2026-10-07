@@ -98,7 +98,10 @@ export function LandingHero() {
 						className={cn(
 							"fade-in slide-in-from-bottom-10 flex w-fit animate-in flex-wrap items-center gap-3 fill-mode-backwards pt-2 delay-300 duration-500 ease-out",
 						)}>
-						<Button asChild className="h-8" variant="outline">
+						<Button
+							asChild
+							className="h-8 border-border text-foreground hover:border-foreground/30 hover:bg-muted hover:text-foreground"
+							variant="outline">
 							<a href={githubUrl} rel="noreferrer noopener" target="_blank">
 								<GitHubIcon className="size-4" data-icon="inline-start" />
 								GitHub

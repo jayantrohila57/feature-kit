@@ -6,3 +6,18 @@ description: Path-derived crumbs with ellipsis, tooltips, and copy-link.
 <ComponentPreview>
   <BreadcrumbsDemo />
 </ComponentPreview>
+
+## How it works
+
+`Breadcrumbs` reads the current pathname and search params, turns route segments into links, and compresses long trails into an ellipsis menu. The final segment is presented as the current page. The preview also demonstrates the copy-URL action.
+
+## Customize it
+
+Mount it in a client layout where `next/navigation` and the host app's translations are available. The optional `locale` prop affects home-link resolution; route labels remain derived from URL segments.
+
+For a detail page that needs explicit history behavior, pair it with `GoBackButton` and provide a fallback route for users who did not arrive from an in-app page.
+
+## Related
+
+- [Layout overview](/docs/layout)
+- [Utility buttons](/docs/examples/layout/utility-buttons)

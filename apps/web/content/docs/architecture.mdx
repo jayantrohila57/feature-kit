@@ -1,0 +1,63 @@
+---
+title: Architecture
+description: Understand how Feature Kit packages compose from UI primitives to product workflows.
+---
+
+Feature Kit separates low-level UI from workflow-level behavior. The `ui` package provides primitives and tokens; the `feature/*` packages combine them into reusable form, table, layout, and import workflows. Your application owns domain data, business rules, and API calls.
+
+## Dependency direction
+
+```text
+apps/web
+  ↓
+feature/form   feature/data-table   feature/layout   feature/uploader
+  ↓             ↓                   ↓              ↓
+                 packages/ui
+```
+
+Feature packages may depend on `ui`, but application code should not reach into another feature package's internal files. Use the exports documented by each package.
+
+## Package responsibilities
+
+| Package | Owns | Does not own |
+| --- | --- | --- |
+| `ui` | Primitives, semantic tokens, shared styles | Product workflows |
+| `form` | Field rendering, validation wiring, submit lifecycle | API calls or business rules |
+| `data-table` | Table state, filters, selection, URL synchronization | Queries, authorization, or persistence |
+| `layout` | Breadcrumbs, sections, empty states, confirmations | Route policy or page data |
+| `uploader` | File parsing and import validation workflow | Import persistence or background jobs |
+| Host application | Domain data, API calls, permissions, business rules | Reimplementing shared workflow behavior |
+
+## Choosing an abstraction
+
+Use a primitive when you need one control. Use a feature kit when the screen needs repeated workflow behavior:
+
+- `Input` or `Select` for a local control.
+- `FormKit` for a validated create or edit flow.
+- `FieldKit` when the parent owns filter values.
+- `DataTable` for a listing with search, filters, paging, or selection.
+- `Uploader` when a file must pass through an import pipeline.
+
+## State ownership
+
+The boundary between a kit and the host application should stay explicit:
+
+```text
+FormKit       → field state + validation + submit lifecycle
+DataTable     → interaction state + optional URL synchronization
+Uploader      → parsing + client-side validation
+Application   → API calls + business rules + persisted data
+```
+
+For server-driven screens, fetch data in the application and pass the current result into the kit. For client interactions, mount the required providers in the application root.
+
+## Monorepo locations
+
+| Path | Purpose |
+| --- | --- |
+| `apps/web` | Documentation site and runnable examples |
+| `feature/*` | Feature package source and public exports |
+| `packages/ui` | Shared primitives and global styles |
+| `packages/export`, `packages/format` | Supporting public workspace packages |
+
+See [Installation](/docs/installation) for workspace setup and [Providers](/docs/providers) for runtime requirements.

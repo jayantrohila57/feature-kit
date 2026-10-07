@@ -6,3 +6,11 @@ description: All field types shipped in this kit in one schema-driven form.
 <ComponentPreview>
   <FormKitFieldTypesExample />
 </ComponentPreview>
+
+## How to use the catalog
+
+`FormKit.Field` selects a control from its `type` prop. The repository currently supports text, textarea, select, multi-select, checkbox, switch, checkbox choice card, switch choice card, radio choice card, radio group, date, date range, month, quarter, and time fields.
+
+Choose the field whose value shape matches your schema. For option controls, provide `options`; for text fields, use `inputType` only with the supported text variants (`text`, `email`, `tel`, or `password`).
+
+Every field participates in the parent schema and receives the same validation and error rendering behavior. Use the field skeleton exports when loading initial data rather than inventing a loading prop.
