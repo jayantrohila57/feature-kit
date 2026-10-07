@@ -1,0 +1,30 @@
+{
+	"name": "format",
+	"private": true,
+	"type": "module",
+	"engines": {
+		"node": ">=24.0.0",
+		"pnpm": ">=9.0.0"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./effective-preferences": "./src/effective-preferences.ts",
+		"./presets": "./src/presets.ts",
+		"./server": "./src/server.ts",
+		"./ui": "./src/ui/index.ts",
+		"./hooks": "./src/hooks.ts",
+		"./mask": "./src/mask/index.ts"
+	},
+	"dependencies": {
+		"next": "catalog:",
+		"next-intl": "catalog:",
+		"preferences": "workspace:*",
+		"react": "catalog:",
+		"server-only": "catalog:"
+	},
+	"devDependencies": {
+		"@types/react": "catalog:",
+		"@types/react-dom": "catalog:",
+		"typescript": "catalog:"
+	}
+}

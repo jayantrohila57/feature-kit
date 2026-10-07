@@ -1,0 +1,389 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+@custom-variant brand (&:is(.theme-brand *));
+@source "../**/*.{ts,tsx}";
+/* Workspace feature packages used by apps (LayoutHeader, SessionGate, theme, i18n). */
+@source "../../../../feature/shell/src/**/*.{ts,tsx}";
+@source "../../../../feature/layout/src/**/*.{ts,tsx}";
+@source "../../../../feature/host/src/**/*.{ts,tsx}";
+@source "../../../../feature/session/src/**/*.{ts,tsx}";
+@source "../../../../feature/app-shell/src/**/*.{ts,tsx}";
+@source "../../../../feature/data-table/src/**/*.{ts,tsx}";
+@source "../../../../feature/listing/src/**/*.{ts,tsx}";
+@source "../../../../feature/uploader/src/**/*.{ts,tsx}";
+@source "../../../../feature/preferences/src/**/*.{ts,tsx}";
+@source "../../../../feature/i18n/src/**/*.{ts,tsx}";
+@source "../../../../feature/theme/src/**/*.{ts,tsx}";
+@source "../../../../feature/runtime/font/src/**/*.{ts,tsx}";
+
+@theme inline {
+	--font-heading: var(--font-heading);
+	--color-sidebar-ring: var(--sidebar-ring);
+	--color-sidebar-border: var(--sidebar-border);
+	--color-sidebar-indicator: var(--sidebar-indicator);
+	--color-surface-card: var(--surface-card);
+	--color-surface-card-border: var(--surface-card-border);
+	--color-surface-band: var(--surface-band);
+	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+	--color-sidebar-accent: var(--sidebar-accent);
+	--color-stat-inner-surface: var(--stat-inner-surface);
+	--color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+	--color-sidebar-primary: var(--sidebar-primary);
+	--color-sidebar-foreground: var(--sidebar-foreground);
+	--color-sidebar: var(--sidebar);
+	--color-chart-5: var(--chart-5);
+	--color-chart-4: var(--chart-4);
+	--color-chart-3: var(--chart-3);
+	--color-chart-2: var(--chart-2);
+	--color-chart-1: var(--chart-1);
+	--color-ring: var(--ring);
+	--color-input: var(--input);
+	--color-border: var(--border);
+	--color-destructive: var(--destructive);
+	--color-surface: var(--surface);
+	--color-surface-on-brand: var(--surface-on-brand);
+	--color-surface-on-brand-raised: var(--surface-on-brand-raised);
+	--color-brand: var(--brand);
+	--color-brand-surface: var(--brand-surface);
+	--color-brand-accent: var(--brand-accent);
+	--color-brand-foreground: var(--brand-foreground);
+	--color-brand-hover: var(--brand-hover);
+	--color-info: var(--info);
+	--color-success: var(--success);
+	--color-warning: var(--warning);
+	--color-accent-foreground: var(--accent-foreground);
+	--color-accent: var(--accent);
+	--color-muted-foreground: var(--muted-foreground);
+	--color-muted: var(--muted);
+	--color-secondary-foreground: var(--secondary-foreground);
+	--color-secondary: var(--secondary);
+	--color-selection-foreground: var(--selection-foreground);
+	--color-selection: var(--selection);
+	--color-primary-foreground: var(--primary-foreground);
+	--color-primary: var(--primary);
+	--color-popover-foreground: var(--popover-foreground);
+	--color-popover: var(--popover);
+	--color-card-foreground: var(--card-foreground);
+	--color-card: var(--card);
+	--color-foreground: var(--foreground);
+	--color-background: var(--background);
+	--radius-sm: calc(var(--radius) * 0.6);
+	--radius-md: calc(var(--radius) * 0.8);
+	--radius-lg: var(--radius);
+	--radius-xl: calc(var(--radius) * 1.4);
+	--radius-2xl: calc(var(--radius) * 1.8);
+	--radius-3xl: calc(var(--radius) * 2.2);
+	--radius-4xl: calc(var(--radius) * 2.6);
+	--font-sans: var(--font-sans);
+	--font-mono: var(--font-mono);
+}
+
+@keyframes spinner-segment {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0.15;
+	}
+}
+
+@theme {
+	/* Type scale +1px vs Tailwind defaults (12/14/16/18/20/24). */
+	--text-xs: 0.8125rem;
+	--text-xs--line-height: 1.125rem;
+	--text-sm: 0.9375rem;
+	--text-sm--line-height: 1.3125rem;
+	--text-base: 1.0625rem;
+	--text-base--line-height: 1.5625rem;
+	--text-lg: 1.1875rem;
+	--text-lg--line-height: 1.75rem;
+	--text-xl: 1.3125rem;
+	--text-xl--line-height: 1.875rem;
+	--text-2xl: 1.5625rem;
+	--text-2xl--line-height: 2.0625rem;
+}
+@utility animate-spinner-segment {
+	animation-name: spinner-segment;
+	animation-duration: 1.35s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-delay: var(--spinner-segment-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.animate-spinner-segment {
+		animation: none;
+		opacity: var(--spinner-segment-opacity, 0.4);
+	}
+}
+
+:root {
+	--background: oklch(0.985 0.003 95);
+	--foreground: oklch(0.145 0 0);
+	--card: oklch(0.97 0 0);
+	--card-foreground: oklch(0.145 0 0);
+	/* ─── Elevated surface ─────────────────────────────────────────────────
+	   --card is a *tinted shell* here, darker than --background, with inner
+	   panels painted --background on top of it. That is the opposite of the
+	   usual relationship and ~96 components depend on it, so it stays.
+	   --surface is the missing piece: a surface that genuinely sits above the
+	   page ground, for cards that hold their content flush instead of nesting
+	   panels. Light needs white to clear the warm ground; dark already lifts,
+	   so it reuses --card. */
+	--surface: oklch(1 0 0);
+	--popover: oklch(1 0 0);
+	--popover-foreground: oklch(0.145 0 0);
+	/* ─── Brand ────────────────────────────────────────────────────────────
+	   The single knob. --brand-hue rotates every brand surface in both themes;
+	   --brand is the solid fill behind buttons, the sidebar rail and avatars.
+	   Change these two lines and the whole application follows. */
+	--brand-hue: 270;
+	--brand: oklch(0.294 0.093 var(--brand-hue));
+	--brand-foreground: oklch(0.97 0.005 var(--brand-hue));
+	--brand-hover: oklch(0.4 0.1 var(--brand-hue));
+
+	/* Hero band wash — the only gradient in the system, deliberately. It marks the
+	   top of the page; Quick actions and the sidebar stay flat, or the signal stops
+	   meaning anything (and a full-height sidebar gradient bands visibly on 8-bit
+	   displays). Both stops ride --brand-hue, so the one-knob rule still holds. */
+	/* Panel sitting ON the brand band. A white veil (primary-foreground/x) does not
+	   just lighten the navy, it desaturates it toward grey-lavender and dilutes the
+	   brand. This lowers the tone instead: same hue, deeper. */
+	/* Large-area brand fill -- the flat brand navy shared by the login panel, the
+	   landing hero and the quick-actions band. --brand's lightness is tuned for
+	   BUTTONS and avatars; the same value across a full-width band glares in dark
+	   and flattens the primary CTA sitting on it. Identical to --brand in light
+	   (nothing changes there); a step darker in dark. */
+	--brand-surface: oklch(0.294 0.093 var(--brand-hue));
+
+	/* Secondary brand mark from the deck -- the amber used for the top rule, the
+	   eyebrow label and the glyph. DELIBERATELY not --warning, which sits at almost
+	   the same value today: they mean different things, and retuning the warning
+	   colour for legibility must not drag the brand mark with it. Used sparingly,
+	   as the deck does -- currently the hero band's top rule only. */
+	--brand-accent: oklch(0.78 0.14 65);
+
+	/* Panels ON that band. Solid rather than translucent: the band is a flat fill,
+	   so there is nothing to let through. Read-only surfaces sit a step BELOW
+	   --brand-surface, interactive ones a step above -- so depth reinforces the
+	   affordance instead of shape carrying it alone. */
+	--surface-on-brand: oklch(0.27 0.085 var(--brand-hue));
+	--surface-on-brand-raised: oklch(0.36 0.1 var(--brand-hue));
+
+	--primary: var(--brand);
+	--primary-foreground: var(--brand-foreground);
+	/* Interactive / informational blue. Separate from --brand because the brand
+	   navy reads as near-black in text, losing the "this is a link" signal. */
+	--info: oklch(0.5 0.16 var(--brand-hue));
+	/* Row highlight + text selection — fixed blue hue, distinct from brand navy. */
+	--selection-hue: 250;
+	--selection: oklch(0.52 0.19 var(--selection-hue));
+	--selection-foreground: oklch(0.99 0.01 var(--selection-hue));
+	--secondary: oklch(0.967 0.001 286.375);
+	--secondary-foreground: oklch(0.21 0.006 285.885);
+	--muted: oklch(0.97 0 0);
+	--muted-foreground: oklch(0.556 0 0);
+	--accent: oklch(0.97 0 0);
+	--accent-foreground: oklch(0.205 0 0);
+	--destructive: oklch(0.577 0.245 27.325);
+	--success: oklch(0.65 0.17 155);
+	--warning: oklch(0.68 0.15 70);
+	--border: oklch(0.922 0 0);
+	--input: oklch(0.922 0 0);
+	--ring: oklch(0.55 0.09 var(--brand-hue));
+	--chart-1: oklch(0.809 0.105 251.813);
+	--chart-2: oklch(0.623 0.214 259.815);
+	--chart-3: oklch(0.546 0.245 262.881);
+	--chart-4: oklch(0.488 0.243 264.376);
+	--chart-5: oklch(0.424 0.199 265.638);
+	--radius: 0.55rem;
+	/* Light theme: a white rail (Linear / Stripe style). The active item is a
+	   brand-tinted pill with a brand bar; the brand and dark themes swap in the
+	   navy rail below. */
+	--sidebar: oklch(1 0 0);
+	--sidebar-foreground: oklch(0.45 0.015 286);
+	--sidebar-primary: oklch(0.5 0.16 var(--brand-hue) / 0.09);
+	--sidebar-primary-foreground: oklch(0.42 0.16 var(--brand-hue));
+	--sidebar-accent: oklch(0.965 0.003 286);
+	--sidebar-accent-foreground: oklch(0.21 0.006 286);
+	--sidebar-border: oklch(0.922 0 0);
+	--sidebar-ring: oklch(0.55 0.09 var(--brand-hue) / 0.6);
+	--sidebar-indicator: oklch(0.5 0.16 var(--brand-hue));
+	/** Nested stat-card inner panel — white glass on navy. */
+	--stat-inner-surface: oklch(1 0 0 / 0.15);
+	/* One elevation for every content card on the page canvas. */
+	--elevation-card: 0 1px 2px oklch(0.2 0 0 / 0.05), 0 2px 8px -2px oklch(0.2 0 0 / 0.08);
+	--elevation-raised: 0 1px 2px oklch(0.2 0 0 / 0.05), 0 8px 24px -8px oklch(0.2 0 0 / 0.14);
+	/* Content card on the page canvas — white here and in brand, slate-900 in dark. */
+	--surface-card: oklch(1 0 0);
+	--surface-card-border: var(--border);
+	/* Faint band for table heads, form footers and card headers. */
+	--surface-band: oklch(0.985 0.002 286);
+}
+
+.dark {
+	/* Slate-weight ground through elevated surfaces, on the TENANT hue: same
+	   lightness and chroma as Tailwind slate, but the hue follows --brand-hue so a
+	   Optional per-tenant hue overrides can sit in this block when a product needs
+	   degrees of slate's ~264, so it looks unchanged). Comments keep the slate step. */
+	--background: oklch(0.129 0.042 var(--brand-hue)); /* slate-950 */
+	--foreground: oklch(0.984 0.003 247.858); /* slate-50 */
+	--card: oklch(0.208 0.042 var(--brand-hue)); /* slate-900 */
+	--card-foreground: oklch(0.984 0.003 247.858); /* slate-50 */
+	/* NOT var(--card). The :root note above says dark "already lifts, so it reuses
+	   --card" -- true for a panel on --background, false for one nested in a --card
+	   shell, which is the layering the reconciliation overview and the listing-stats
+	   grids actually use. Reusing --card gave those zero elevation in dark while
+	   light got white-on-grey. One step above --card restores the hierarchy. */
+	--surface: oklch(0.279 0.041 var(--brand-hue)); /* slate-800 */
+	--popover: oklch(0.208 0.042 var(--brand-hue)); /* slate-900 */
+	--popover-foreground: oklch(0.984 0.003 247.858); /* slate-50 */
+	--brand: oklch(0.44 0.115 var(--brand-hue));
+	--brand-foreground: oklch(0.97 0.005 var(--brand-hue));
+	--brand-hover: oklch(0.52 0.13 var(--brand-hue));
+	--brand-surface: oklch(0.34 0.1 var(--brand-hue));
+	--brand-accent: oklch(0.8 0.14 65);
+
+	--surface-on-brand: oklch(0.31 0.09 var(--brand-hue));
+	--surface-on-brand-raised: oklch(0.41 0.105 var(--brand-hue));
+
+	--primary: var(--brand);
+	--primary-foreground: var(--brand-foreground);
+	--info: oklch(0.72 0.13 var(--brand-hue));
+	--selection: oklch(0.68 0.16 var(--selection-hue));
+	--selection-foreground: oklch(0.15 0.02 var(--selection-hue));
+	--secondary: oklch(0.279 0.041 var(--brand-hue)); /* slate-800 */
+	--secondary-foreground: oklch(0.984 0.003 247.858); /* slate-50 */
+	--muted: oklch(0.279 0.041 var(--brand-hue)); /* slate-800 */
+	--muted-foreground: oklch(0.704 0.04 var(--brand-hue)); /* slate-400 */
+	--accent: oklch(0.279 0.041 var(--brand-hue)); /* slate-800 */
+	--accent-foreground: oklch(0.984 0.003 247.858); /* slate-50 */
+	--destructive: oklch(0.704 0.191 22.216);
+	--success: oklch(0.72 0.16 155);
+	--warning: oklch(0.78 0.14 80);
+	--border: oklch(0.279 0.041 var(--brand-hue)); /* slate-800 */
+	--input: oklch(0.279 0.041 var(--brand-hue)); /* slate-800 */
+	--ring: oklch(0.869 0.022 252.894); /* slate-300 */
+	--chart-1: oklch(0.809 0.105 251.813);
+	--chart-2: oklch(0.623 0.214 259.815);
+	--chart-3: oklch(0.546 0.245 262.881);
+	--chart-4: oklch(0.488 0.243 264.376);
+	--chart-5: oklch(0.424 0.199 265.638);
+	/* Rails read darker than buttons, so the sidebar keeps its own lightness
+	   on the shared hue rather than taking --brand directly. */
+	--sidebar: oklch(0.245 0.055 var(--brand-hue));
+	--sidebar-foreground: var(--brand-foreground);
+	--sidebar-primary: oklch(1 0 0 / 0.11);
+	--sidebar-primary-foreground: oklch(1 0 0);
+	--sidebar-accent: oklch(1 0 0 / 0.07);
+	--sidebar-accent-foreground: oklch(0.985 0 0);
+	--sidebar-border: oklch(1 0 0 / 0.1);
+	--sidebar-ring: oklch(1 0 0 / 0.45);
+	--sidebar-indicator: var(--brand-accent);
+	/* Shadows vanish on a dark canvas; a hairline does the lifting instead. */
+	--elevation-card: 0 0 0 1px var(--border);
+	--elevation-raised: 0 0 0 1px var(--border), 0 12px 32px -12px oklch(0 0 0 / 0.6);
+	--surface-card: var(--card);
+	--surface-card-border: var(--border);
+	--surface-band: oklch(0.235 0.042 var(--brand-hue));
+}
+
+/* Brand theme — the default. A light base carrying the tenant's brand:
+   --brand-hue and --brand-accent come from the resolved Brand (set inline on
+   <html> per request), so a client's colours flow through every token that
+   derives from them. The page is tinted toward the brand hue, cards are pure
+   white (unlike light, where --card sits below the page), and brand surfaces
+   (the landing hero, sidebars) are the brand navy with the amber left edge the
+   sign-in panel carries. It sits between light and dark: light content on a
+   brand-coloured frame. */
+.theme-brand {
+	--background: oklch(0.962 0.012 var(--brand-hue));
+	--card: oklch(1 0 0);
+	--surface: oklch(1 0 0);
+	--muted: oklch(0.95 0.014 var(--brand-hue));
+	--muted-foreground: oklch(0.5 0.03 var(--brand-hue));
+	--border: oklch(0.9 0.018 var(--brand-hue));
+	--input: oklch(0.9 0.018 var(--brand-hue));
+	--accent: oklch(0.95 0.02 var(--brand-hue));
+	/* Navy rail with the sign-in panel's amber edge on the active item. */
+	--sidebar: var(--brand);
+	--sidebar-foreground: oklch(0.97 0.005 var(--brand-hue) / 0.78);
+	--sidebar-primary: oklch(1 0 0 / 0.11);
+	--sidebar-primary-foreground: oklch(1 0 0);
+	--sidebar-accent: oklch(1 0 0 / 0.07);
+	--sidebar-accent-foreground: oklch(1 0 0);
+	--sidebar-border: oklch(1 0 0 / 0.08);
+	--sidebar-ring: oklch(1 0 0 / 0.55);
+	--sidebar-indicator: var(--brand-accent);
+	--elevation-card:
+		0 1px 2px oklch(0.25 0.03 var(--brand-hue) / 0.06),
+		0 2px 8px -2px oklch(0.3 0.08 var(--brand-hue) / 0.1);
+	--elevation-raised:
+		0 1px 2px oklch(0.25 0.03 var(--brand-hue) / 0.06),
+		0 8px 24px -6px oklch(0.3 0.08 var(--brand-hue) / 0.14);
+	--surface-card: oklch(1 0 0);
+	--surface-card-border: transparent;
+	--surface-band: oklch(0.978 0.008 var(--brand-hue));
+}
+
+/* Tokens re-scoped for content sitting ON a brand-navy surface, so ordinary
+   utilities (text-foreground, text-muted-foreground, border, text-primary)
+   stay legible there without per-element overrides. Brand theme only. */
+.theme-brand .on-brand {
+	--foreground: var(--brand-foreground);
+	--muted-foreground: oklch(0.82 0.03 var(--brand-hue));
+	--border: oklch(1 0 0 / 0.16);
+	--muted: oklch(1 0 0 / 0.1);
+	--primary: var(--brand-accent);
+	--success: oklch(0.8 0.15 155);
+	--warning: oklch(0.82 0.14 75);
+	--ring: oklch(1 0 0 / 0.5);
+	color: var(--foreground);
+}
+
+/* The one content surface for host-app pages is a card on the page canvas:
+     rounded-lg border border-surface-card-border bg-surface-card shadow-(--elevation-card)
+   Stats, tables, forms and detail sections all use that recipe (spelled out as
+   plain utilities rather than an @utility so tailwind-merge can resolve it
+   against Card's own bg/radius/shadow defaults). */
+
+@layer base {
+	* {
+		@apply border-border outline-ring/50;
+		@apply [&::-webkit-scrollbar]:h-4;
+		@apply [&::-webkit-scrollbar]:w-4;
+		@apply [&::-webkit-scrollbar-corner]:bg-transparent;
+		@apply [&::-webkit-scrollbar-thumb]:bg-muted-foreground/40;
+		@apply [&::-webkit-scrollbar-thumb]:border-[5px];
+		@apply [&::-webkit-scrollbar-thumb]:border-solid;
+		@apply [&::-webkit-scrollbar-thumb]:border-transparent;
+		@apply [&::-webkit-scrollbar-thumb]:bg-clip-padding;
+		@apply [&::-webkit-scrollbar-thumb:hover]:bg-muted-foreground/60;
+		@apply [&::-webkit-scrollbar-track]:m-1;
+		@apply [&::-webkit-scrollbar-track]:bg-transparent;
+		@apply [&::-moz-selection]:bg-selection;
+		@apply [&::-moz-selection]:text-selection-foreground;
+		@apply [&::selection]:bg-selection;
+		@apply [&::selection]:text-selection-foreground;
+	}
+	*::-webkit-scrollbar-thumb,
+	*::-webkit-scrollbar-track {
+		border-radius: var(--radius);
+	}
+	body {
+		@apply bg-background text-foreground;
+	}
+	code,
+	kbd,
+	samp,
+	pre {
+		font-family: inherit;
+	}
+	button:not(:disabled),
+	[role="button"]:not(:disabled) {
+		cursor: pointer;
+	}
+}

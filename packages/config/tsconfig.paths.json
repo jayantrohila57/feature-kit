@@ -1,0 +1,15 @@
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"compilerOptions": {
+		"paths": {
+			"@/packages/ui/*": ["../../packages/ui/src/*"],
+			"@/packages/api": ["../../packages/api/src/index.ts"],
+			"@/packages/api/*": ["../../packages/api/src/*"],
+			"@/packages/config/*": ["../../packages/config/src/*"],
+			"@/packages/ui/postcss.config": ["../../packages/ui/postcss.config.mjs"],
+			"@/packages/ui/styles/globals.css": ["../../packages/ui/src/styles/globals.css"],
+			"@/feature/*": ["../../feature/*/src"],
+			"@/feature/runtime/*": ["../../feature/runtime/*/src"]
+		}
+	}
+}

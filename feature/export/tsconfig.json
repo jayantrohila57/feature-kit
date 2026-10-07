@@ -1,0 +1,11 @@
+{
+	"extends": [
+		"../../packages/config/tsconfig.base.json",
+		"../../packages/config/tsconfig.paths.json"
+	],
+	"compilerOptions": {
+		"lib": ["ESNext", "DOM", "DOM.Iterable"]
+	},
+	"include": ["src"],
+	"exclude": ["node_modules"]
+}

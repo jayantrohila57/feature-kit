@@ -1,0 +1,18 @@
+{
+	"extends": "../../packages/config/tsconfig.base.json",
+	"compilerOptions": {
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"allowJs": true,
+		"noEmit": true,
+		"jsx": "react-jsx",
+		"plugins": [{ "name": "next" }],
+		"paths": {
+			"@/packages/ui/*": ["../../packages/ui/src/*"],
+			"@/packages/ui/postcss.config": ["../../packages/ui/postcss.config.mjs"],
+			"@/packages/ui/styles/globals.css": ["../../packages/ui/src/styles/globals.css"],
+			"@/*": ["./src/*"]
+		}
+	},
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+	"exclude": ["node_modules"]
+}

@@ -1,0 +1,29 @@
+{
+	"name": "preferences",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"engines": {
+		"node": ">=24.0.0",
+		"pnpm": ">=9.0.0"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./bootstrap": "./src/bootstrap/bootstrap-preference-script.tsx",
+		"./prefs-route": "./src/persist/persist-prefs-route.ts",
+		"./prefs.server": "./src/persist/persist-prefs.server.ts",
+		"./prefs.client": "./src/persist/persist-prefs.client.ts"
+	},
+	"scripts": {
+		"check-types": "tsc --noEmit"
+	},
+	"dependencies": {
+		"next": "catalog:",
+		"react": "catalog:"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:",
+		"@types/react": "catalog:",
+		"typescript": "catalog:"
+	}
+}

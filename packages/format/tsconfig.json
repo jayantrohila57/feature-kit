@@ -1,0 +1,9 @@
+{
+	"extends": ["../config/tsconfig.base.json", "../config/tsconfig.paths.json"],
+	"compilerOptions": {
+		"lib": ["ESNext", "DOM", "DOM.Iterable"],
+		"jsx": "react-jsx"
+	},
+	"include": ["src"],
+	"exclude": ["node_modules"]
+}

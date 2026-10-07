@@ -1,0 +1,40 @@
+{
+	"name": "web",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev --port 3000",
+		"build": "next build",
+		"start": "next start",
+		"lint": "eslint",
+		"check-types": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@tanstack/react-query": "catalog:",
+		"@tanstack/react-table": "catalog:",
+		"data-table": "workspace:*",
+		"form": "workspace:*",
+		"layout": "workspace:*",
+		"lucide-react": "catalog:",
+		"next": "catalog:",
+		"next-intl": "catalog:",
+		"next-themes": "catalog:",
+		"nuqs": "catalog:",
+		"react": "catalog:",
+		"react-dom": "catalog:",
+		"sonner": "catalog:",
+		"uploader": "workspace:*",
+		"ui": "workspace:*",
+		"zod": "catalog:"
+	},
+	"devDependencies": {
+		"@tailwindcss/postcss": "catalog:",
+		"@types/node": "catalog:",
+		"@types/react": "catalog:",
+		"@types/react-dom": "catalog:",
+		"eslint": "^9",
+		"eslint-config-next": "16.3.0",
+		"tailwindcss": "catalog:",
+		"typescript": "catalog:"
+	}
+}

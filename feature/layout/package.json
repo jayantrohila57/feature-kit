@@ -1,0 +1,37 @@
+{
+	"name": "layout",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"engines": {
+		"node": ">=24.0.0",
+		"pnpm": ">=9.0.0"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./confirmation-dialog": "./src/confirmation-dialog/index.ts",
+		"./common": "./src/common/index.ts",
+		"./form-layout": "./src/form-layout/index.ts",
+		"./breadcrumb": "./src/breadcrumb/index.ts",
+		"./navigation": "./src/navigation/index.ts",
+		"./navigation/back-button": "./src/navigation/back-button/index.ts",
+		"./navigation/utility-button": "./src/navigation/utility-button/index.ts",
+		"./sidebar/app-pathname": "./src/sidebar/app-pathname.ts"
+	},
+	"scripts": {
+		"check-types": "tsc --noEmit"
+	},
+	"dependencies": {
+		"lucide-react": "catalog:",
+		"next": "catalog:",
+		"next-intl": "catalog:",
+		"react": "catalog:",
+		"sonner": "catalog:",
+		"ui": "workspace:*"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:",
+		"@types/react": "catalog:",
+		"typescript": "catalog:"
+	}
+}

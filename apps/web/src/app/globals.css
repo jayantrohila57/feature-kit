@@ -1,0 +1,5 @@
+@import "ui/globals.css";
+
+@source "../../**/*.{ts,tsx}";
+@source "../../../feature/**/*.{ts,tsx}";
+@source "../../../packages/ui/**/*.{ts,tsx}";
