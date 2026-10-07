@@ -1,24 +1,21 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared"
 
-const githubUrl = "https://github.com/jayantrohila57/feature-kit"
+import { DocsLayoutHeader } from "@/components/site/docs-layout-header"
 
-export function baseOptions(): BaseLayoutProps {
+export function docsLayoutOptions(): BaseLayoutProps {
 	return {
-		githubUrl,
 		nav: {
+			enabled: true,
 			title: "Feature Kit",
 			url: "/",
+			component: <DocsLayoutHeader />,
 		},
-		links: [
-			{
-				text: "Home",
-				url: "/",
-			},
-			{
-				text: "Docs",
-				url: "/docs",
-				active: "nested-url",
-			},
-		],
+		links: [],
+		searchToggle: {
+			enabled: true,
+		},
+		themeSwitch: {
+			enabled: true,
+		},
 	}
 }
