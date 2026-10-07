@@ -1,0 +1,35 @@
+---
+title: Uploader
+description: Import CSV or Excel with client-side parse and validation.
+---
+
+**`uploader`** provides **`CommonUploaderButton`**: a dialog to pick a spreadsheet, validate rows against column rules, and hand records to your `onUpload` handler.
+
+**When to use it:** bulk create/update flows where users upload a template file.
+
+## Example
+
+```tsx
+import { CommonUploaderButton, type UploaderConfig } from "uploader"
+
+const config: UploaderConfig = {
+  entity: "account",
+  title: "Import accounts",
+  description: "Use the downloaded template.",
+  fileFormat: "standard",
+  templateFileName: "accounts-template",
+  acceptedFileTypes: ".xlsx,.csv",
+  columns: columnDefs,
+  transport: "records",
+}
+
+<CommonUploaderButton
+  config={config}
+  triggerLabel="Import"
+  onUpload={async ({ records }) => ({ success: true, message: `Got ${records.length} rows` })}
+/>
+```
+
+Define columns with `key`, `header`, and `requiredIn` (`create` / `update`). See `demo-uploader-columns.ts` in the web app for a full config.
+
+<PlaygroundLink href="/examples/uploader/basic">Uploader example</PlaygroundLink>

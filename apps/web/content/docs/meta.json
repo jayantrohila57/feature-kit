@@ -1,17 +1,11 @@
 {
-	"root": true,
 	"pages": [
-		"(root)",
+		"index",
+		"getting-started",
 		"form",
 		"data-table",
 		"layout",
 		"uploader",
-		"---Packages---",
-		"ui",
-		"export",
-		"preferences",
-		"format",
-		"examples",
-		"changelog"
+		"ui"
 	]
 }

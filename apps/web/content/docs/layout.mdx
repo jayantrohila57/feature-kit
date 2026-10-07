@@ -1,0 +1,27 @@
+---
+title: Layout
+description: Breadcrumbs, navigation buttons, form sections, and confirmation dialogs.
+---
+
+**`layout`** holds shared chrome: wayfinding, form section titles, empty states, and a global confirmation dialog.
+
+**When to use it:** any routed page that should match the rest of the app’s list/form patterns.
+
+## Example
+
+```tsx
+import { GoBackButton, Breadcrumbs, FormSection } from "layout"
+
+<GoBackButton fallbackHref="/examples" />
+<Breadcrumbs />
+
+<FormSection title="Details" description="Optional helper text.">
+  {/* fields */}
+</FormSection>
+```
+
+Mount **`ConfirmationDialogProvider`** once (see `apps/web/src/app/providers.tsx`) before using `useConfirmationDialog()` for delete confirms.
+
+<PlaygroundLink href="/examples/layout/breadcrumbs">Layout examples</PlaygroundLink>
+
+**Common imports:** `layout`, `layout/breadcrumb`, `layout/navigation`, `layout/confirmation-dialog`.

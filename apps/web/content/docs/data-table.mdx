@@ -1,0 +1,40 @@
+---
+title: Data table
+description: TanStack Table with toolbar, filters, selection, and optional URL sync.
+---
+
+**`data-table`** wraps TanStack Table with a toolbar, pagination, row selection, filters, and optional query-string sync via `nuqs`.
+
+**When to use it:** admin lists, directories, and any page that needs search, filters, or bulk actions.
+
+## Example
+
+```tsx
+"use client"
+
+import type { ColumnDef } from "data-table"
+import { DataTable, DataTableColumnHeader, commonColumns } from "data-table"
+
+const columns: ColumnDef<Row>[] = [
+  ...commonColumns.selectColumn<Row>(),
+  {
+    accessorKey: "name",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
+  },
+]
+
+<DataTable
+  tableId="my-list"
+  columns={columns}
+  data={rows}
+  displayKey="name"
+  selectionKey={(row) => row.id}
+  syncUrl={false}
+/>
+```
+
+Wrap your app in **`DataTableNuqsAdapter`** when you set `syncUrl={true}` on listing pages.
+
+<PlaygroundLink href="/examples/table/basic">Table examples</PlaygroundLink>
+
+**Key props:** `tableId` (persists column visibility), `displayKey` (toolbar search column), `selectionKey`, `syncUrl`, `bulkActions` (e.g. export bar).
