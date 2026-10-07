@@ -3,39 +3,125 @@ title: Uploader
 description: Import CSV or Excel with client-side parse and validation.
 ---
 
-**`uploader`** provides **`CommonUploaderButton`**: a dialog to pick a spreadsheet, validate rows against column rules, and hand records to your `onUpload` handler.
+**`uploader`** provides **`CommonUploaderButton`**: a dialog workflow to download a template, pick a spreadsheet, validate rows against column rules, and submit records or the raw file to your API.
 
-**When to use it:** bulk create/update flows where users upload a template file.
+## When to use it
 
-## Live preview
+- Bulk **create** or **update** flows driven by a spreadsheet template
+- Imports where users must fix row-level errors before submit
+- Optional **file transport** when the backend prefers the raw XLSX/CSV instead of parsed rows
 
-<ComponentPreview>
-  <UploaderBasicExample />
-</ComponentPreview>
+## Installation
 
-## Example
+<DocsInstall
+  packages={["uploader", "export"]}
+  importExample={`import { CommonUploaderButton, type UploaderConfig } from "uploader"`}
+  note="Template download often uses export helpers from the export package; see demo columns in apps/web."
+/>
 
-```tsx
-import { CommonUploaderButton, type UploaderConfig } from "uploader"
+## Usage
+
+<ComponentPreview
+  code={`import { CommonUploaderButton, type UploaderConfig } from "uploader"
 
 const config: UploaderConfig = {
   entity: "account",
   title: "Import accounts",
-  description: "Use the downloaded template.",
+  description: "Use the template, then upload .xlsx or .csv.",
   fileFormat: "standard",
   templateFileName: "accounts-template",
   acceptedFileTypes: ".xlsx,.csv",
-  columns: columnDefs,
+  columns: [
+    { key: "code", header: "Code", requiredIn: ["create", "update"] },
+    { key: "name", header: "Name", requiredIn: ["create"] },
+  ],
   transport: "records",
 }
 
 <CommonUploaderButton
   config={config}
   triggerLabel="Import"
-  onUpload={async ({ records }) => ({ success: true, message: `Got ${records.length} rows` })}
-/>
+  onUpload={async ({ mode, records }) => ({
+    success: true,
+    message: \`Queued \${records.length} rows (\${mode})\`,
+  })}
+/>`}>
+  <UploaderBasicExample />
+</ComponentPreview>
+
+### Column definition
+
+Each **`UploaderColumn`** maps a spreadsheet header to a record key:
+
+| Field | Purpose |
+| --- | --- |
+| `key` | Property on parsed `UploaderRecord` |
+| `header` | Expected column header text |
+| `requiredIn` | `"create"` / `"update"` modes that require a value |
+| `description` | Shown in template / error copy |
+| `sample` | Example cell in generated template |
+
+### Modes & transport
+
+- **`defaultMode`** — `create` or `update` when the dialog opens
+- **`transport: "records"`** (default) — parse file client-side, validate, call `onUpload`
+- **`transport: "file"`** — skip row parsing; use `onUploadFile` with the raw `File`
+
+### Cross-row validation
+
+```tsx
+validateParsedRecords: (records, mode) => {
+  if (mode === "create" && records.length > 500) {
+    return [{ row: 0, message: "Max 500 rows per import" }]
+  }
+  return []
+}
 ```
 
-Define columns with `key`, `header`, and `requiredIn` (`create` / `update`). See `demo-uploader-columns.ts` in the web app for a full config.
+## API reference
 
-<PlaygroundLink href="/docs/examples/uploader/basic">Uploader preview</PlaygroundLink>
+### `UploaderConfig`
+
+<PropsTable
+  title="UploaderConfig"
+  props={[
+    { name: "entity", type: "string", description: "Stable entity code for APIs and analytics." },
+    { name: "entityLabel", type: "string", description: "Human label for toasts; defaults to entity." },
+    { name: "title / description", type: "string", description: "Dialog copy." },
+    { name: "fileFormat", type: "string", description: "Format code passed to template/download handlers." },
+    { name: "templateFileName", type: "string", description: "Download filename stem." },
+    { name: "acceptedFileTypes", type: "string", description: "Input accept attribute, e.g. .xlsx,.csv." },
+    { name: "columns", type: "UploaderColumn[]", description: "Required for records transport." },
+    { name: "transport", type: "\"records\" | \"file\"", default: "\"records\"", description: "Parse client-side or upload raw file." },
+    { name: "validateParsedRecords", type: "(records, mode) => UploaderParseError[]", description: "Cross-row rules after column validation." },
+    { name: "buildSuccessRedirectHref", type: "(ctx) => string", description: "Optional redirect after success." },
+  ]}
+/>
+
+### `CommonUploaderButton`
+
+<PropsTable
+  title="CommonUploaderButton props"
+  props={[
+    { name: "config", type: "UploaderConfig", description: "Required dialog configuration." },
+    { name: "triggerLabel", type: "string", description: "Button label opening the dialog." },
+    { name: "triggerVariant", type: "\"default\" | \"outline\"", default: "\"outline\"", description: "Trigger button variant." },
+    { name: "onUpload", type: "({ mode, records }) => Promise<UploaderSubmitResult>", description: "Records transport handler." },
+    { name: "onUploadFile", type: "({ file, formatCode }) => Promise<UploaderSubmitResult>", description: "File transport handler." },
+    { name: "onDownloadTemplate", type: "(formatCode) => Promise<void>", description: "Custom template download." },
+    { name: "loadFormatCodes / loadFormatOptions", type: "async loaders", description: "Dynamic format dropdown." },
+    { name: "redirectOnSuccess", type: "boolean", default: "true", description: "Navigate using config redirect builder." },
+  ]}
+/>
+
+## Gotchas
+
+<DocsCallout title="Column headers must match">
+  Parsed rows use exact `header` strings from the file. Trim mismatches in templates users download from your app.
+</DocsCallout>
+
+<DocsCallout variant="warning" title="Large files">
+  Client parsing runs in the browser—gate file size in `onUpload` / server validation for production imports.
+</DocsCallout>
+
+<PlaygroundLink href="/docs/examples/uploader/basic">Uploader preview</PlaygroundLink> — full column config in `apps/web/src/components/examples/uploader/demo-uploader-columns.ts`.

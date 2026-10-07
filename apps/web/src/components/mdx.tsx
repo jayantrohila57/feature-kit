@@ -2,8 +2,11 @@ import defaultMdxComponents from "fumadocs-ui/mdx"
 import type { MDXComponents } from "mdx/types"
 
 import { BreadcrumbsDemo } from "@/components/docs/breadcrumbs-demo"
+import { DocsCallout } from "@/components/docs/docs-callout"
+import { DocsInstall } from "@/components/docs/docs-install"
 import { ComponentPreview } from "@/components/docs/component-preview"
 import { PlaygroundLink } from "@/components/docs/playground-link"
+import { PropsTable } from "@/components/docs/props-table"
 import { FormKitBasicExample } from "@/components/examples/form/form-kit-basic-example"
 import { FieldKitFiltersExample } from "@/components/examples/form/field-kit-filters-example"
 import { FormKitFieldTypesExample } from "@/components/examples/form/form-kit-field-types-example"
@@ -23,6 +26,9 @@ export function getMDXComponents(components?: MDXComponents) {
 		...defaultMdxComponents,
 		PlaygroundLink,
 		ComponentPreview,
+		PropsTable,
+		DocsInstall,
+		DocsCallout,
 		BreadcrumbsDemo,
 		FormKitBasicExample,
 		FormKitFieldTypesExample,

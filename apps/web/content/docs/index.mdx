@@ -3,9 +3,21 @@ title: Introduction
 description: Open-source UI kits for forms, tables, layout, and import flows in React and Next.js.
 ---
 
-**Feature Kit** is a pnpm monorepo of workspace packages (`form`, `data-table`, `layout`, `uploader`, `ui`, and a few helpers) built on shadcn-style primitives, React Hook Form, Zod, and TanStack Table.
+**Feature Kit** is a pnpm monorepo of workspace packages built on shadcn-style primitives, React Hook Form, Zod, and TanStack Table. It targets **product engineers** who want opinionated, copy-friendly patterns for admin UIs—not a hosted component SaaS.
 
-Use it when you want **copy-paste-friendly patterns** for common product screens—not a hosted SaaS. This site runs the kits in **`apps/web`**: short kit pages explain the basics; **live previews** on each kit page and under [Examples](/docs/examples) show them running.
+This documentation site runs the kits inside **`apps/web`**: each kit page includes **live previews**, **install snippets**, **usage recipes**, and **props tables** sourced from the real TypeScript types in `feature/*`.
+
+## How to read these docs
+
+Pages follow a consistent structure (similar to shadcn/ui app docs):
+
+1. **When to use** — choose the right kit or API
+2. **Installation** — workspace dependency + import
+3. **Preview + code** — toggle between live UI and sample source
+4. **Recipes** — common combinations (URL sync, server errors, bulk actions)
+5. **API reference** — props tables aligned with source types
+6. **Gotchas** — pitfalls we hit in production apps
+7. **Examples** — links to focused previews under `/docs/examples`
 
 ## Kits at a glance
 
@@ -17,4 +29,15 @@ Use it when you want **copy-paste-friendly patterns** for common product screens
 | [Uploader](/docs/uploader) | CSV/XLSX import dialog with validation |
 | [UI](/docs/ui) | Shared buttons, fields, tables, and global styles |
 
-Start with [Getting started](/docs/getting-started) to run the repo locally.
+## Quick start
+
+<DocsInstall
+  packages={["form"]}
+  importExample={`import { FormKit } from "form"`}
+/>
+
+Then follow [Getting started](/docs/getting-started) for providers, `transpilePackages`, and local dev commands.
+
+## Examples index
+
+All runnable previews live under **[Examples](/docs/examples)**—form field matrices, table filters, layout chrome, and uploader configs. Use them as regression fixtures when upgrading kits in your fork.
