@@ -1,0 +1,39 @@
+---
+title: Form
+description: FormKit and FieldKit — Zod schemas with React Hook Form.
+---
+
+The **`form`** package gives you **FormKit** for create/edit flows and **FieldKit** for filter rows or other inline fields without a submit button.
+
+**When to use it:** any screen driven by a Zod schema—profile forms, settings, or toolbar filters.
+
+## Example (FormKit)
+
+```tsx
+"use client"
+
+import { FormKit } from "form"
+import { FormSection } from "layout"
+import { z } from "zod"
+
+const schema = z.object({
+  name: z.string().min(1),
+  email: z.string().email(),
+})
+
+<FormKit schema={schema} defaultValues={{ name: "", email: "" }} onSubmit={save}>
+  <FormSection title="Profile">
+    <FormKit.Field type="text" name="name" label="Name" required />
+    <FormKit.Field type="text" name="email" label="Email" required />
+  </FormSection>
+  <FormKit.Actions>
+    <FormKit.Submit label="Save" />
+  </FormKit.Actions>
+</FormKit>
+```
+
+FieldKit uses the same `Field` types with `mode="controlled"` when you own the state (see the filters example).
+
+<PlaygroundLink href="/examples/form/basic">Form examples</PlaygroundLink>
+
+**Useful exports:** `form`, `form/field-kit`, `form/field`. Helpers like `applyServerErrors` live on the main `form` entry.

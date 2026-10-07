@@ -1,0 +1,18 @@
+---
+title: UI
+description: Shared components and styles for all kits.
+---
+
+**`ui`** (`packages/ui`) is the shadcn-style layer: buttons, fields, tables, dialogs, and `globals.css` theme tokens.
+
+**When to use it:** whenever you need a primitive; feature kits already depend on it—apps usually import `ui/globals.css` once and pull components via the `@/packages/ui/...` paths used in this repo.
+
+```css
+@import "ui/globals.css";
+```
+
+```tsx
+import { Button } from "@/packages/ui/components/button"
+```
+
+Kits re-use these components so forms and tables stay visually consistent. Add new primitives here rather than duplicating them in `feature/*`.

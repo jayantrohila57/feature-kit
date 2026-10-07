@@ -1,5 +1,13 @@
 @import "ui/globals.css";
+@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/preset.css";
 
 @source "../../**/*.{ts,tsx}";
 @source "../../../feature/**/*.{ts,tsx}";
 @source "../../../packages/ui/**/*.{ts,tsx}";
+@source "../../content/**/*.{md,mdx}";
+@source "../../../../node_modules/fumadocs-ui/dist/**/*.js";
+
+html {
+	scrollbar-gutter: stable;
+}

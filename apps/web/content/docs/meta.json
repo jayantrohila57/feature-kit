@@ -1,0 +1,11 @@
+{
+	"pages": [
+		"index",
+		"getting-started",
+		"form",
+		"data-table",
+		"layout",
+		"uploader",
+		"ui"
+	]
+}
