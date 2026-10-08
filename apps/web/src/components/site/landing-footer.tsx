@@ -95,7 +95,7 @@ export function LandingFooter() {
 				<div className="h-px bg-border" />
 
 				<div className="py-4 text-center text-muted-foreground text-xs">
-					<p>© {year} Feature Kit. All rights reserved.</p>
+					<p>MIT Licensed · © {year} Feature Kit</p>
 				</div>
 			</div>
 		</footer>
