@@ -31,7 +31,6 @@ import { Label } from "@/packages/ui/components/label"
 import Spinner from "@/packages/ui/components/spinner"
 import { cn } from "@/packages/ui/lib/utils"
 
-import { parseSpreadsheetFile } from "../parse/parse-spreadsheet-file"
 import { validateUploaderRecords } from "../parse/parse-validate-records"
 import { downloadUploaderTemplate } from "../template/template-download-template"
 import { formatFileSize, isAcceptedUploadFileName, isSpreadsheetFileName } from "../utils/utils-format-file-size"
@@ -248,6 +247,7 @@ function CommonUploaderButtonInner({
 
     setIsParsing(true)
     try {
+      const { parseSpreadsheetFile } = await import("../parse/parse-spreadsheet-file")
       const nextParseResult = await parseSpreadsheetFile(file, config.columns)
       const validationErrors = validateUploaderRecords(nextParseResult.records, config.columns, uploadMode)
       const groupedValidationErrors = config.validateParsedRecords?.(nextParseResult.records, uploadMode) ?? []
