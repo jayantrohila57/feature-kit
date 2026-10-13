@@ -40,12 +40,27 @@ html {
 	display: none !important;
 }
 
-#nd-docs-layout [data-sidebar-placeholder],
-#nd-docs-layout #nd-toc {
+/* Left nav: sticky full viewport height (does not scroll with article) */
+#nd-docs-layout [data-sidebar-placeholder] {
 	top: var(--fd-docs-row-2) !important;
 	z-index: 30;
 	height: calc(var(--fd-docs-height) - var(--fd-docs-row-2)) !important;
 	max-height: calc(var(--fd-docs-height) - var(--fd-docs-row-2)) !important;
+}
+
+/*
+ * Right TOC: sticky while reading; scrolls away before the site footer.
+ * Left border mirrors #nd-sidebar border-e (sidebar-border token).
+ */
+#nd-docs-layout #nd-toc {
+	top: var(--fd-docs-row-2) !important;
+	z-index: 30;
+	align-self: start !important;
+	height: auto !important;
+	min-height: calc(var(--fd-docs-height) - var(--fd-docs-row-2));
+	max-height: calc(var(--fd-docs-height) - var(--fd-docs-row-2)) !important;
+	border-inline-start: 1px solid var(--sidebar-border);
+	padding-inline-start: 1rem;
 }
 
 #nd-page {

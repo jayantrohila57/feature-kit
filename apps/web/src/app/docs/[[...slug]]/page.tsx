@@ -5,6 +5,7 @@ import { notFound } from "next/navigation"
 
 import { DocsPageActions } from "@/components/docs/docs-page-actions"
 import { DocsPageFooter } from "@/components/docs/docs-page-footer"
+import { DocsSiteFooter } from "@/components/docs/docs-site-footer"
 import { getMDXComponents } from "@/components/mdx"
 import { getDocsFooterItems } from "@/lib/docs-footer"
 import { docsMarkdownApiPath } from "@/lib/docs-markdown-path"
@@ -48,6 +49,7 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
 					})}
 				/>
 			</DocsBody>
+			<DocsSiteFooter />
 		</DocsPage>
 	)
 }
