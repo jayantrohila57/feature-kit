@@ -6,6 +6,7 @@ import { ChangelogRssLink } from "@/components/docs/changelog-rss-link"
 import { DocsCallout } from "@/components/docs/docs-callout"
 import { ExamplesGrid } from "@/components/docs/examples-grid"
 import { DocsInstall } from "@/components/docs/docs-install"
+import { DocsPackageInstall } from "@/components/docs/docs-package-install"
 import { ComponentPreview } from "@/components/docs/component-preview"
 import { PlaygroundLink } from "@/components/docs/playground-link"
 import { PropsTable } from "@/components/docs/props-table"
@@ -48,6 +49,7 @@ export function getMDXComponents(components?: MDXComponents) {
 		ComponentPreview,
 		PropsTable,
 		DocsInstall,
+		DocsPackageInstall,
 		DocsCallout,
 		ExamplesGrid,
 		ChangelogRssLink,

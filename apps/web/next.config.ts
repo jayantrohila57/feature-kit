@@ -11,7 +11,12 @@ const nextConfig: NextConfig = {
 			{ source: "/examples", destination: "/docs/examples", permanent: false },
 			{ source: "/examples/form", destination: "/docs/examples/form/basic", permanent: false },
 			{ source: "/examples/table", destination: "/docs/examples/table/basic", permanent: false },
-			{ source: "/examples/layout", destination: "/docs/examples/layout/breadcrumbs", permanent: false },
+			{ source: "/examples/layout", destination: "/docs/breadcrumb", permanent: false },
+			{
+				source: "/docs/examples/layout/breadcrumbs",
+				destination: "/docs/breadcrumb",
+				permanent: false,
+			},
 			{ source: "/examples/uploader", destination: "/docs/examples/uploader/basic", permanent: false },
 			{ source: "/examples/:path*", destination: "/docs/examples/:path*", permanent: false },
 			{ source: "/form", destination: "/docs/examples/form/basic", permanent: false },

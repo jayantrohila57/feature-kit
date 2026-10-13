@@ -92,6 +92,6 @@ export const exampleQuickLinks: SiteNavLink[] = [
 	{ title: "Dashboard shell", href: "/docs/dashboard-shell", icon: LayoutGrid },
 	{ title: "Auth sign-in", href: "/docs/examples/auth/sign-in", icon: KeyRound },
 	{ title: "Theme controls", href: "/docs/examples/theme/controls", icon: Palette },
-	{ title: "Layout breadcrumbs", href: "/docs/examples/layout/breadcrumbs", icon: LayoutGrid },
+	{ title: "Breadcrumb", href: "/docs/breadcrumb", icon: LayoutGrid },
 	{ title: "Uploader basic", href: "/docs/examples/uploader/basic", icon: Upload },
 ]

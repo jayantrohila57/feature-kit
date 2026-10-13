@@ -1,5 +1,5 @@
 {
 	"title": "Layout",
 	"icon": "LayoutGrid",
-	"pages": ["../../layout", "../../dashboard-shell", "...examples/layout"]
+	"pages": ["../../layout", "../../dashboard-shell", "../../breadcrumb", "...examples/layout"]
 }

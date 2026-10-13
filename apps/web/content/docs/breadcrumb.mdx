@@ -1,0 +1,354 @@
+---
+title: Breadcrumb
+description: shadcn primitives and layout route breadcrumbs for dashboard shells, i18n, and detail pages.
+---
+
+import {
+  breadcrumbAuthHiddenCode,
+  breadcrumbAutoCompressCode,
+  breadcrumbBasicCode,
+  breadcrumbCollapsedDropdownCode,
+  breadcrumbCurrentPageCode,
+  breadcrumbCustomSeparatorCode,
+  breadcrumbDataTableFlowCode,
+  breadcrumbDynamicLoadingCode,
+  breadcrumbDynamicSegmentCode,
+  breadcrumbI18nCode,
+  breadcrumbLivePathCode,
+  breadcrumbMobileNavCode,
+  breadcrumbMobileTruncateCode,
+  breadcrumbRouteShellCode,
+  breadcrumbSettingsNestedCode,
+  breadcrumbWithIconsCode,
+} from "@/components/examples/breadcrumb/breadcrumb-codes"
+import {
+  BreadcrumbAuthHiddenExample,
+  BreadcrumbAutoCompressExample,
+  BreadcrumbBasicExample,
+  BreadcrumbCollapsedDropdownExample,
+  BreadcrumbCurrentPageExample,
+  BreadcrumbCustomSeparatorExample,
+  BreadcrumbDataTableFlowExample,
+  BreadcrumbDynamicLoadingExample,
+  BreadcrumbDynamicSegmentExample,
+  BreadcrumbI18nExample,
+  BreadcrumbLivePathExample,
+  BreadcrumbMobileNavExample,
+  BreadcrumbMobileTruncateExample,
+  BreadcrumbRouteShellExample,
+  BreadcrumbSettingsNestedExample,
+  BreadcrumbWithIconsExample,
+} from "@/components/examples/breadcrumb/breadcrumb-docs-exports"
+
+Breadcrumbs help users orient themselves in nested apps. Feature Kit ships two layers:
+
+- **`ui` `Breadcrumb*`** — accessible primitives (list, links, current page, separator, ellipsis).
+- **`layout` `Breadcrumbs`** — route-derived trail for dashboard headers (compression, tooltips, copy URL, dynamic `?name=` labels).
+
+Patterns below mirror production apps (dashboard headers, settings, data tables, auth, and mobile nav).
+
+## Installation
+
+Add the workspace packages to your app:
+
+<DocsPackageInstall
+  packages={["layout", "ui"]}
+  workspaceNote="In this monorepo, depend on workspace:* in package.json and list layout + ui in transpilePackages (see Manual installation)."
+/>
+
+### Manual installation
+
+<DocsInstall
+  packages={["layout", "ui"]}
+  importExample={`import { Breadcrumbs, BreadcrumbsSkeleton } from "layout"
+import {
+  Breadcrumb,
+  BreadcrumbEllipsis,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/packages/ui/components/breadcrumb"`}
+  note="layout re-exports route helpers from layout/breadcrumb. Mount Breadcrumbs in a client layout with next-intl messages for breadcrumb.* keys."
+/>
+
+## Anatomy
+
+```tsx
+import {
+  Breadcrumb,
+  BreadcrumbEllipsis,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/packages/ui/components/breadcrumb"
+import { Breadcrumbs, BreadcrumbsSkeleton } from "layout"
+import { compressBreadcrumbs, generateBreadcrumbs, resolveCrumbLabel } from "layout/breadcrumb"
+```
+
+```tsx
+<Breadcrumb>
+  <BreadcrumbList>
+    <BreadcrumbItem>
+      <BreadcrumbLink href="/">Home</BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbPage>Current</BreadcrumbPage>
+    </BreadcrumbItem>
+  </BreadcrumbList>
+</Breadcrumb>
+
+{/* App shell */}
+<DashboardHeader showBreadcrumbs actions={actions} />
+```
+
+## Examples
+
+### Basic
+
+<ComponentPreview code={breadcrumbBasicCode}>
+  <BreadcrumbBasicExample />
+</ComponentPreview>
+
+### Custom separator
+
+<ComponentPreview code={breadcrumbCustomSeparatorCode}>
+  <BreadcrumbCustomSeparatorExample />
+</ComponentPreview>
+
+### With icons
+
+<ComponentPreview code={breadcrumbWithIconsCode}>
+  <BreadcrumbWithIconsExample />
+</ComponentPreview>
+
+### Collapsed / ellipsis (deep paths)
+
+<ComponentPreview code={breadcrumbAutoCompressCode}>
+  <BreadcrumbAutoCompressExample />
+</ComponentPreview>
+
+### Dropdown on ellipsis
+
+Hidden segments open in a menu (same pattern as the layout `Breadcrumbs` component).
+
+<ComponentPreview code={breadcrumbCollapsedDropdownCode}>
+  <BreadcrumbCollapsedDropdownExample />
+</ComponentPreview>
+
+### Current page
+
+<ComponentPreview code={breadcrumbCurrentPageCode}>
+  <BreadcrumbCurrentPageExample />
+</ComponentPreview>
+
+### Responsive truncation (mobile)
+
+<ComponentPreview code={breadcrumbMobileTruncateCode}>
+  <BreadcrumbMobileTruncateExample />
+</ComponentPreview>
+
+## Use cases
+
+### Route-based breadcrumbs in the dashboard shell
+
+Mount `DashboardHeader` in `DashboardShell` — crumbs read the active pathname (bad-money / ai-chat style).
+
+<ComponentPreview code={breadcrumbRouteShellCode}>
+  <BreadcrumbRouteShellExample />
+</ComponentPreview>
+
+### Dynamic segments (`?name=`)
+
+Detail routes use `resolveCrumbLabel` so `/accounts/[id]` shows the account name from `?name=`.
+
+<ComponentPreview code={breadcrumbDynamicSegmentCode}>
+  <BreadcrumbDynamicSegmentExample />
+</ComponentPreview>
+
+### Loading skeleton
+
+Swap in `BreadcrumbsSkeleton` while the entity name resolves.
+
+<ComponentPreview code={breadcrumbDynamicLoadingCode}>
+  <BreadcrumbDynamicLoadingExample />
+</ComponentPreview>
+
+### i18n (`[lang]` prefixes)
+
+Pass `locale` so the home crumb targets `/en` (or your next-intl prefix).
+
+<ComponentPreview code={breadcrumbI18nCode}>
+  <BreadcrumbI18nExample />
+</ComponentPreview>
+
+### Nested settings
+
+Long settings paths stay readable; compression kicks in after three segments.
+
+<ComponentPreview code={breadcrumbSettingsNestedCode}>
+  <BreadcrumbSettingsNestedExample />
+</ComponentPreview>
+
+### Data table → detail → edit
+
+<ComponentPreview code={breadcrumbDataTableFlowCode}>
+  <BreadcrumbDataTableFlowExample />
+</ComponentPreview>
+
+### Auth routes (hidden)
+
+Disable crumbs on sign-in and marketing auth layouts.
+
+<ComponentPreview code={breadcrumbAuthHiddenCode}>
+  <BreadcrumbAuthHiddenExample />
+</ComponentPreview>
+
+### Mobile nav truncation
+
+Use `display="inline"` and `min-w-0` inside the sheet header.
+
+<ComponentPreview code={breadcrumbMobileNavCode}>
+  <BreadcrumbMobileNavExample />
+</ComponentPreview>
+
+### Live path on this page
+
+<ComponentPreview code={breadcrumbLivePathCode}>
+  <BreadcrumbLivePathExample />
+</ComponentPreview>
+
+## Component API
+
+### `Breadcrumb` (`ui`)
+
+<PropsTable
+  title="Breadcrumb"
+  props={[
+    { name: "className", type: "string", description: "Optional nav wrapper classes." },
+    { name: "...props", type: "React.ComponentProps<'nav'>", description: "Forwarded to the root <nav>." },
+  ]}
+/>
+
+<PropsTable
+  title="BreadcrumbList"
+  props={[
+    { name: "className", type: "string", description: "List layout; default flex wrap with gap-1.5." },
+    { name: "...props", type: "React.ComponentProps<'ol'>", description: "Ordered list of items." },
+  ]}
+/>
+
+<PropsTable
+  title="BreadcrumbItem"
+  props={[
+    { name: "className", type: "string", description: "Inline flex item wrapper." },
+    { name: "...props", type: "React.ComponentProps<'li'>", description: "Single crumb cell." },
+  ]}
+/>
+
+<PropsTable
+  title="BreadcrumbLink"
+  props={[
+    { name: "asChild", type: "boolean", default: "false", description: "Compose with next/link or router Link." },
+    { name: "className", type: "string", description: "Hover styles for ancestors." },
+    { name: "...props", type: "React.ComponentProps<'a'>", description: "Anchor props when asChild is false." },
+  ]}
+/>
+
+<PropsTable
+  title="BreadcrumbPage"
+  props={[
+    { name: "className", type: "string", description: "Current page text styles." },
+    { name: "...props", type: "React.ComponentProps<'span'>", description: "Sets aria-current=\"page\" on the current crumb." },
+  ]}
+/>
+
+<PropsTable
+  title="BreadcrumbSeparator"
+  props={[
+    { name: "children", type: "ReactNode", description: "Custom separator; defaults to ChevronRightIcon." },
+    { name: "className", type: "string", description: "Separator spacing." },
+    { name: "...props", type: "React.ComponentProps<'li'>", description: "role=\"presentation\" aria-hidden." },
+  ]}
+/>
+
+<PropsTable
+  title="BreadcrumbEllipsis"
+  props={[
+    { name: "className", type: "string", description: "Ellipsis control for collapsed menus." },
+    { name: "...props", type: "React.ComponentProps<'span'>", description: "MoreHorizontal icon with sr-only \"More\"." },
+  ]}
+/>
+
+### `Breadcrumbs` (`layout`)
+
+<PropsTable
+  title="Breadcrumbs"
+  props={[
+    { name: "className", type: "string", description: "Applied to BreadcrumbList (truncate, flex-1)." },
+    { name: "locale", type: "string", description: "Locale prefix for home href (e.g. en → /en)." },
+    { name: "pathname", type: "string", description: "Override pathname for tests/docs; defaults to usePathname()." },
+    { name: "searchParams", type: "SearchParamsLike", description: "Override search params when using pathname." },
+    { name: "display", type: '"header" | "inline"', default: "header", description: "header hides below md; inline always shows (mobile nav)." },
+  ]}
+/>
+
+<PropsTable
+  title="BreadcrumbsSkeleton"
+  props={[
+    { name: "className", type: "string", description: "Skeleton bar matching header crumb height." },
+  ]}
+/>
+
+<PropsTable
+  title="DashboardHeader"
+  props={[
+    { name: "showBreadcrumbs", type: "boolean", default: "true", description: "Set false on auth/marketing routes." },
+    { name: "showSidebarTrigger", type: "boolean", default: "true", description: "Sidebar trigger + separator." },
+    { name: "actions", type: "ReactNode", description: "Right-side header actions (theme, user menu)." },
+    { name: "className", type: "string", description: "Shell header classes." },
+  ]}
+/>
+
+### Route helpers (`layout/breadcrumb`)
+
+<PropsTable
+  title="generateBreadcrumbs"
+  props={[
+    { name: "pathname", type: "string", description: "Current pathname (leading slash)." },
+    { name: "searchParams", type: "SearchParamsLike | null", description: "Optional query for ?name= labels." },
+  ]}
+/>
+
+<PropsTable
+  title="compressBreadcrumbs"
+  props={[
+    { name: "items", type: "Crumb[]", description: "Returns visible nodes plus hidden crumbs for the ellipsis menu." },
+  ]}
+/>
+
+<PropsTable
+  title="resolveCrumbLabel"
+  props={[
+    { name: "segment", type: "string", description: "URL segment." },
+    { name: "options", type: "{ segmentIndex, segments, searchParams? }", description: "Resolves ?name= on entity segments." },
+  ]}
+/>
+
+## Accessibility
+
+- The root **`Breadcrumb`** renders `<nav aria-label="breadcrumb">` (shadcn default).
+- **`BreadcrumbPage`** sets **`aria-current="page"`** on the current crumb only; ancestors remain links.
+- Separators and ellipsis use **`role="presentation"`** and **`aria-hidden="true"`** so screen readers hear the list, not punctuation.
+- Icon-only home uses **`sr-only`** text; copy-URL exposes **`aria-label`** from `breadcrumb.copyUrl` messages.
+- Prefer a single breadcrumb region per page; hide the shell trail on auth with `showBreadcrumbs={false}`.
+
+## Related
+
+- [Dashboard shell](/docs/dashboard-shell)
+- [Layout overview](/docs/layout)
+- [Layout examples](/docs/examples/layout/shell-basic)

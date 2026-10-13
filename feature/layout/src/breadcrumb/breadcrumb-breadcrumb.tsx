@@ -26,6 +26,7 @@ import {
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/packages/ui/components/tooltip"
 import { cn } from "@/packages/ui/lib/utils"
 
+import type { SearchParamsLike } from "./breadcrumb-breadcrumb-utils"
 import {
 	compressBreadcrumbs,
 	generateBreadcrumbs,
@@ -37,14 +38,28 @@ import { slugToTitle } from "./breadcrumb-url-utils"
 
 type BreadcrumbsProps = {
 	className?: string | undefined
-	/** Optional locale hint (unused in the playground; reserved for host apps). */
+	/** Optional locale prefix for the home crumb (e.g. `en` → `/en`). */
 	locale?: string | undefined
+	/** Override pathname for docs and tests; defaults to `usePathname()`. */
+	pathname?: string | undefined
+	/** Override search params when using `pathname`. */
+	searchParams?: SearchParamsLike | null | undefined
+	/** `header` hides below `md` (dashboard shell). `inline` always shows (docs, mobile nav). */
+	display?: "header" | "inline" | undefined
 }
 
-export function Breadcrumbs({ className, locale }: BreadcrumbsProps) {
+export function Breadcrumbs({
+	className,
+	locale,
+	pathname: pathnameProp,
+	searchParams: searchParamsProp,
+	display = "header",
+}: BreadcrumbsProps) {
 	const t = useTranslations()
-	const pathname = usePathname()
-	const searchParams = useSearchParams()
+	const pathnameFromRouter = usePathname()
+	const searchParamsFromRouter = useSearchParams()
+	const pathname = pathnameProp ?? pathnameFromRouter
+	const searchParams = searchParamsProp ?? searchParamsFromRouter
 	const homeHref = resolveHomeHref(locale)
 	const { visible: breadcrumbs } = compressBreadcrumbs(generateBreadcrumbs(pathname, searchParams))
 	const [copied, setCopied] = useState(false)
@@ -76,7 +91,11 @@ export function Breadcrumbs({ className, locale }: BreadcrumbsProps) {
 	)
 
 	return (
-		<Breadcrumb className="group hidden w-auto flex-row md:flex">
+		<Breadcrumb
+			className={cn(
+				"group w-auto flex-row",
+				display === "inline" ? "flex" : "hidden md:flex",
+			)}>
 			<BreadcrumbList className={cn(className)}>
 				<BreadcrumbItem>
 					<Tooltip>

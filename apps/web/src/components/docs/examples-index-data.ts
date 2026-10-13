@@ -221,7 +221,7 @@ export const EXAMPLE_CATEGORIES: ExampleCategory[] = [
 			{
 				title: "Breadcrumbs",
 				description: "Trail + back affordance",
-				href: "/docs/examples/layout/breadcrumbs",
+				href: "/docs/breadcrumb",
 				kit: "layout",
 				visual: "layout-breadcrumbs",
 			},

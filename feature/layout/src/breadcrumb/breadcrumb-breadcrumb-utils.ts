@@ -5,7 +5,7 @@ type Crumb = {
 	label: string
 }
 
-type SearchParamsLike = {
+export type SearchParamsLike = {
 	get(name: string): string | null
 }
 
@@ -106,7 +106,9 @@ export function compressBreadcrumbs(items: Crumb[]): { visible: CrumbNode[]; hid
 }
 
 /** App root for the home crumb (playground has no locale prefix in the URL). */
-export function resolveHomeHref(_locale?: string): string {
+export function resolveHomeHref(locale?: string): string {
+	const trimmed = locale?.trim()
+	if (trimmed) return `/${trimmed}`
 	return "/"
 }
 
