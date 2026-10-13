@@ -13,6 +13,8 @@
 		"kits/table",
 		"kits/layout",
 		"kits/auth",
-		"kits/uploader"
+		"kits/uploader",
+		"---Blocks---",
+		"blocks"
 	]
 }

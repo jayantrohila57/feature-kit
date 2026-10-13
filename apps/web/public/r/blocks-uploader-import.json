@@ -1,0 +1,52 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "blocks-uploader-import",
+  "title": "Block — uploader import",
+  "description": "Full-page import flow with uploader kit.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "devDependencies": [],
+  "registryDependencies": [
+    "@feature-kit/dashboard-shell",
+    "@feature-kit/uploader",
+    "card"
+  ],
+  "files": [
+    {
+      "path": "files/components/components/blocks/pages/uploader-import-block.tsx",
+      "content": "\"use client\"\n\nimport { ContentPageHeader, DashboardShell } from \"@/lib/feature-kit/layout\"\nimport { useMemo } from \"react\"\nimport { CommonUploaderButton, type UploaderConfig } from \"@/lib/feature-kit/uploader\"\n\nimport { BlockPageRoot } from \"@/components/blocks/block-page-root\"\nimport { LayoutShellSidebarSlots } from \"@/components/examples/layout/shell/layout-shell-shared\"\nimport { demoAccountUploaderColumns } from \"@/components/examples/uploader/demo-uploader-columns\"\nimport { Card, CardContent, CardDescription, CardHeader, CardTitle } from \"@/components/ui/card\"\n\nconst slots = LayoutShellSidebarSlots()\n\nexport function UploaderImportBlock() {\n\tconst config = useMemo<UploaderConfig>(\n\t\t() => ({\n\t\t\tentity: \"demo-account\",\n\t\t\tentityLabel: \"accounts\",\n\t\t\ttitle: \"Import accounts\",\n\t\t\tdescription:\n\t\t\t\t\"Upload a CSV or Excel file using the sample template. Rows are validated in the browser; no API is called in this demo.\",\n\t\t\tfileFormat: \"standard\",\n\t\t\ttemplateFileName: \"demo-account-import-template\",\n\t\t\tacceptedFileTypes: \".xlsx,.csv\",\n\t\t\tcolumns: demoAccountUploaderColumns,\n\t\t\tdefaultMode: \"create\",\n\t\t\ttransport: \"records\",\n\t\t\thistoryHref: \"/docs/blocks/uploader-import\",\n\t\t}),\n\t\t[],\n\t)\n\n\treturn (\n\t\t<BlockPageRoot>\n\t\t\t<DashboardShell {...slots}>\n\t\t\t\t<ContentPageHeader\n\t\t\t\t\tdescription=\"End-to-end import flow with template download, mapping, and validation.\"\n\t\t\t\t\ttitle=\"Import data\"\n\t\t\t\t/>\n\t\t\t\t<div className=\"mt-6 grid gap-4 lg:grid-cols-2\">\n\t\t\t\t\t<Card className=\"shadow-sm\">\n\t\t\t\t\t\t<CardHeader>\n\t\t\t\t\t\t\t<CardTitle className=\"text-base\">Start import</CardTitle>\n\t\t\t\t\t\t\t<CardDescription>\n\t\t\t\t\t\t\t\tOpens the uploader dialog with column mapping and row-level errors.\n\t\t\t\t\t\t\t</CardDescription>\n\t\t\t\t\t\t</CardHeader>\n\t\t\t\t\t\t<CardContent>\n\t\t\t\t\t\t\t<CommonUploaderButton\n\t\t\t\t\t\t\t\tconfig={config}\n\t\t\t\t\t\t\t\tredirectOnSuccess={false}\n\t\t\t\t\t\t\t\ttriggerLabel=\"Import accounts\"\n\t\t\t\t\t\t\t\tonUpload={async ({ records }) => {\n\t\t\t\t\t\t\t\t\tawait new Promise((resolve) => {\n\t\t\t\t\t\t\t\t\t\twindow.setTimeout(resolve, 500)\n\t\t\t\t\t\t\t\t\t})\n\t\t\t\t\t\t\t\t\treturn {\n\t\t\t\t\t\t\t\t\t\tsuccess: true,\n\t\t\t\t\t\t\t\t\t\tmessage: `Imported ${records.length} row(s) (demo only).`,\n\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t</CardContent>\n\t\t\t\t\t</Card>\n\t\t\t\t\t<Card className=\"shadow-sm\">\n\t\t\t\t\t\t<CardHeader>\n\t\t\t\t\t\t\t<CardTitle className=\"text-base\">Before you upload</CardTitle>\n\t\t\t\t\t\t</CardHeader>\n\t\t\t\t\t\t<CardContent className=\"space-y-2 text-muted-foreground text-sm\">\n\t\t\t\t\t\t\t<p>1. Download the template and fill required columns.</p>\n\t\t\t\t\t\t\t<p>2. Keep headers on the first row.</p>\n\t\t\t\t\t\t\t<p>3. Review validation results before confirming.</p>\n\t\t\t\t\t\t</CardContent>\n\t\t\t\t\t</Card>\n\t\t\t\t</div>\n\t\t\t</DashboardShell>\n\t\t</BlockPageRoot>\n\t)\n}\n",
+      "type": "registry:component",
+      "target": "@components/components/blocks/pages/uploader-import-block.tsx"
+    },
+    {
+      "path": "files/components/components/blocks/block-page-root.tsx",
+      "content": "import type { ReactNode } from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\n/** Full-viewport root for block iframe previews. */\nexport function BlockPageRoot({ children, className }: { children: ReactNode; className?: string }) {\n\treturn (\n\t\t<div className={cn(\"flex h-dvh min-h-0 flex-col overflow-hidden bg-background text-foreground\", className)}>\n\t\t\t{children}\n\t\t</div>\n\t)\n}\n",
+      "type": "registry:component",
+      "target": "@components/components/blocks/block-page-root.tsx"
+    },
+    {
+      "path": "files/components/components/examples/layout/shell/layout-shell-shared.tsx",
+      "content": "\"use client\"\n\nimport {\n\tDashboardAccountMenu,\n\tDashboardSidebarBrand,\n\tDashboardSidebarNav,\n} from \"@/lib/feature-kit/layout\"\nimport { LayoutGrid } from \"lucide-react\"\nimport type { ReactNode } from \"react\"\n\nimport { SignOutDropdownMenuItem } from \"@/lib/feature-kit/auth\"\nimport { ThemeSelector } from \"@/lib/feature-kit/theme\"\n\nimport { workspaceNavGroups } from \"./layout-demo-nav\"\n\nexport function LayoutShellBrand() {\n\treturn (\n\t\t<DashboardSidebarBrand\n\t\t\thref=\"/docs\"\n\t\t\tlogo={\n\t\t\t\t<div className=\"flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground\">\n\t\t\t\t\t<LayoutGrid className=\"size-4\" />\n\t\t\t\t</div>\n\t\t\t}\n\t\t\tsubtitle=\"Playground\"\n\t\t\ttitle=\"Feature Kit\"\n\t\t/>\n\t)\n}\n\nexport function LayoutShellSidebarNav() {\n\treturn <DashboardSidebarNav groups={workspaceNavGroups} />\n}\n\nexport function LayoutShellAccountMenu({\n\tuser = { name: \"Demo User\", email: \"demo@featurekit.dev\" },\n}: {\n\tuser?: { name: string; email: string; image?: string | null }\n}) {\n\treturn (\n\t\t<DashboardAccountMenu signOutItem={<SignOutDropdownMenuItem />} user={user} />\n\t)\n}\n\nexport function LayoutShellHeaderActions() {\n\treturn <ThemeSelector label=\"Theme\" />\n}\n\nexport function LayoutShellSidebarFooter({ user }: { user?: { name: string; email: string } }) {\n\treturn <LayoutShellAccountMenu {...(user ? { user } : {})} />\n}\n\nexport function LayoutShellSidebarSlots(): {\n\tsidebarHeader: ReactNode\n\tsidebarContent: ReactNode\n\tsidebarFooter: ReactNode\n\theaderActions: ReactNode\n} {\n\treturn {\n\t\tsidebarHeader: <LayoutShellBrand />,\n\t\tsidebarContent: <LayoutShellSidebarNav />,\n\t\tsidebarFooter: <LayoutShellSidebarFooter />,\n\t\theaderActions: <LayoutShellHeaderActions />,\n\t}\n}\n",
+      "type": "registry:component",
+      "target": "@components/components/examples/layout/shell/layout-shell-shared.tsx"
+    },
+    {
+      "path": "files/components/components/examples/layout/shell/layout-demo-nav.ts",
+      "content": "import { Bell, BookOpen, CreditCard, LayoutGrid, Shield, Table2, User, Users } from \"lucide-react\"\n\nimport type { DashboardNavGroup } from \"@/lib/feature-kit/layout\"\n\nexport const workspaceNavGroups: DashboardNavGroup[] = [\n\t{\n\t\tlabel: \"Workspace\",\n\t\ticon: LayoutGrid,\n\t\tdefaultOpen: true,\n\t\titems: [\n\t\t\t{ title: \"Overview\", href: \"/docs/examples/layout/shell-basic\", icon: LayoutGrid },\n\t\t\t{ title: \"Accounts\", href: \"/docs/examples/layout/shell-nested-nav\", icon: Users },\n\t\t\t{ title: \"Reports\", href: \"/docs/examples/layout/shell-table\", icon: Table2 },\n\t\t],\n\t},\n\t{\n\t\tlabel: \"Resources\",\n\t\ticon: BookOpen,\n\t\titems: [\n\t\t\t{ title: \"Documentation\", href: \"/docs\", icon: BookOpen },\n\t\t\t{ title: \"Notifications\", href: \"/docs/examples/layout/shell-settings\", icon: Bell },\n\t\t],\n\t},\n]\n\nexport const settingsNav = [\n\t{ id: \"profile\", title: \"Profile\", href: \"/docs/examples/layout/shell-settings\", icon: User },\n\t{ id: \"billing\", title: \"Billing\", href: \"/docs/examples/layout/shell-settings#billing\", icon: CreditCard },\n\t{ id: \"security\", title: \"Security\", href: \"/docs/examples/layout/shell-settings#security\", icon: Shield },\n]\n",
+      "type": "registry:component",
+      "target": "@components/components/examples/layout/shell/layout-demo-nav.ts"
+    },
+    {
+      "path": "files/components/components/examples/uploader/demo-uploader-columns.ts",
+      "content": "import type { UploaderColumn } from \"@/lib/feature-kit/uploader\"\n\nexport const demoAccountUploaderColumns: UploaderColumn[] = [\n\t{\n\t\tkey: \"code\",\n\t\theader: \"Code\",\n\t\trequiredIn: [\"create\", \"update\"],\n\t\tsample: \"ACC001\",\n\t},\n\t{\n\t\tkey: \"accountName\",\n\t\theader: \"Account name\",\n\t\trequiredIn: [\"create\"],\n\t\tsample: \"Operating account\",\n\t},\n\t{\n\t\tkey: \"bankCode\",\n\t\theader: \"Bank code\",\n\t\trequiredIn: [\"create\"],\n\t\tsample: \"BNK001\",\n\t},\n\t{\n\t\tkey: \"bankAccountNum\",\n\t\theader: \"Bank account number\",\n\t\trequiredIn: [\"create\"],\n\t\tsample: \"1234567890\",\n\t},\n\t{\n\t\tkey: \"accountDescription\",\n\t\theader: \"Description\",\n\t\trequiredIn: [],\n\t\tsample: \"General operating account\",\n\t},\n]\n",
+      "type": "registry:component",
+      "target": "@components/components/examples/uploader/demo-uploader-columns.ts"
+    }
+  ],
+  "categories": [
+    "blocks",
+    "uploader"
+  ],
+  "type": "registry:block"
+}

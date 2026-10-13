@@ -50,6 +50,54 @@
       "title": "Uploader kit",
       "description": "Spreadsheet import UI with validation and FormKit integration.",
       "url": "https://feature-kits.vercel.app/r/uploader.json"
+    },
+    {
+      "name": "blocks-dashboard-overview",
+      "title": "Block — dashboard overview",
+      "description": "Full-page dashboard with stats, chart, and recent table.",
+      "url": "https://feature-kits.vercel.app/r/blocks-dashboard-overview.json"
+    },
+    {
+      "name": "blocks-data-table-crud",
+      "title": "Block — data table CRUD",
+      "description": "Filtered table with row actions and sheet form.",
+      "url": "https://feature-kits.vercel.app/r/blocks-data-table-crud.json"
+    },
+    {
+      "name": "blocks-detail-page",
+      "title": "Block — detail page",
+      "description": "Breadcrumbs, header, and tabbed detail sections.",
+      "url": "https://feature-kits.vercel.app/r/blocks-detail-page.json"
+    },
+    {
+      "name": "blocks-settings-area",
+      "title": "Block — settings area",
+      "description": "Secondary nav, profile, preferences, and theme.",
+      "url": "https://feature-kits.vercel.app/r/blocks-settings-area.json"
+    },
+    {
+      "name": "blocks-auth-pages",
+      "title": "Block — auth pages",
+      "description": "Sign-in, sign-up, forgot password, and split layouts.",
+      "url": "https://feature-kits.vercel.app/r/blocks-auth-pages.json"
+    },
+    {
+      "name": "blocks-uploader-import",
+      "title": "Block — uploader import",
+      "description": "Full-page import flow with uploader kit.",
+      "url": "https://feature-kits.vercel.app/r/blocks-uploader-import.json"
+    },
+    {
+      "name": "blocks-app-states",
+      "title": "Block — app states",
+      "description": "Empty, loading, and error table states.",
+      "url": "https://feature-kits.vercel.app/r/blocks-app-states.json"
+    },
+    {
+      "name": "blocks-top-nav-app",
+      "title": "Block — top nav app",
+      "description": "Top navigation without sidebar.",
+      "url": "https://feature-kits.vercel.app/r/blocks-top-nav-app.json"
     }
   ]
 }

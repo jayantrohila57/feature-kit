@@ -1,0 +1,34 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "blocks-auth-pages",
+  "title": "Block — auth pages",
+  "description": "Sign-in, sign-up, forgot password, and split layouts.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "devDependencies": [],
+  "registryDependencies": [
+    "@feature-kit/layout",
+    "@feature-kit/auth",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "files/components/components/blocks/pages/auth-pages-block.tsx",
+      "content": "\"use client\"\n\nimport { AuthCardLayout, AuthDemoCallout, ForgotPasswordForm, SignInForm, SignUpForm } from \"@/lib/feature-kit/auth\"\nimport { AuthSplitShell } from \"@/lib/feature-kit/layout\"\nimport { useState } from \"react\"\n\nimport { BlockPageRoot } from \"@/components/blocks/block-page-root\"\nimport { Button } from \"@/components/ui/button\"\nimport { cn } from \"@/lib/utils\"\n\ntype AuthVariant = \"sign-in\" | \"sign-up\" | \"forgot\" | \"split\"\n\nconst variants: { id: AuthVariant; label: string }[] = [\n\t{ id: \"sign-in\", label: \"Sign in\" },\n\t{ id: \"sign-up\", label: \"Sign up\" },\n\t{ id: \"forgot\", label: \"Forgot password\" },\n\t{ id: \"split\", label: \"Split screen\" },\n]\n\nfunction AuthMarketingAside() {\n\treturn (\n\t\t<div className=\"flex h-full flex-col justify-end p-8\">\n\t\t\t<p className=\"font-medium text-lg\">Feature Kit</p>\n\t\t\t<p className=\"mt-2 max-w-sm text-muted-foreground text-sm\">\n\t\t\t\tAuth blocks compose `AuthCardLayout` with sign-in, sign-up, and recovery forms from the auth kit.\n\t\t\t</p>\n\t\t</div>\n\t)\n}\n\nexport function AuthPagesBlock() {\n\tconst [variant, setVariant] = useState<AuthVariant>(\"sign-in\")\n\n\treturn (\n\t\t<BlockPageRoot>\n\t\t\t<div className=\"flex h-full min-h-0 flex-col\">\n\t\t\t\t<div className=\"flex flex-wrap items-center gap-2 border-b bg-muted/20 px-4 py-2\">\n\t\t\t\t\t{variants.map((item) => (\n\t\t\t\t\t\t<Button\n\t\t\t\t\t\t\tkey={item.id}\n\t\t\t\t\t\t\tclassName={cn(\"h-8\", variant === item.id && \"bg-background shadow-sm\")}\n\t\t\t\t\t\t\tsize=\"sm\"\n\t\t\t\t\t\t\ttype=\"button\"\n\t\t\t\t\t\t\tvariant={variant === item.id ? \"secondary\" : \"ghost\"}\n\t\t\t\t\t\t\tonClick={() => setVariant(item.id)}>\n\t\t\t\t\t\t\t{item.label}\n\t\t\t\t\t\t</Button>\n\t\t\t\t\t))}\n\t\t\t\t</div>\n\t\t\t\t<div className=\"min-h-0 flex-1 overflow-auto\">\n\t\t\t\t\t{variant === \"split\" ? (\n\t\t\t\t\t\t<AuthSplitShell aside={<AuthMarketingAside />}>\n\t\t\t\t\t\t\t<AuthDemoCallout />\n\t\t\t\t\t\t\t<div className=\"mt-4\">\n\t\t\t\t\t\t\t\t<AuthCardLayout description=\"Split layout hides the aside on small screens.\" title=\"Sign in\">\n\t\t\t\t\t\t\t\t\t<SignInForm redirectTo=\"/blocks/preview/auth-pages\" />\n\t\t\t\t\t\t\t\t</AuthCardLayout>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</AuthSplitShell>\n\t\t\t\t\t) : (\n\t\t\t\t\t\t<div className=\"flex min-h-full items-center justify-center p-6\">\n\t\t\t\t\t\t\t<div className=\"w-full max-w-md space-y-4\">\n\t\t\t\t\t\t\t\t<AuthDemoCallout />\n\t\t\t\t\t\t\t\t<AuthCardLayout\n\t\t\t\t\t\t\t\t\tdescription={\n\t\t\t\t\t\t\t\t\t\tvariant === \"sign-in\"\n\t\t\t\t\t\t\t\t\t\t\t? \"Email and password with demo adapter.\"\n\t\t\t\t\t\t\t\t\t\t\t: variant === \"sign-up\"\n\t\t\t\t\t\t\t\t\t\t\t\t? \"Create an account in demo mode.\"\n\t\t\t\t\t\t\t\t\t\t\t\t: \"Send a reset link (demo).\"\n\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t\t\t\tvariant === \"sign-in\"\n\t\t\t\t\t\t\t\t\t\t\t? \"Sign in\"\n\t\t\t\t\t\t\t\t\t\t\t: variant === \"sign-up\"\n\t\t\t\t\t\t\t\t\t\t\t\t? \"Sign up\"\n\t\t\t\t\t\t\t\t\t\t\t\t: \"Forgot password\"\n\t\t\t\t\t\t\t\t\t}>\n\t\t\t\t\t\t\t\t\t{variant === \"sign-in\" ? (\n\t\t\t\t\t\t\t\t\t\t<SignInForm redirectTo=\"/blocks/preview/auth-pages\" />\n\t\t\t\t\t\t\t\t\t) : variant === \"sign-up\" ? (\n\t\t\t\t\t\t\t\t\t\t<SignUpForm redirectTo=\"/blocks/preview/auth-pages\" />\n\t\t\t\t\t\t\t\t\t) : (\n\t\t\t\t\t\t\t\t\t\t<ForgotPasswordForm />\n\t\t\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t\t\t</AuthCardLayout>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t)}\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</BlockPageRoot>\n\t)\n}\n",
+      "type": "registry:component",
+      "target": "@components/components/blocks/pages/auth-pages-block.tsx"
+    },
+    {
+      "path": "files/components/components/blocks/block-page-root.tsx",
+      "content": "import type { ReactNode } from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\n/** Full-viewport root for block iframe previews. */\nexport function BlockPageRoot({ children, className }: { children: ReactNode; className?: string }) {\n\treturn (\n\t\t<div className={cn(\"flex h-dvh min-h-0 flex-col overflow-hidden bg-background text-foreground\", className)}>\n\t\t\t{children}\n\t\t</div>\n\t)\n}\n",
+      "type": "registry:component",
+      "target": "@components/components/blocks/block-page-root.tsx"
+    }
+  ],
+  "categories": [
+    "blocks",
+    "auth"
+  ],
+  "type": "registry:block"
+}

@@ -158,6 +158,172 @@ const KITS = {
 	},
 }
 
+/** @type {Record<string, {
+  title: string
+  description: string
+  sourceFiles: string[]
+  dependencies?: string[]
+  registryDependencies?: string[]
+  categories?: string[]
+}>} */
+const BLOCKS = {
+	"blocks-dashboard-overview": {
+		title: "Block — dashboard overview",
+		description: "Full-page dashboard with stats, chart, and recent table.",
+		sourceFiles: [
+			"apps/web/src/components/blocks/pages/dashboard-overview-block.tsx",
+			"apps/web/src/components/blocks/block-page-root.tsx",
+			"apps/web/src/components/examples/layout/shell/layout-shell-shared.tsx",
+			"apps/web/src/components/examples/layout/shell/layout-demo-nav.ts",
+			"apps/web/src/components/examples/table/demo-rows.ts",
+		],
+		dependencies: ["lucide-react", "sonner"],
+		registryDependencies: [
+			"@feature-kit/dashboard-shell",
+			"@feature-kit/data-table",
+			"@feature-kit/theme",
+			"card",
+			"table",
+		],
+		categories: ["blocks", "dashboard"],
+	},
+	"blocks-data-table-crud": {
+		title: "Block — data table CRUD",
+		description: "Filtered table with row actions and sheet form.",
+		sourceFiles: [
+			"apps/web/src/components/blocks/pages/data-table-crud-block.tsx",
+			"apps/web/src/components/blocks/block-page-root.tsx",
+			"apps/web/src/components/examples/layout/shell/layout-shell-shared.tsx",
+			"apps/web/src/components/examples/layout/shell/layout-demo-nav.ts",
+			"apps/web/src/components/examples/table/demo-rows.ts",
+		],
+		dependencies: ["lucide-react", "sonner", "zod"],
+		registryDependencies: [
+			"@feature-kit/dashboard-shell",
+			"@feature-kit/data-table",
+			"@feature-kit/form",
+			"button",
+			"sheet",
+		],
+		categories: ["blocks", "table"],
+	},
+	"blocks-detail-page": {
+		title: "Block — detail page",
+		description: "Breadcrumbs, header, and tabbed detail sections.",
+		sourceFiles: [
+			"apps/web/src/components/blocks/pages/detail-page-block.tsx",
+			"apps/web/src/components/blocks/block-page-root.tsx",
+			"apps/web/src/components/examples/layout/shell/layout-shell-shared.tsx",
+			"apps/web/src/components/examples/layout/shell/layout-demo-nav.ts",
+		],
+		dependencies: ["lucide-react"],
+		registryDependencies: ["@feature-kit/dashboard-shell", "badge", "card", "separator", "tabs"],
+		categories: ["blocks"],
+	},
+	"blocks-settings-area": {
+		title: "Block — settings area",
+		description: "Secondary nav, profile, preferences, and theme.",
+		sourceFiles: [
+			"apps/web/src/components/blocks/pages/settings-area-block.tsx",
+			"apps/web/src/components/blocks/block-page-root.tsx",
+			"apps/web/src/components/examples/layout/shell/layout-shell-shared.tsx",
+			"apps/web/src/components/examples/layout/shell/layout-demo-nav.ts",
+		],
+		dependencies: ["lucide-react"],
+		registryDependencies: [
+			"@feature-kit/dashboard-shell",
+			"@feature-kit/theme",
+			"input",
+			"label",
+			"switch",
+			"textarea",
+		],
+		categories: ["blocks", "settings"],
+	},
+	"blocks-auth-pages": {
+		title: "Block — auth pages",
+		description: "Sign-in, sign-up, forgot password, and split layouts.",
+		sourceFiles: ["apps/web/src/components/blocks/pages/auth-pages-block.tsx", "apps/web/src/components/blocks/block-page-root.tsx"],
+		dependencies: ["lucide-react"],
+		registryDependencies: ["@feature-kit/layout", "@feature-kit/auth", "button"],
+		categories: ["blocks", "auth"],
+	},
+	"blocks-uploader-import": {
+		title: "Block — uploader import",
+		description: "Full-page import flow with uploader kit.",
+		sourceFiles: [
+			"apps/web/src/components/blocks/pages/uploader-import-block.tsx",
+			"apps/web/src/components/blocks/block-page-root.tsx",
+			"apps/web/src/components/examples/layout/shell/layout-shell-shared.tsx",
+			"apps/web/src/components/examples/layout/shell/layout-demo-nav.ts",
+			"apps/web/src/components/examples/uploader/demo-uploader-columns.ts",
+		],
+		dependencies: ["lucide-react"],
+		registryDependencies: ["@feature-kit/dashboard-shell", "@feature-kit/uploader", "card"],
+		categories: ["blocks", "uploader"],
+	},
+	"blocks-app-states": {
+		title: "Block — app states",
+		description: "Empty, loading, and error table states.",
+		sourceFiles: [
+			"apps/web/src/components/blocks/pages/app-states-block.tsx",
+			"apps/web/src/components/blocks/block-page-root.tsx",
+			"apps/web/src/components/examples/layout/shell/layout-shell-shared.tsx",
+			"apps/web/src/components/examples/layout/shell/layout-demo-nav.ts",
+			"apps/web/src/components/examples/table/demo-rows.ts",
+		],
+		dependencies: ["lucide-react"],
+		registryDependencies: ["@feature-kit/dashboard-shell", "@feature-kit/data-table", "alert", "button"],
+		categories: ["blocks"],
+	},
+	"blocks-top-nav-app": {
+		title: "Block — top nav app",
+		description: "Top navigation without sidebar.",
+		sourceFiles: [
+			"apps/web/src/components/blocks/pages/top-nav-app-block.tsx",
+			"apps/web/src/components/blocks/block-page-root.tsx",
+			"apps/web/src/components/examples/layout/shell/layout-shell-shared.tsx",
+		],
+		dependencies: ["lucide-react"],
+		registryDependencies: ["@feature-kit/dashboard-shell", "@feature-kit/theme", "card"],
+		categories: ["blocks", "navigation"],
+	},
+}
+
+function transformBlockImports(content) {
+	return transformSource(content, "block")
+		.replaceAll("@/components/blocks/block-shell-slots", "@/components/examples/layout/shell/layout-shell-shared")
+		.replaceAll(
+			"@/components/blocks/block-page-root",
+			"@/components/blocks/block-page-root",
+		)
+}
+
+function targetPathForBlockFile(relativePath) {
+	const normalized = relativePath.replace(/^apps\/web\/src\//, "")
+	return `@components/${normalized}`
+}
+
+async function stageBlock(name, config) {
+	const files = []
+	for (const rel of config.sourceFiles) {
+		const abs = path.join(ROOT, rel)
+		const raw = await fs.readFile(abs, "utf8")
+		const content = transformBlockImports(raw)
+		const target = targetPathForBlockFile(rel)
+		const stagingRel = target.replace(/^@components\//, "components/")
+		const stagingPath = path.join(STAGING, stagingRel)
+		await fs.mkdir(path.dirname(stagingPath), { recursive: true })
+		await fs.writeFile(stagingPath, content)
+		files.push({
+			path: path.relative(GENERATED, stagingPath),
+			type: "registry:component",
+			target: `${target}`,
+		})
+	}
+	return files
+}
+
 function transformSource(content, kitName) {
 	return content
 		.replaceAll("@/packages/ui/components/", "@/components/ui/")
@@ -282,6 +448,21 @@ async function main() {
 			registryDependencies: config.registryDependencies ?? [],
 			categories: config.categories ?? [],
 			...(config.docs ? { docs: config.docs } : {}),
+			files,
+		})
+	}
+
+	for (const [name, config] of Object.entries(BLOCKS)) {
+		const files = await stageBlock(name, config)
+		items.push({
+			name,
+			type: "registry:block",
+			title: config.title,
+			description: config.description,
+			dependencies: config.dependencies ?? [],
+			devDependencies: [],
+			registryDependencies: config.registryDependencies ?? [],
+			categories: config.categories ?? ["blocks"],
 			files,
 		})
 	}

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "blocks-app-states",
+  "title": "Block — app states",
+  "description": "Empty, loading, and error table states.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "devDependencies": [],
+  "registryDependencies": [
+    "@feature-kit/dashboard-shell",
+    "@feature-kit/data-table",
+    "alert",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "files/components/components/blocks/pages/app-states-block.tsx",
+      "content": "\"use client\"\n\nimport type { ColumnDef } from \"@/lib/feature-kit/data-table\"\nimport { DataTable, DataTableColumnHeader } from \"@/lib/feature-kit/data-table\"\nimport { ContentPageHeader, DashboardShell } from \"@/lib/feature-kit/layout\"\nimport { AlertCircle, Inbox, RefreshCw } from \"lucide-react\"\nimport { useMemo, useState } from \"react\"\n\nimport { BlockPageRoot } from \"@/components/blocks/block-page-root\"\nimport { LayoutShellSidebarSlots } from \"@/components/examples/layout/shell/layout-shell-shared\"\nimport { type DemoPerson, demoPeople } from \"@/components/examples/table/demo-rows\"\nimport { Alert, AlertDescription, AlertTitle } from \"@/components/ui/alert\"\nimport { Button } from \"@/components/ui/button\"\nimport { cn } from \"@/lib/utils\"\n\nconst slots = LayoutShellSidebarSlots()\n\ntype StateVariant = \"empty\" | \"loading\" | \"error\"\n\nconst variants: { id: StateVariant; label: string }[] = [\n\t{ id: \"empty\", label: \"Empty\" },\n\t{ id: \"loading\", label: \"Loading\" },\n\t{ id: \"error\", label: \"Error\" },\n]\n\nexport function AppStatesBlock() {\n\tconst [variant, setVariant] = useState<StateVariant>(\"empty\")\n\n\tconst columns = useMemo<ColumnDef<DemoPerson>[]>(\n\t\t() => [\n\t\t\t{\n\t\t\t\taccessorKey: \"name\",\n\t\t\t\theader: ({ column }) => <DataTableColumnHeader column={column} title=\"Name\" />,\n\t\t\t},\n\t\t\t{\n\t\t\t\taccessorKey: \"email\",\n\t\t\t\theader: ({ column }) => <DataTableColumnHeader column={column} title=\"Email\" />,\n\t\t\t},\n\t\t],\n\t\t[],\n\t)\n\n\treturn (\n\t\t<BlockPageRoot>\n\t\t\t<DashboardShell {...slots}>\n\t\t\t\t<ContentPageHeader\n\t\t\t\t\tdescription=\"Switch between empty, loading, and error presentations.\"\n\t\t\t\t\ttitle=\"Projects\"\n\t\t\t\t/>\n\t\t\t\t<div className=\"mb-4 flex flex-wrap gap-2\">\n\t\t\t\t\t{variants.map((item) => (\n\t\t\t\t\t\t<Button\n\t\t\t\t\t\t\tkey={item.id}\n\t\t\t\t\t\t\tclassName={cn(\"h-8\", variant === item.id && \"bg-background shadow-sm\")}\n\t\t\t\t\t\t\tsize=\"sm\"\n\t\t\t\t\t\t\ttype=\"button\"\n\t\t\t\t\t\t\tvariant={variant === item.id ? \"secondary\" : \"outline\"}\n\t\t\t\t\t\t\tonClick={() => setVariant(item.id)}>\n\t\t\t\t\t\t\t{item.label}\n\t\t\t\t\t\t</Button>\n\t\t\t\t\t))}\n\t\t\t\t</div>\n\t\t\t\t{variant === \"error\" ? (\n\t\t\t\t\t<Alert variant=\"destructive\">\n\t\t\t\t\t\t<AlertCircle className=\"size-4\" aria-hidden />\n\t\t\t\t\t\t<AlertTitle>Could not load projects</AlertTitle>\n\t\t\t\t\t\t<AlertDescription className=\"flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between\">\n\t\t\t\t\t\t\t<span>The request timed out. Check your connection and try again.</span>\n\t\t\t\t\t\t\t<Button size=\"sm\" type=\"button\" variant=\"outline\">\n\t\t\t\t\t\t\t\t<RefreshCw className=\"size-4\" aria-hidden />\n\t\t\t\t\t\t\t\tRetry\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t</AlertDescription>\n\t\t\t\t\t</Alert>\n\t\t\t\t) : null}\n\t\t\t\t<div className=\"mt-4 min-h-[320px] overflow-hidden rounded-lg border bg-card\">\n\t\t\t\t\t<DataTable\n\t\t\t\t\t\tcolumns={columns}\n\t\t\t\t\t\tdata={variant === \"empty\" ? [] : demoPeople}\n\t\t\t\t\t\tdisplayKey=\"name\"\n\t\t\t\t\t\temptyState={{\n\t\t\t\t\t\t\ttitle: \"No projects yet\",\n\t\t\t\t\t\t\tdescription: \"Create a project or import data to see rows here.\",\n\t\t\t\t\t\t\ticons: [Inbox, Inbox, Inbox],\n\t\t\t\t\t\t}}\n\t\t\t\t\t\tisPending={variant === \"loading\"}\n\t\t\t\t\t\tselectionKey={(row) => row.id}\n\t\t\t\t\t\tsyncUrl={false}\n\t\t\t\t\t\ttableId=\"block-states-table\"\n\t\t\t\t\t/>\n\t\t\t\t</div>\n\t\t\t</DashboardShell>\n\t\t</BlockPageRoot>\n\t)\n}\n",
+      "type": "registry:component",
+      "target": "@components/components/blocks/pages/app-states-block.tsx"
+    },
+    {
+      "path": "files/components/components/blocks/block-page-root.tsx",
+      "content": "import type { ReactNode } from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\n/** Full-viewport root for block iframe previews. */\nexport function BlockPageRoot({ children, className }: { children: ReactNode; className?: string }) {\n\treturn (\n\t\t<div className={cn(\"flex h-dvh min-h-0 flex-col overflow-hidden bg-background text-foreground\", className)}>\n\t\t\t{children}\n\t\t</div>\n\t)\n}\n",
+      "type": "registry:component",
+      "target": "@components/components/blocks/block-page-root.tsx"
+    },
+    {
+      "path": "files/components/components/examples/layout/shell/layout-shell-shared.tsx",
+      "content": "\"use client\"\n\nimport {\n\tDashboardAccountMenu,\n\tDashboardSidebarBrand,\n\tDashboardSidebarNav,\n} from \"@/lib/feature-kit/layout\"\nimport { LayoutGrid } from \"lucide-react\"\nimport type { ReactNode } from \"react\"\n\nimport { SignOutDropdownMenuItem } from \"@/lib/feature-kit/auth\"\nimport { ThemeSelector } from \"@/lib/feature-kit/theme\"\n\nimport { workspaceNavGroups } from \"./layout-demo-nav\"\n\nexport function LayoutShellBrand() {\n\treturn (\n\t\t<DashboardSidebarBrand\n\t\t\thref=\"/docs\"\n\t\t\tlogo={\n\t\t\t\t<div className=\"flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground\">\n\t\t\t\t\t<LayoutGrid className=\"size-4\" />\n\t\t\t\t</div>\n\t\t\t}\n\t\t\tsubtitle=\"Playground\"\n\t\t\ttitle=\"Feature Kit\"\n\t\t/>\n\t)\n}\n\nexport function LayoutShellSidebarNav() {\n\treturn <DashboardSidebarNav groups={workspaceNavGroups} />\n}\n\nexport function LayoutShellAccountMenu({\n\tuser = { name: \"Demo User\", email: \"demo@featurekit.dev\" },\n}: {\n\tuser?: { name: string; email: string; image?: string | null }\n}) {\n\treturn (\n\t\t<DashboardAccountMenu signOutItem={<SignOutDropdownMenuItem />} user={user} />\n\t)\n}\n\nexport function LayoutShellHeaderActions() {\n\treturn <ThemeSelector label=\"Theme\" />\n}\n\nexport function LayoutShellSidebarFooter({ user }: { user?: { name: string; email: string } }) {\n\treturn <LayoutShellAccountMenu {...(user ? { user } : {})} />\n}\n\nexport function LayoutShellSidebarSlots(): {\n\tsidebarHeader: ReactNode\n\tsidebarContent: ReactNode\n\tsidebarFooter: ReactNode\n\theaderActions: ReactNode\n} {\n\treturn {\n\t\tsidebarHeader: <LayoutShellBrand />,\n\t\tsidebarContent: <LayoutShellSidebarNav />,\n\t\tsidebarFooter: <LayoutShellSidebarFooter />,\n\t\theaderActions: <LayoutShellHeaderActions />,\n\t}\n}\n",
+      "type": "registry:component",
+      "target": "@components/components/examples/layout/shell/layout-shell-shared.tsx"
+    },
+    {
+      "path": "files/components/components/examples/layout/shell/layout-demo-nav.ts",
+      "content": "import { Bell, BookOpen, CreditCard, LayoutGrid, Shield, Table2, User, Users } from \"lucide-react\"\n\nimport type { DashboardNavGroup } from \"@/lib/feature-kit/layout\"\n\nexport const workspaceNavGroups: DashboardNavGroup[] = [\n\t{\n\t\tlabel: \"Workspace\",\n\t\ticon: LayoutGrid,\n\t\tdefaultOpen: true,\n\t\titems: [\n\t\t\t{ title: \"Overview\", href: \"/docs/examples/layout/shell-basic\", icon: LayoutGrid },\n\t\t\t{ title: \"Accounts\", href: \"/docs/examples/layout/shell-nested-nav\", icon: Users },\n\t\t\t{ title: \"Reports\", href: \"/docs/examples/layout/shell-table\", icon: Table2 },\n\t\t],\n\t},\n\t{\n\t\tlabel: \"Resources\",\n\t\ticon: BookOpen,\n\t\titems: [\n\t\t\t{ title: \"Documentation\", href: \"/docs\", icon: BookOpen },\n\t\t\t{ title: \"Notifications\", href: \"/docs/examples/layout/shell-settings\", icon: Bell },\n\t\t],\n\t},\n]\n\nexport const settingsNav = [\n\t{ id: \"profile\", title: \"Profile\", href: \"/docs/examples/layout/shell-settings\", icon: User },\n\t{ id: \"billing\", title: \"Billing\", href: \"/docs/examples/layout/shell-settings#billing\", icon: CreditCard },\n\t{ id: \"security\", title: \"Security\", href: \"/docs/examples/layout/shell-settings#security\", icon: Shield },\n]\n",
+      "type": "registry:component",
+      "target": "@components/components/examples/layout/shell/layout-demo-nav.ts"
+    },
+    {
+      "path": "files/components/components/examples/table/demo-rows.ts",
+      "content": "export type DemoPerson = {\n\tid: string\n\tname: string\n\temail: string\n\tstatus: \"active\" | \"invited\" | \"disabled\"\n\tdepartment: string\n}\n\nexport const demoPeople: DemoPerson[] = [\n\t{ id: \"1\", name: \"Ada Lovelace\", email: \"ada@example.com\", status: \"active\", department: \"Engineering\" },\n\t{ id: \"2\", name: \"Grace Hopper\", email: \"grace@example.com\", status: \"active\", department: \"Engineering\" },\n\t{ id: \"3\", name: \"Katherine Johnson\", email: \"katherine@example.com\", status: \"invited\", department: \"Science\" },\n\t{ id: \"4\", name: \"Alan Turing\", email: \"alan@example.com\", status: \"active\", department: \"Research\" },\n\t{ id: \"5\", name: \"Barbara Liskov\", email: \"barbara@example.com\", status: \"disabled\", department: \"Engineering\" },\n\t{ id: \"6\", name: \"Donald Knuth\", email: \"don@example.com\", status: \"active\", department: \"Research\" },\n\t{ id: \"7\", name: \"Frances Allen\", email: \"frances@example.com\", status: \"invited\", department: \"Science\" },\n\t{ id: \"8\", name: \"Edsger Dijkstra\", email: \"edsger@example.com\", status: \"active\", department: \"Research\" },\n]\n\nexport const statusFilterOptions = [\n\t{ value: \"active\", label: \"Active\" },\n\t{ value: \"invited\", label: \"Invited\" },\n\t{ value: \"disabled\", label: \"Disabled\" },\n]\n",
+      "type": "registry:component",
+      "target": "@components/components/examples/table/demo-rows.ts"
+    }
+  ],
+  "categories": [
+    "blocks"
+  ],
+  "type": "registry:block"
+}

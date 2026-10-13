@@ -1,0 +1,49 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "blocks-settings-area",
+  "title": "Block — settings area",
+  "description": "Secondary nav, profile, preferences, and theme.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "devDependencies": [],
+  "registryDependencies": [
+    "@feature-kit/dashboard-shell",
+    "@feature-kit/theme",
+    "input",
+    "label",
+    "switch",
+    "textarea"
+  ],
+  "files": [
+    {
+      "path": "files/components/components/blocks/pages/settings-area-block.tsx",
+      "content": "\"use client\"\n\nimport { DashboardShell, FormSection, SettingsLayout } from \"@/lib/feature-kit/layout\"\nimport { ThemeSelector } from \"@/lib/feature-kit/theme\"\n\nimport { BlockPageRoot } from \"@/components/blocks/block-page-root\"\nimport { LayoutShellSidebarSlots } from \"@/components/examples/layout/shell/layout-shell-shared\"\nimport { settingsNav } from \"@/components/examples/layout/shell/layout-demo-nav\"\nimport { Input } from \"@/components/ui/input\"\nimport { Label } from \"@/components/ui/label\"\nimport { Switch } from \"@/components/ui/switch\"\nimport { Textarea } from \"@/components/ui/textarea\"\n\nconst slots = LayoutShellSidebarSlots()\n\nexport function SettingsAreaBlock() {\n\treturn (\n\t\t<BlockPageRoot>\n\t\t\t<DashboardShell {...slots}>\n\t\t\t\t<SettingsLayout\n\t\t\t\t\tactiveId=\"profile\"\n\t\t\t\t\tdescription=\"Secondary navigation, profile fields, preferences, and theme.\"\n\t\t\t\t\tnavigation={settingsNav}\n\t\t\t\t\ttitle=\"Settings\">\n\t\t\t\t\t<div className=\"space-y-6\">\n\t\t\t\t\t\t<div className=\"rounded-lg border bg-card p-4 shadow-sm\">\n\t\t\t\t\t\t\t<FormSection description=\"Visible on the profile route.\" title=\"Profile\">\n\t\t\t\t\t\t\t\t<div className=\"col-span-2 grid gap-2\">\n\t\t\t\t\t\t\t\t\t<Label htmlFor=\"block-settings-name\">Display name</Label>\n\t\t\t\t\t\t\t\t\t<Input id=\"block-settings-name\" placeholder=\"Demo User\" />\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div className=\"col-span-2 grid gap-2\">\n\t\t\t\t\t\t\t\t\t<Label htmlFor=\"block-settings-email\">Email</Label>\n\t\t\t\t\t\t\t\t\t<Input id=\"block-settings-email\" placeholder=\"demo@featurekit.dev\" type=\"email\" />\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div className=\"col-span-2 grid gap-2\">\n\t\t\t\t\t\t\t\t\t<Label htmlFor=\"block-settings-bio\">Bio</Label>\n\t\t\t\t\t\t\t\t\t<Textarea id=\"block-settings-bio\" placeholder=\"Short bio for your team directory.\" rows={3} />\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</FormSection>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div className=\"rounded-lg border bg-card p-4 shadow-sm\">\n\t\t\t\t\t\t\t<FormSection description=\"Notification and product preferences.\" title=\"Preferences\">\n\t\t\t\t\t\t\t\t<div className=\"col-span-2 flex items-center justify-between gap-4 rounded-md border px-3 py-2\">\n\t\t\t\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t\t\t\t<p className=\"font-medium text-sm\">Product updates</p>\n\t\t\t\t\t\t\t\t\t\t<p className=\"text-muted-foreground text-xs\">Email when kits ship new examples.</p>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<Switch defaultChecked id=\"pref-updates\" />\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div className=\"col-span-2 flex items-center justify-between gap-4 rounded-md border px-3 py-2\">\n\t\t\t\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t\t\t\t<p className=\"font-medium text-sm\">Weekly digest</p>\n\t\t\t\t\t\t\t\t\t\t<p className=\"text-muted-foreground text-xs\">Usage summary every Monday.</p>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<Switch id=\"pref-digest\" />\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</FormSection>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div className=\"rounded-lg border bg-card p-4 shadow-sm\">\n\t\t\t\t\t\t\t<FormSection description=\"Uses the theme kit selector.\" title=\"Appearance\">\n\t\t\t\t\t\t\t\t<div className=\"col-span-2 flex flex-wrap items-center justify-between gap-3\">\n\t\t\t\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t\t\t\t<p className=\"font-medium text-sm\">Theme</p>\n\t\t\t\t\t\t\t\t\t\t<p className=\"text-muted-foreground text-xs\">System, light, or dark.</p>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<ThemeSelector label=\"Theme\" />\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</FormSection>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</SettingsLayout>\n\t\t\t</DashboardShell>\n\t\t</BlockPageRoot>\n\t)\n}\n",
+      "type": "registry:component",
+      "target": "@components/components/blocks/pages/settings-area-block.tsx"
+    },
+    {
+      "path": "files/components/components/blocks/block-page-root.tsx",
+      "content": "import type { ReactNode } from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\n/** Full-viewport root for block iframe previews. */\nexport function BlockPageRoot({ children, className }: { children: ReactNode; className?: string }) {\n\treturn (\n\t\t<div className={cn(\"flex h-dvh min-h-0 flex-col overflow-hidden bg-background text-foreground\", className)}>\n\t\t\t{children}\n\t\t</div>\n\t)\n}\n",
+      "type": "registry:component",
+      "target": "@components/components/blocks/block-page-root.tsx"
+    },
+    {
+      "path": "files/components/components/examples/layout/shell/layout-shell-shared.tsx",
+      "content": "\"use client\"\n\nimport {\n\tDashboardAccountMenu,\n\tDashboardSidebarBrand,\n\tDashboardSidebarNav,\n} from \"@/lib/feature-kit/layout\"\nimport { LayoutGrid } from \"lucide-react\"\nimport type { ReactNode } from \"react\"\n\nimport { SignOutDropdownMenuItem } from \"@/lib/feature-kit/auth\"\nimport { ThemeSelector } from \"@/lib/feature-kit/theme\"\n\nimport { workspaceNavGroups } from \"./layout-demo-nav\"\n\nexport function LayoutShellBrand() {\n\treturn (\n\t\t<DashboardSidebarBrand\n\t\t\thref=\"/docs\"\n\t\t\tlogo={\n\t\t\t\t<div className=\"flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground\">\n\t\t\t\t\t<LayoutGrid className=\"size-4\" />\n\t\t\t\t</div>\n\t\t\t}\n\t\t\tsubtitle=\"Playground\"\n\t\t\ttitle=\"Feature Kit\"\n\t\t/>\n\t)\n}\n\nexport function LayoutShellSidebarNav() {\n\treturn <DashboardSidebarNav groups={workspaceNavGroups} />\n}\n\nexport function LayoutShellAccountMenu({\n\tuser = { name: \"Demo User\", email: \"demo@featurekit.dev\" },\n}: {\n\tuser?: { name: string; email: string; image?: string | null }\n}) {\n\treturn (\n\t\t<DashboardAccountMenu signOutItem={<SignOutDropdownMenuItem />} user={user} />\n\t)\n}\n\nexport function LayoutShellHeaderActions() {\n\treturn <ThemeSelector label=\"Theme\" />\n}\n\nexport function LayoutShellSidebarFooter({ user }: { user?: { name: string; email: string } }) {\n\treturn <LayoutShellAccountMenu {...(user ? { user } : {})} />\n}\n\nexport function LayoutShellSidebarSlots(): {\n\tsidebarHeader: ReactNode\n\tsidebarContent: ReactNode\n\tsidebarFooter: ReactNode\n\theaderActions: ReactNode\n} {\n\treturn {\n\t\tsidebarHeader: <LayoutShellBrand />,\n\t\tsidebarContent: <LayoutShellSidebarNav />,\n\t\tsidebarFooter: <LayoutShellSidebarFooter />,\n\t\theaderActions: <LayoutShellHeaderActions />,\n\t}\n}\n",
+      "type": "registry:component",
+      "target": "@components/components/examples/layout/shell/layout-shell-shared.tsx"
+    },
+    {
+      "path": "files/components/components/examples/layout/shell/layout-demo-nav.ts",
+      "content": "import { Bell, BookOpen, CreditCard, LayoutGrid, Shield, Table2, User, Users } from \"lucide-react\"\n\nimport type { DashboardNavGroup } from \"@/lib/feature-kit/layout\"\n\nexport const workspaceNavGroups: DashboardNavGroup[] = [\n\t{\n\t\tlabel: \"Workspace\",\n\t\ticon: LayoutGrid,\n\t\tdefaultOpen: true,\n\t\titems: [\n\t\t\t{ title: \"Overview\", href: \"/docs/examples/layout/shell-basic\", icon: LayoutGrid },\n\t\t\t{ title: \"Accounts\", href: \"/docs/examples/layout/shell-nested-nav\", icon: Users },\n\t\t\t{ title: \"Reports\", href: \"/docs/examples/layout/shell-table\", icon: Table2 },\n\t\t],\n\t},\n\t{\n\t\tlabel: \"Resources\",\n\t\ticon: BookOpen,\n\t\titems: [\n\t\t\t{ title: \"Documentation\", href: \"/docs\", icon: BookOpen },\n\t\t\t{ title: \"Notifications\", href: \"/docs/examples/layout/shell-settings\", icon: Bell },\n\t\t],\n\t},\n]\n\nexport const settingsNav = [\n\t{ id: \"profile\", title: \"Profile\", href: \"/docs/examples/layout/shell-settings\", icon: User },\n\t{ id: \"billing\", title: \"Billing\", href: \"/docs/examples/layout/shell-settings#billing\", icon: CreditCard },\n\t{ id: \"security\", title: \"Security\", href: \"/docs/examples/layout/shell-settings#security\", icon: Shield },\n]\n",
+      "type": "registry:component",
+      "target": "@components/components/examples/layout/shell/layout-demo-nav.ts"
+    }
+  ],
+  "categories": [
+    "blocks",
+    "settings"
+  ],
+  "type": "registry:block"
+}

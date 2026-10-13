@@ -1,0 +1,5 @@
+{
+	"title": "Blocks",
+	"icon": "LayoutTemplate",
+	"pages": ["index", "dashboard-overview", "data-table-crud", "detail-page", "settings-area", "auth-pages", "uploader-import", "app-states", "top-nav-app"]
+}

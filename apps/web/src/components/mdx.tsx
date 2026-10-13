@@ -9,6 +9,8 @@ import { DocsInstall } from "@/components/docs/docs-install"
 import { DocsKitInstall } from "@/components/docs/docs-kit-install"
 import { DocsPackageInstall } from "@/components/docs/docs-package-install"
 import { DocsRegistrySetup } from "@/components/docs/docs-registry-setup"
+import { BlockPreview } from "@/components/docs/block-preview"
+import { BlocksGallery } from "@/components/docs/blocks-gallery"
 import { ComponentPreview } from "@/components/docs/component-preview"
 import { PlaygroundLink } from "@/components/docs/playground-link"
 import { PropsTable } from "@/components/docs/props-table"
@@ -48,6 +50,8 @@ export function getMDXComponents(components?: MDXComponents) {
 	return {
 		...defaultMdxComponents,
 		PlaygroundLink,
+		BlockPreview,
+		BlocksGallery,
 		ComponentPreview,
 		PropsTable,
 		DocsInstall,
