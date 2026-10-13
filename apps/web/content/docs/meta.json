@@ -9,6 +9,7 @@
 		"form",
 		"data-table",
 		"layout",
+		"dashboard-shell",
 		"auth",
 		"theme",
 		"uploader",

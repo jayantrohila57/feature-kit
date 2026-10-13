@@ -35,6 +35,15 @@ export {
   type DashboardNavItem,
   type DashboardNavLink,
   type DashboardShellProps,
+  TopNavShell,
+  type TopNavShellProps,
+  SettingsLayout,
+  type SettingsLayoutProps,
+  type SettingsNavItem,
+  AuthSplitShell,
+  type AuthSplitShellProps,
+  ContentPageHeader,
+  type ContentPageHeaderProps,
 } from "./shell"
 export {
   FORM_LAYOUT_ACTIONS_HINT_CLASS,

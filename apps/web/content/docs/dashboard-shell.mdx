@@ -1,0 +1,197 @@
+---
+title: Dashboard shell
+description: Compose sidebar, header, breadcrumbs, settings, auth split, and content layouts.
+---
+
+The **`layout`** shell exports build on `ui` `Shell` and `Sidebar` primitives. Use them when a route needs persistent app chrome; keep business logic and data fetching in the host app.
+
+## Composition model
+
+```text
+DashboardShell
+├── SidebarProvider (from ui)
+│   ├── DashboardHeader → Breadcrumbs + actions (theme, etc.)
+│   ├── Sidebar → brand, DashboardSidebarNav, DashboardAccountMenu
+│   └── Shell.Main → your page (tables, forms, settings)
+TopNavShell → header + optional horizontal nav (no sidebar)
+AuthSplitShell → auth column + marketing aside
+SettingsLayout → secondary nav inside main
+```
+
+## Installation
+
+<DocsInstall
+  packages={["layout", "theme"]}
+  importExample={`import {
+  DashboardShell,
+  DashboardSidebarNav,
+  DashboardAccountMenu,
+  ContentPageHeader,
+  TopNavShell,
+  SettingsLayout,
+  AuthSplitShell,
+} from "layout"`}
+/>
+
+## Scenarios
+
+Each scenario has a live preview under [Layout examples](/docs/examples/layout/shell-basic).
+
+### Basic dashboard
+
+<ComponentPreview
+  code={`import { DashboardShell, ContentPageHeader } from "layout"
+
+<DashboardShell
+  sidebarHeader={<Brand />}
+  sidebarContent={<DashboardSidebarNav groups={groups} />}
+  sidebarFooter={<DashboardAccountMenu user={user} signOutItem={...} />}
+  headerActions={<ThemeSelector />}>
+  <ContentPageHeader title="Overview" />
+  {children}
+</DashboardShell>`}>
+  <LayoutShellBasicExample />
+</ComponentPreview>
+
+<PlaygroundLink href="/docs/examples/layout/shell-basic">Open basic shell example</PlaygroundLink>
+
+### Icon-only sidebar
+
+Pass `defaultSidebarOpen={false}` so the rail starts collapsed. Users expand via the trigger or **⌘/Ctrl+B**.
+
+<ComponentPreview>
+  <LayoutShellIconSidebarExample />
+</ComponentPreview>
+
+### Nested nav groups
+
+Use `DashboardSidebarNav` `groups` with `SidebarFlatNavGroup` for collapsible sections. Active items follow the current pathname.
+
+<ComponentPreview>
+  <LayoutShellNestedNavExample />
+</ComponentPreview>
+
+### Mobile sheet navigation
+
+The `ui` sidebar renders a sheet on small viewports. No extra wiring — use `DashboardHeader` with `SidebarTrigger`.
+
+<ComponentPreview>
+  <LayoutShellMobileExample />
+</ComponentPreview>
+
+### Account menu (signed-in user)
+
+Pass `user` from `useSession()` into `DashboardAccountMenu`. Add `SignOutDropdownMenuItem` from `auth`.
+
+<ComponentPreview>
+  <LayoutShellAccountExample />
+</ComponentPreview>
+
+### Top nav only
+
+<ComponentPreview
+  code={`<DashboardShell showSidebar={false} topNavigation={<PrimaryLinks />}>
+  ...
+</DashboardShell>`}>
+  <LayoutShellTopNavExample />
+</ComponentPreview>
+
+### Auth split layout
+
+<ComponentPreview>
+  <LayoutShellAuthSplitExample />
+</ComponentPreview>
+
+### Settings with secondary nav
+
+<ComponentPreview>
+  <LayoutShellSettingsExample />
+</ComponentPreview>
+
+### Content layouts (grid, flex, form section)
+
+<ComponentPreview>
+  <LayoutShellContentExample />
+</ComponentPreview>
+
+### Skeleton / loading
+
+Swap `DashboardSidebarNav` for `DashboardSidebarNavSkeleton` while nav config loads.
+
+<ComponentPreview>
+  <LayoutShellSkeletonExample />
+</ComponentPreview>
+
+### Data table + theme in header
+
+<ComponentPreview>
+  <LayoutShellTableExample />
+</ComponentPreview>
+
+## API reference
+
+### `DashboardShell`
+
+<PropsTable
+  title="DashboardShell"
+  props={[
+    { name: "children", type: "ReactNode", description: "Main column content." },
+    { name: "sidebarHeader", type: "ReactNode", description: "Brand row inside SidebarHeader." },
+    { name: "sidebarContent", type: "ReactNode", description: "Typically DashboardSidebarNav." },
+    { name: "sidebarFooter", type: "ReactNode", description: "Account menu or sign-in CTA." },
+    { name: "headerActions", type: "ReactNode", description: "Right side of header (ThemeSelector, etc.)." },
+    { name: "defaultSidebarOpen", type: "boolean", default: "true", description: "Initial expanded state." },
+    { name: "showSidebar", type: "boolean", default: "true", description: "When false, renders TopNavShell." },
+    { name: "sidebarCollapsible", type: "\"offcanvas\" | \"icon\" | \"none\"", default: "\"icon\"", description: "Passed to ui Sidebar." },
+    { name: "showBreadcrumbs", type: "boolean", default: "true", description: "Route breadcrumbs in header." },
+    { name: "topNavigation", type: "ReactNode", description: "Horizontal links under header when sidebar hidden." },
+  ]}
+/>
+
+### `DashboardHeader`
+
+<PropsTable
+  title="DashboardHeader"
+  props={[
+    { name: "actions", type: "ReactNode", description: "Trailing actions." },
+    { name: "showBreadcrumbs", type: "boolean", default: "true" },
+    { name: "showSidebarTrigger", type: "boolean", default: "true", description: "Hide for TopNavShell." },
+  ]}
+/>
+
+### `DashboardSidebarNav`
+
+<PropsTable
+  title="DashboardSidebarNav"
+  props={[
+    { name: "groups", type: "DashboardNavGroup[]", description: "Collapsible labeled sections." },
+    { name: "links", type: "DashboardNavLink[]", description: "Flat list alternative to groups." },
+  ]}
+/>
+
+### `DashboardAccountMenu`
+
+<PropsTable
+  title="DashboardAccountMenu"
+  props={[
+    { name: "user", type: "{ name, email, image? }", description: "Displayed identity." },
+    { name: "menuItems", type: "ReactNode", description: "Extra dropdown items." },
+    { name: "signOutItem", type: "ReactNode", description: "e.g. SignOutDropdownMenuItem." },
+  ]}
+/>
+
+### `TopNavShell`, `SettingsLayout`, `AuthSplitShell`, `ContentPageHeader`
+
+| Component | Role |
+| --- | --- |
+| `TopNavShell` | Header + main without sidebar |
+| `SettingsLayout` | Title + vertical section nav + panel |
+| `AuthSplitShell` | Two-column auth/marketing |
+| `ContentPageHeader` | Page title, description, actions row |
+| `DashboardSidebarNavSkeleton` | Sidebar placeholder groups |
+
+## Related
+
+- [Layout package](/docs/layout) — breadcrumbs, form sections, dialogs
+- [Theme](/docs/theme) — `ThemeSelector` in `headerActions`
+- [Data table](/docs/data-table) — listing inside the shell body

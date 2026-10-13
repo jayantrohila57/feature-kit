@@ -26,8 +26,17 @@ import { AuthResetPasswordExample } from "@/components/examples/auth/auth-reset-
 import { AuthSignInExample } from "@/components/examples/auth/auth-sign-in-example"
 import { AuthSignUpExample } from "@/components/examples/auth/auth-sign-up-example"
 import { AuthVerifyEmailExample } from "@/components/examples/auth/auth-verify-email-example"
-import { DashboardShellExample } from "@/components/examples/layout/dashboard-shell-example"
-import { DashboardSkeletonExample } from "@/components/examples/layout/dashboard-skeleton-example"
+import { LayoutShellAccountExample } from "@/components/examples/layout/shell/layout-shell-account-example"
+import { LayoutShellAuthSplitExample } from "@/components/examples/layout/shell/layout-shell-auth-split-example"
+import { LayoutShellBasicExample } from "@/components/examples/layout/shell/layout-shell-basic-example"
+import { LayoutShellContentExample } from "@/components/examples/layout/shell/layout-shell-content-example"
+import { LayoutShellIconSidebarExample } from "@/components/examples/layout/shell/layout-shell-icon-sidebar-example"
+import { LayoutShellMobileExample } from "@/components/examples/layout/shell/layout-shell-mobile-example"
+import { LayoutShellNestedNavExample } from "@/components/examples/layout/shell/layout-shell-nested-nav-example"
+import { LayoutShellSettingsExample } from "@/components/examples/layout/shell/layout-shell-settings-example"
+import { LayoutShellSkeletonExample } from "@/components/examples/layout/shell/layout-shell-skeleton-example"
+import { LayoutShellTableExample } from "@/components/examples/layout/shell/layout-shell-table-example"
+import { LayoutShellTopNavExample } from "@/components/examples/layout/shell/layout-shell-top-nav-example"
 import { ThemeKitExample } from "@/components/examples/theme/theme-kit-example"
 import { UtilityButtonsDemo } from "@/components/examples/utility-buttons-demo"
 import { UploaderBasicExample } from "@/components/examples/uploader/uploader-basic-example"
@@ -56,8 +65,17 @@ export function getMDXComponents(components?: MDXComponents) {
 		TableUrlSyncExample,
 		UtilityButtonsDemo,
 		UploaderBasicExample,
-		DashboardShellExample,
-		DashboardSkeletonExample,
+		LayoutShellBasicExample,
+		LayoutShellIconSidebarExample,
+		LayoutShellNestedNavExample,
+		LayoutShellMobileExample,
+		LayoutShellAccountExample,
+		LayoutShellTopNavExample,
+		LayoutShellAuthSplitExample,
+		LayoutShellSettingsExample,
+		LayoutShellContentExample,
+		LayoutShellSkeletonExample,
+		LayoutShellTableExample,
 		AuthHubExample,
 		AuthSignInExample,
 		AuthSignUpExample,

@@ -1,4 +1,19 @@
 {
 	"title": "Layout",
-	"pages": ["dashboard", "breadcrumbs", "utility-buttons"]
+	"pages": [
+		"dashboard",
+		"shell-basic",
+		"shell-icon-sidebar",
+		"shell-nested-nav",
+		"shell-mobile",
+		"shell-account",
+		"shell-top-nav",
+		"shell-auth-split",
+		"shell-settings",
+		"shell-content",
+		"shell-skeleton",
+		"shell-table",
+		"breadcrumbs",
+		"utility-buttons"
+	]
 }

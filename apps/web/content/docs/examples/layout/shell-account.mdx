@@ -1,0 +1,16 @@
+---
+title: Shell — account menu
+description: Footer dropdown with session user.
+---
+
+<ComponentPreview
+  code={`import { useSession } from "auth/client"
+import { DashboardAccountMenu } from "layout"
+
+const { data } = useSession()
+<DashboardAccountMenu
+  user={{ name: data?.user?.name ?? "", email: data?.user?.email ?? "" }}
+  signOutItem={<SignOutDropdownMenuItem />}
+/>`}>
+  <LayoutShellAccountExample />
+</ComponentPreview>

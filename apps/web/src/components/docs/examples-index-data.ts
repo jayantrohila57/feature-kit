@@ -135,10 +135,24 @@ export const EXAMPLE_CATEGORIES: ExampleCategory[] = [
 			items: [
 				{
 					title: "Dashboard shell",
-					description: "Sidebar, header, breadcrumbs, account menu",
-					href: "/docs/examples/layout/dashboard",
+					description: "Scenario index + API guide",
+					href: "/docs/dashboard-shell",
 					kit: "layout",
 					visual: "layout-dashboard",
+				},
+				{
+					title: "Shell — basic",
+					description: "Sidebar, header, breadcrumbs",
+					href: "/docs/examples/layout/shell-basic",
+					kit: "layout",
+					visual: "layout-dashboard",
+				},
+				{
+					title: "Shell — data table",
+					description: "Table page + theme header",
+					href: "/docs/examples/layout/shell-table",
+					kit: "layout",
+					visual: "table-basic",
 				},
 				{
 					title: "Breadcrumbs",

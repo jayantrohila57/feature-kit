@@ -89,7 +89,7 @@ export const exampleFeaturedLinks: SiteNavLink[] = [
 export const exampleQuickLinks: SiteNavLink[] = [
 	{ title: "Form field kit", href: "/docs/examples/form/field-kit", icon: FormInput },
 	{ title: "Table URL sync", href: "/docs/examples/table/url-sync", icon: Table2 },
-	{ title: "Dashboard shell", href: "/docs/examples/layout/dashboard", icon: LayoutGrid },
+	{ title: "Dashboard shell", href: "/docs/dashboard-shell", icon: LayoutGrid },
 	{ title: "Auth sign-in", href: "/docs/examples/auth/sign-in", icon: KeyRound },
 	{ title: "Theme controls", href: "/docs/examples/theme/controls", icon: Palette },
 	{ title: "Layout breadcrumbs", href: "/docs/examples/layout/breadcrumbs", icon: LayoutGrid },

@@ -1,0 +1,16 @@
+---
+title: Shell — auth split
+description: Form column and marketing aside.
+---
+
+<ComponentPreview
+  code={`import { AuthSplitShell } from "layout"
+import { AuthCardLayout, SignInForm } from "auth"
+
+<AuthSplitShell aside={<MarketingPanel />}>
+  <AuthCardLayout title="Sign in">
+    <SignInForm />
+  </AuthCardLayout>
+</AuthSplitShell>`}>
+  <LayoutShellAuthSplitExample />
+</ComponentPreview>

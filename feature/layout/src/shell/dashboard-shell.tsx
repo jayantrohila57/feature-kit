@@ -17,6 +17,7 @@ import { cn } from "@/packages/ui/lib/utils"
 
 import { SHELL_HEADER_HEIGHT } from "./shell-constants"
 import { DashboardHeader } from "./dashboard-header"
+import { TopNavShell } from "./top-nav-shell"
 
 export type DashboardShellProps = {
 	sidebarHeader?: ReactNode
@@ -27,6 +28,10 @@ export type DashboardShellProps = {
 	className?: string
 	defaultSidebarOpen?: boolean
 	showBreadcrumbs?: boolean
+	/** When false, renders `TopNavShell` (header + main only). */
+	showSidebar?: boolean
+	sidebarCollapsible?: "offcanvas" | "icon" | "none"
+	topNavigation?: ReactNode
 }
 
 export function DashboardShell({
@@ -38,7 +43,22 @@ export function DashboardShell({
 	className,
 	defaultSidebarOpen = true,
 	showBreadcrumbs = true,
+	showSidebar = true,
+	sidebarCollapsible = "icon",
+	topNavigation,
 }: DashboardShellProps) {
+	if (!showSidebar) {
+		return (
+			<TopNavShell
+				{...(className ? { className } : {})}
+				headerActions={headerActions}
+				showBreadcrumbs={showBreadcrumbs}
+				{...(topNavigation ? { topNavigation } : {})}>
+				{children}
+			</TopNavShell>
+		)
+	}
+
 	return (
 		<SidebarProvider defaultOpen={defaultSidebarOpen}>
 			<Shell.Frame
@@ -46,7 +66,7 @@ export function DashboardShell({
 				style={{ "--shell-header-height": SHELL_HEADER_HEIGHT } as CSSProperties}>
 				<DashboardHeader actions={headerActions} showBreadcrumbs={showBreadcrumbs} />
 				<div className="flex min-h-0 flex-1 overflow-hidden">
-					<Sidebar collapsible="icon" variant="inset">
+					<Sidebar collapsible={sidebarCollapsible} variant="inset">
 						{sidebarHeader ? <SidebarHeader>{sidebarHeader}</SidebarHeader> : null}
 						<SidebarSeparator />
 						<SidebarContent>{sidebarContent}</SidebarContent>

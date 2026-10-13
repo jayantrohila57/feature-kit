@@ -14,15 +14,17 @@ export function DashboardHeader({
 	actions,
 	className,
 	showBreadcrumbs = true,
+	showSidebarTrigger = true,
 }: {
 	actions?: ReactNode
 	className?: string
 	showBreadcrumbs?: boolean
+	showSidebarTrigger?: boolean
 }) {
 	return (
 		<Shell.Header className={cn(SHELL_HEADER_HEIGHT_CLASS, "flex items-center gap-2 px-4", className)} variant="app">
-			<SidebarTrigger className="-ms-1" />
-			<Separator className="mr-2 h-4" orientation="vertical" />
+			{showSidebarTrigger ? <SidebarTrigger className="-ms-1" /> : null}
+			{showSidebarTrigger ? <Separator className="mr-2 h-4" orientation="vertical" /> : null}
 			{showBreadcrumbs ? <Breadcrumbs className="min-w-0 flex-1" /> : <div className="flex-1" />}
 			{actions ? <div className="flex shrink-0 items-center gap-2">{actions}</div> : null}
 		</Shell.Header>

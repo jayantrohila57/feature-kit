@@ -1,0 +1,24 @@
+---
+title: Shell — basic dashboard
+description: Sidebar, header, breadcrumbs, and main content.
+---
+
+<ComponentPreview
+  code={`"use client"
+
+import { ContentPageHeader, DashboardShell, DashboardSidebarNav } from "layout"
+
+export function AppLayout({ children }) {
+  return (
+    <DashboardShell
+      sidebarHeader={<Brand />}
+      sidebarContent={<DashboardSidebarNav groups={groups} />}
+      sidebarFooter={<AccountMenu />}
+      headerActions={<ThemeSelector />}>
+      <ContentPageHeader title="Overview" description="..." />
+      {children}
+    </DashboardShell>
+  )
+}`}>
+  <LayoutShellBasicExample />
+</ComponentPreview>

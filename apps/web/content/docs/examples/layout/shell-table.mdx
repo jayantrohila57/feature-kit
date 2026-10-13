@@ -1,0 +1,16 @@
+---
+title: Shell — data table page
+description: DataTable in the main column with theme in the header.
+---
+
+<ComponentPreview
+  code={`import { DataTable } from "data-table"
+import { DashboardShell, ContentPageHeader } from "layout"
+import { ThemeSelector } from "theme"
+
+<DashboardShell headerActions={<ThemeSelector />} {...sidebarSlots}>
+  <ContentPageHeader title="Accounts" />
+  <DataTable columns={columns} data={rows} />
+</DashboardShell>`}>
+  <LayoutShellTableExample />
+</ComponentPreview>
