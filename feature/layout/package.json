@@ -16,7 +16,8 @@
 		"./navigation": "./src/navigation/index.ts",
 		"./navigation/back-button": "./src/navigation/back-button/index.ts",
 		"./navigation/utility-button": "./src/navigation/utility-button/index.ts",
-		"./sidebar/app-pathname": "./src/sidebar/app-pathname.ts"
+		"./sidebar/app-pathname": "./src/sidebar/app-pathname.ts",
+		"./shell": "./src/shell/index.ts"
 	},
 	"scripts": {
 		"check-types": "tsc --noEmit"

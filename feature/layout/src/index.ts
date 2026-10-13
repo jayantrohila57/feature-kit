@@ -21,6 +21,22 @@ export {
   type UtilityIconButtonProps,
 } from "./navigation"
 export {
+  DashboardAccountMenu,
+  DashboardAccountMenuItem,
+  DashboardHeader,
+  DashboardShell,
+  DashboardSidebarBrand,
+  DashboardSidebarNav,
+  DashboardSidebarNavSkeleton,
+  SHELL_HEADER_HEIGHT,
+  SHELL_HEADER_HEIGHT_CLASS,
+  type DashboardAccountUser,
+  type DashboardNavGroup,
+  type DashboardNavItem,
+  type DashboardNavLink,
+  type DashboardShellProps,
+} from "./shell"
+export {
   FORM_LAYOUT_ACTIONS_HINT_CLASS,
   FORM_LAYOUT_BODY_CLASS,
   FORM_LAYOUT_BODY_SCROLL_CLASS,

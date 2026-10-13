@@ -3,7 +3,9 @@ import {
 	Blocks,
 	FileSpreadsheet,
 	FormInput,
+	KeyRound,
 	LayoutGrid,
+	Palette,
 	PanelTop,
 	Table2,
 	Upload,
@@ -34,8 +36,20 @@ export const kitLinks: SiteNavLink[] = [
 	{
 		title: "Layout",
 		href: "/docs/layout",
-		description: "Shell, breadcrumbs, and utility buttons",
+		description: "Dashboard shell, breadcrumbs, and utility buttons",
 		icon: LayoutGrid,
+	},
+	{
+		title: "Auth",
+		href: "/docs/auth",
+		description: "better-auth UI, demo mode, and session helpers",
+		icon: KeyRound,
+	},
+	{
+		title: "Theme",
+		href: "/docs/theme",
+		description: "Theme provider, toggle, and preferences sync",
+		icon: Palette,
 	},
 	{
 		title: "Uploader",
@@ -75,6 +89,9 @@ export const exampleFeaturedLinks: SiteNavLink[] = [
 export const exampleQuickLinks: SiteNavLink[] = [
 	{ title: "Form field kit", href: "/docs/examples/form/field-kit", icon: FormInput },
 	{ title: "Table URL sync", href: "/docs/examples/table/url-sync", icon: Table2 },
+	{ title: "Dashboard shell", href: "/docs/examples/layout/dashboard", icon: LayoutGrid },
+	{ title: "Auth sign-in", href: "/docs/examples/auth/sign-in", icon: KeyRound },
+	{ title: "Theme controls", href: "/docs/examples/theme/controls", icon: Palette },
 	{ title: "Layout breadcrumbs", href: "/docs/examples/layout/breadcrumbs", icon: LayoutGrid },
 	{ title: "Uploader basic", href: "/docs/examples/uploader/basic", icon: Upload },
 ]

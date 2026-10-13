@@ -1,4 +1,4 @@
 {
 	"title": "Layout",
-	"pages": ["breadcrumbs", "utility-buttons"]
+	"pages": ["dashboard", "breadcrumbs", "utility-buttons"]
 }

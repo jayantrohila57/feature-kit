@@ -20,6 +20,15 @@ import { TableFiltersExample } from "@/components/examples/table/table-filters-e
 import { TableLoadingExample } from "@/components/examples/table/table-loading-example"
 import { TableRowActionsExample } from "@/components/examples/table/table-row-actions-example"
 import { TableUrlSyncExample } from "@/components/examples/table/table-url-sync-example"
+import { AuthForgotPasswordExample } from "@/components/examples/auth/auth-forgot-password-example"
+import { AuthHubExample } from "@/components/examples/auth/auth-hub-example"
+import { AuthResetPasswordExample } from "@/components/examples/auth/auth-reset-password-example"
+import { AuthSignInExample } from "@/components/examples/auth/auth-sign-in-example"
+import { AuthSignUpExample } from "@/components/examples/auth/auth-sign-up-example"
+import { AuthVerifyEmailExample } from "@/components/examples/auth/auth-verify-email-example"
+import { DashboardShellExample } from "@/components/examples/layout/dashboard-shell-example"
+import { DashboardSkeletonExample } from "@/components/examples/layout/dashboard-skeleton-example"
+import { ThemeKitExample } from "@/components/examples/theme/theme-kit-example"
 import { UtilityButtonsDemo } from "@/components/examples/utility-buttons-demo"
 import { UploaderBasicExample } from "@/components/examples/uploader/uploader-basic-example"
 
@@ -47,6 +56,15 @@ export function getMDXComponents(components?: MDXComponents) {
 		TableUrlSyncExample,
 		UtilityButtonsDemo,
 		UploaderBasicExample,
+		DashboardShellExample,
+		DashboardSkeletonExample,
+		AuthHubExample,
+		AuthSignInExample,
+		AuthSignUpExample,
+		AuthForgotPasswordExample,
+		AuthResetPasswordExample,
+		AuthVerifyEmailExample,
+		ThemeKitExample,
 		...components,
 	} satisfies MDXComponents
 }

@@ -1,0 +1,35 @@
+{
+	"name": "auth",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"engines": {
+		"node": ">=24.0.0",
+		"pnpm": ">=9.0.0"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./server": "./src/core/auth.server.ts",
+		"./client": "./src/core/auth.client.ts",
+		"./schema": "./src/schema/auth-schema.ts"
+	},
+	"scripts": {
+		"check-types": "tsc --noEmit"
+	},
+	"dependencies": {
+		"better-auth": "catalog:",
+		"form": "workspace:*",
+		"lucide-react": "catalog:",
+		"next": "catalog:",
+		"react": "catalog:",
+		"server-only": "catalog:",
+		"sonner": "catalog:",
+		"ui": "workspace:*",
+		"zod": "catalog:"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:",
+		"@types/react": "catalog:",
+		"typescript": "catalog:"
+	}
+}

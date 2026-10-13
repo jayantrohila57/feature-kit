@@ -9,6 +9,8 @@
 		"form",
 		"data-table",
 		"layout",
+		"auth",
+		"theme",
 		"uploader",
 		"changelog",
 		"...examples"

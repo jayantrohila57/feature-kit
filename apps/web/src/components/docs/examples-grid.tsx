@@ -1,4 +1,4 @@
-import { ArrowRight, FormInput, LayoutGrid, Table2, Upload } from "lucide-react"
+import { ArrowRight, FormInput, KeyRound, LayoutGrid, Palette, Table2, Upload } from "lucide-react"
 import Link from "next/link"
 import type { ComponentType } from "react"
 
@@ -19,6 +19,8 @@ const KIT_META: Record<
 	form: { label: "Form", icon: FormInput },
 	table: { label: "Table", icon: Table2 },
 	layout: { label: "Layout", icon: LayoutGrid },
+	auth: { label: "Auth", icon: KeyRound },
+	theme: { label: "Theme", icon: Palette },
 	uploader: { label: "Uploader", icon: Upload },
 }
 

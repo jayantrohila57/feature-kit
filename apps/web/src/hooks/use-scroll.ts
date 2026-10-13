@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
+import { useSyncExternalStore } from "react"
 
 function readScrollY() {
 	if (typeof window === "undefined") {
@@ -17,30 +17,26 @@ function readScrollY() {
 	return Math.max(windowY, docY, bodyY, mainY)
 }
 
+function subscribe(onStoreChange: () => void) {
+	const onScroll = () => {
+		onStoreChange()
+	}
+
+	window.addEventListener("scroll", onScroll, { passive: true })
+	window.addEventListener("resize", onScroll, { passive: true })
+	document.addEventListener("scroll", onScroll, { passive: true, capture: true })
+
+	return () => {
+		window.removeEventListener("scroll", onScroll)
+		window.removeEventListener("resize", onScroll)
+		document.removeEventListener("scroll", onScroll, true)
+	}
+}
+
 export function useScroll(threshold: number) {
-	const [scrolled, setScrolled] = useState(false)
-
-	const update = useCallback(() => {
-		setScrolled(readScrollY() > threshold)
-	}, [threshold])
-
-	useEffect(() => {
-		update()
-
-		const onScroll = () => {
-			update()
-		}
-
-		window.addEventListener("scroll", onScroll, { passive: true })
-		window.addEventListener("resize", onScroll, { passive: true })
-		document.addEventListener("scroll", onScroll, { passive: true, capture: true })
-
-		return () => {
-			window.removeEventListener("scroll", onScroll)
-			window.removeEventListener("resize", onScroll)
-			document.removeEventListener("scroll", onScroll, true)
-		}
-	}, [update])
-
-	return scrolled
+	return useSyncExternalStore(
+		subscribe,
+		() => readScrollY() > threshold,
+		() => false,
+	)
 }

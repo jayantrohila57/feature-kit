@@ -61,9 +61,17 @@ export function FeatureKitHeader({
 	layout = "site",
 	navMode = "marketing",
 }: FeatureKitHeaderProps) {
-	const [open, setOpen] = useState(false)
+	const [openForPath, setOpenForPath] = useState<{ path: string; open: boolean }>({
+		path: "",
+		open: false,
+	})
 	const scrolled = useScroll(10)
 	const pathname = usePathname()
+	const open = openForPath.path === pathname ? openForPath.open : false
+	const setOpen = (next: boolean | ((current: boolean) => boolean)) => {
+		const resolved = typeof next === "function" ? next(open) : next
+		setOpenForPath({ path: pathname, open: resolved })
+	}
 
 	useEffect(() => {
 		document.body.style.overflow = open ? "hidden" : ""
@@ -71,10 +79,6 @@ export function FeatureKitHeader({
 			document.body.style.overflow = ""
 		}
 	}, [open])
-
-	useEffect(() => {
-		setOpen(false)
-	}, [pathname])
 
 	return (
 		<header

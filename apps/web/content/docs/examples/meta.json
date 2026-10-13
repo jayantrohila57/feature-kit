@@ -1,4 +1,4 @@
 {
 	"title": "Examples",
-	"pages": ["index", "form", "table", "layout", "uploader"]
+	"pages": ["index", "form", "table", "layout", "auth", "theme", "uploader"]
 }

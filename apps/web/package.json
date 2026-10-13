@@ -13,6 +13,8 @@
 	"dependencies": {
 		"@tanstack/react-query": "catalog:",
 		"@tanstack/react-table": "catalog:",
+		"auth": "workspace:*",
+		"better-auth": "catalog:",
 		"data-table": "workspace:*",
 		"form": "workspace:*",
 		"fumadocs-core": "^16.16.2",
@@ -26,7 +28,9 @@
 		"nuqs": "catalog:",
 		"react": "catalog:",
 		"react-dom": "catalog:",
+		"preferences": "workspace:*",
 		"sonner": "catalog:",
+		"theme": "workspace:*",
 		"ui": "workspace:*",
 		"uploader": "workspace:*",
 		"zod": "catalog:"

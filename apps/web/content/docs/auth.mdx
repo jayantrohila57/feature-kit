@@ -1,0 +1,74 @@
+---
+title: Auth
+description: better-auth server config, client hooks, and auth UI modules with demo mode.
+---
+
+The **`auth`** workspace package wraps [better-auth](https://www.better-auth.com/) with Feature Kit form patterns, card layouts, and sign-out affordances. The docs playground runs in **demo mode** (in-memory database, no GitHub or database environment variables).
+
+## When to use it
+
+| Export | Use when |
+| --- | --- |
+| `SignInForm` / `SignUpForm` | Email/password flows with Zod + FormKit |
+| `AuthProviders` / `GitHubSignInButton` | Social sign-in row above the form |
+| `AuthCardLayout` | Consistent auth page chrome |
+| `useSession` / `signOut` | Client session from better-auth |
+| `auth` (`auth/server`) | Next.js route handler (`/api/auth/[...all]`) |
+
+## Installation
+
+<DocsInstall
+  packages={["auth", "form"]}
+  importExample={`import { SignInForm, AuthCardLayout } from "auth"
+import { auth } from "auth/server"`}
+  note="Mount the better-auth handler once in your app. The playground uses demo mode automatically when DATABASE_URL and GitHub credentials are absent."
+/>
+
+### API route
+
+```tsx
+// apps/web/src/app/api/auth/[...all]/route.ts
+import { auth } from "auth/server"
+import { toNextJsHandler } from "better-auth/next-js"
+
+export const { GET, POST } = toNextJsHandler(auth)
+```
+
+## Demo mode
+
+`auth/server` uses the memory adapter and a fixed development secret when `DATABASE_URL` or GitHub OAuth credentials are missing. Sessions reset on serverless cold starts. Set `AUTH_DEMO_MODE=false` and provide production secrets to disable demo defaults.
+
+<ComponentPreview>
+  <AuthHubExample />
+</ComponentPreview>
+
+## Usage
+
+### Sign in
+
+<ComponentPreview>
+  <AuthSignInExample />
+</ComponentPreview>
+
+### Sign out
+
+Use `SignOutButton`, `SignOutIconButton`, or `SignOutDropdownMenuItem` in headers and account menus. Pair with `DashboardAccountMenu` from `layout`.
+
+## API reference
+
+### `AuthSchema`
+
+Zod input objects for `SIGN_IN`, `SIGN_UP`, `FORGOT_PASSWORD`, `RESET_PASSWORD`, and `VERIFY_EMAIL`. Import from `auth/schema` when you need types without UI.
+
+<PropsTable
+  title="SignInForm props"
+  props={[
+    { name: "redirectTo", type: "string", default: "\"/docs/examples/auth\"", description: "Post-login navigation target." },
+  ]}
+/>
+
+<div className="not-prose my-6 space-y-3">
+  <PlaygroundLink className="my-0" href="/docs/examples/auth/sign-up">Sign up preview</PlaygroundLink>
+  <PlaygroundLink className="my-0" href="/docs/examples/auth/forgot-password">Forgot password</PlaygroundLink>
+  <PlaygroundLink className="my-0" href="/docs/examples/auth/verify-email">Verify email</PlaygroundLink>
+</div>

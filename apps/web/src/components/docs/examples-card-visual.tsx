@@ -225,7 +225,12 @@ const VISUALS: Record<ExampleVisualId, () => ReactNode> = {
 	"table-bulk": TableBulkVisual,
 	"table-row-actions": TableRowActionsVisual,
 	"table-url-sync": TableUrlSyncVisual,
+	"layout-dashboard": LayoutBreadcrumbsVisual,
 	"layout-breadcrumbs": LayoutBreadcrumbsVisual,
+	"auth-hub": FormBasicVisual,
+	"auth-sign-in": FormBasicVisual,
+	"auth-sign-up": FormValidationVisual,
+	"theme-controls": LayoutUtilityVisual,
 	"layout-utility": LayoutUtilityVisual,
 	"uploader-basic": UploaderBasicVisual,
 }

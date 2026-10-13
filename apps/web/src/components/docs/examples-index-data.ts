@@ -1,4 +1,4 @@
-export type ExampleKit = "form" | "table" | "layout" | "uploader"
+export type ExampleKit = "form" | "table" | "layout" | "auth" | "theme" | "uploader"
 
 export type ExampleVisualId =
 	| "form-basic"
@@ -12,8 +12,13 @@ export type ExampleVisualId =
 	| "table-bulk"
 	| "table-row-actions"
 	| "table-url-sync"
+	| "layout-dashboard"
 	| "layout-breadcrumbs"
 	| "layout-utility"
+	| "auth-hub"
+	| "auth-sign-in"
+	| "auth-sign-up"
+	| "theme-controls"
 	| "uploader-basic"
 
 export type ExampleItem = {
@@ -123,13 +128,20 @@ export const EXAMPLE_CATEGORIES: ExampleCategory[] = [
 			},
 		],
 	},
-	{
-		id: "layout",
-		title: "Layout",
-		docsHref: "/docs/layout",
-		items: [
-			{
-				title: "Breadcrumbs",
+		{
+			id: "layout",
+			title: "Layout",
+			docsHref: "/docs/layout",
+			items: [
+				{
+					title: "Dashboard shell",
+					description: "Sidebar, header, breadcrumbs, account menu",
+					href: "/docs/examples/layout/dashboard",
+					kit: "layout",
+					visual: "layout-dashboard",
+				},
+				{
+					title: "Breadcrumbs",
 				description: "Trail + back affordance",
 				href: "/docs/examples/layout/breadcrumbs",
 				kit: "layout",
@@ -141,6 +153,48 @@ export const EXAMPLE_CATEGORIES: ExampleCategory[] = [
 				href: "/docs/examples/layout/utility-buttons",
 				kit: "layout",
 				visual: "layout-utility",
+			},
+		],
+	},
+	{
+		id: "auth",
+		title: "Auth",
+		docsHref: "/docs/auth",
+		items: [
+			{
+				title: "Auth hub",
+				description: "Sign-in, sign-up, and recovery entry points",
+				href: "/docs/examples/auth",
+				kit: "auth",
+				visual: "auth-hub",
+			},
+			{
+				title: "Sign in",
+				description: "Email/password + GitHub row",
+				href: "/docs/examples/auth/sign-in",
+				kit: "auth",
+				visual: "auth-sign-in",
+			},
+			{
+				title: "Sign up",
+				description: "Registration with Zod validation",
+				href: "/docs/examples/auth/sign-up",
+				kit: "auth",
+				visual: "auth-sign-up",
+			},
+		],
+	},
+	{
+		id: "theme",
+		title: "Theme",
+		docsHref: "/docs/theme",
+		items: [
+			{
+				title: "Theme controls",
+				description: "Toggle and system-aware selector",
+				href: "/docs/examples/theme/controls",
+				kit: "theme",
+				visual: "theme-controls",
 			},
 		],
 	},

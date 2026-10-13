@@ -3,7 +3,7 @@
 import { DataTableNuqsAdapter } from "data-table"
 import { ConfirmationDialogProvider } from "layout/confirmation-dialog"
 import { NextIntlClientProvider } from "next-intl"
-import { ThemeProvider } from "next-themes"
+import { ThemeProvider } from "theme"
 import type { ReactNode } from "react"
 import { Toaster } from "sonner"
 

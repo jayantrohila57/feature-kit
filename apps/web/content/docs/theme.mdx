@@ -1,0 +1,49 @@
+---
+title: Theme
+description: next-themes provider, toggle, and selector integrated with preferences.
+---
+
+The **`theme`** package wraps `next-themes` and syncs the active theme into the `preferences` storage key via `applyThemePreference` (no extra DOM writes).
+
+## When to use it
+
+| Export | Use when |
+| --- | --- |
+| `ThemeProvider` | App root — replaces raw `next-themes` provider |
+| `ThemeToggle` | Icon button cycling light/dark |
+| `ThemeSelector` | Light / dark / system dropdown |
+| `ThemePreferenceSync` | Advanced: mount inside a custom provider |
+
+## Installation
+
+<DocsInstall
+  packages={["theme", "preferences"]}
+  importExample={`import { ThemeProvider, ThemeToggle, ThemeSelector } from "theme"`}
+/>
+
+## Usage
+
+Replace the raw `ThemeProvider` from `next-themes` with the kit provider (already wired in the playground `Providers`):
+
+```tsx
+import { ThemeProvider } from "theme"
+
+<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+  {children}
+</ThemeProvider>
+```
+
+<ComponentPreview>
+  <ThemeKitExample />
+</ComponentPreview>
+
+`ThemePreferenceSync` runs automatically when `syncPreferences` is true (default). It mirrors `light`, `dark`, and `system` into the same localStorage key used by `preferences` bootstrap.
+
+## Related
+
+- [Providers](/docs/providers)
+- [Layout dashboard shell](/docs/examples/layout/dashboard) — header actions slot for `ThemeSelector`
+
+<div className="not-prose my-6">
+  <PlaygroundLink href="/docs/examples/theme/controls">Theme controls preview</PlaygroundLink>
+</div>

@@ -3,6 +3,9 @@ import React, { type ReactNode } from "react"
 
 import { cn } from "@/packages/ui/lib/utils"
 
+/** In-flow app header band height — keep in sync with `Shell.Header` `app` variant (`h-12`). */
+export const SHELL_HEADER_HEIGHT = "3rem"
+
 interface ShellTypes {
   children: React.ReactNode
   className?: string

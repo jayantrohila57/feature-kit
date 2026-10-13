@@ -17,6 +17,7 @@ It does not own routing, data fetching, or business rules. The host application 
 | `EmptyState` / `ContentEmpty` | Zero-data placeholders with optional actions |
 | `ConfirmationDialogProvider` | Any destructive or irreversible action |
 | `UtilityIconButton` | Docs, refresh, and info affordances in toolbars |
+| `DashboardShell` | Full app chrome: sidebar, header, breadcrumbs, account menu |
 
 ## Installation
 
@@ -53,6 +54,18 @@ toolbar affordances → UtilityIconButton
 Use the package when a screen needs consistent workflow behavior around a form, table, or import flow. Use lower-level `ui` primitives when you need a one-off visual element.
 
 ## Usage
+
+### Dashboard shell
+
+<ComponentPreview>
+  <DashboardShellExample />
+</ComponentPreview>
+
+`DashboardShell` composes `ui` sidebar primitives with route-based `Breadcrumbs`, a collapsible nav group helper, skeleton state, and `DashboardAccountMenu`. On mobile, the sidebar opens in a sheet via `SidebarProvider`.
+
+<div className="not-prose my-6">
+  <PlaygroundLink href="/docs/examples/layout/dashboard">Dashboard shell preview</PlaygroundLink>
+</div>
 
 ### Breadcrumbs
 
