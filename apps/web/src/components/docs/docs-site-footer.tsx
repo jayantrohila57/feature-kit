@@ -8,7 +8,8 @@ export function DocsSiteFooter({ className }: { className?: string }) {
 			className={cn(
 				"not-prose w-full bg-background [grid-area:site-footer]",
 				className,
-			)}>
+			)}
+			data-docs-site-footer="">
 			<LandingFooter />
 		</div>
 	)

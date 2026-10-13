@@ -70,6 +70,12 @@ html {
 	justify-self: stretch;
 }
 
+#nd-docs-layout #nd-toc.docs-toc--site-footer-visible {
+	visibility: hidden;
+	opacity: 0;
+	pointer-events: none;
+}
+
 #nd-page {
 	max-width: none;
 }

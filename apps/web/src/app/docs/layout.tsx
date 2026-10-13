@@ -2,6 +2,7 @@ import { DocsLayout } from "fumadocs-ui/layouts/docs"
 import type { ReactNode } from "react"
 
 import { DocsSiteFooter } from "@/components/docs/docs-site-footer"
+import { DocsTocFooterSync } from "@/components/docs/docs-toc-footer-sync"
 import { docsLayoutOptions } from "@/lib/layout.shared"
 import { source } from "@/lib/source"
 
@@ -19,6 +20,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 			tree={source.getPageTree()}>
 			{children}
 			<DocsSiteFooter />
+			<DocsTocFooterSync />
 		</DocsLayout>
 	)
 }
