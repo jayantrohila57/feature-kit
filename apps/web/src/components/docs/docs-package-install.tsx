@@ -1,7 +1,6 @@
 "use client"
 
-import { useState } from "react"
-
+import { usePackageManager } from "@/components/docs/package-manager-context"
 import { cn } from "@/packages/ui/lib/utils"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/packages/ui/components/tabs"
 
@@ -32,7 +31,7 @@ type DocsPackageInstallProps = {
 }
 
 export function DocsPackageInstall({ packages, workspaceNote, className }: DocsPackageInstallProps) {
-	const [manager, setManager] = useState<PackageManager>("pnpm")
+	const { manager, setManager } = usePackageManager()
 
 	return (
 		<div className={cn("not-prose my-6 space-y-3", className)}>

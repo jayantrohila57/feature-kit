@@ -5,7 +5,7 @@
 	"scripts": {
 		"dev": "next dev --port 3000",
 		"dev:webpack": "next dev --port 3000 --webpack",
-		"build": "next build",
+		"build": "cd ../.. && pnpm registry:build && cd apps/web && next build",
 		"start": "next start",
 		"lint": "eslint",
 		"check-types": "tsc --noEmit"

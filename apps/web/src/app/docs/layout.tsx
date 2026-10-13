@@ -1,6 +1,7 @@
 import { DocsLayout } from "fumadocs-ui/layouts/docs"
 import type { ReactNode } from "react"
 
+import { PackageManagerProvider } from "@/components/docs/package-manager-context"
 import { DocsSiteFooter } from "@/components/docs/docs-site-footer"
 import { DocsTocFooterSync } from "@/components/docs/docs-toc-footer-sync"
 import { docsLayoutOptions } from "@/lib/layout.shared"
@@ -14,13 +15,15 @@ export default function Layout({ children }: { children: ReactNode }) {
 "sidebar sidebar site-footer site-footer site-footer" auto / minmax(0, 0fr) var(--fd-sidebar-col) minmax(0, 1fr) var(--fd-toc-width) minmax(0, 0fr)`
 
 	return (
-		<DocsLayout
-			{...docsLayoutOptions()}
-			containerProps={{ style: { gridTemplate: docsGridTemplate } }}
-			tree={source.getPageTree()}>
-			{children}
-			<DocsSiteFooter />
-			<DocsTocFooterSync />
-		</DocsLayout>
+		<PackageManagerProvider>
+			<DocsLayout
+				{...docsLayoutOptions()}
+				containerProps={{ style: { gridTemplate: docsGridTemplate } }}
+				tree={source.getPageTree()}>
+				{children}
+				<DocsSiteFooter />
+				<DocsTocFooterSync />
+			</DocsLayout>
+		</PackageManagerProvider>
 	)
 }

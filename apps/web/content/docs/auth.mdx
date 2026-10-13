@@ -17,11 +17,12 @@ The **`auth`** workspace package wraps [better-auth](https://www.better-auth.com
 
 ## Installation
 
-<DocsInstall
-  packages={["auth", "form"]}
-  importExample={`import { SignInForm, AuthCardLayout } from "auth"
-import { auth } from "auth/server"`}
-  note="Mount the better-auth handler once in your app. The playground uses demo mode automatically when DATABASE_URL and GitHub credentials are absent."
+<DocsKitInstall
+  registryItem="auth"
+  packages={["auth", "form", "ui"]}
+  importExample={`import { SignInForm, AuthCardLayout } from "@/lib/feature-kit/auth"
+import { auth } from "@/lib/feature-kit/auth/server"`}
+  note="Mount the better-auth handler once in your app. The playground uses demo mode when DATABASE_URL and GitHub credentials are absent."
 />
 
 ### API route

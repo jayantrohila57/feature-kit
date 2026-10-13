@@ -17,12 +17,13 @@ Reach for FormKit when the page has a single schema and an `onSubmit`. Reach for
 
 ## Installation
 
-<DocsInstall
-  packages={["form", "layout"]}
-  importExample={`import { FormKit } from "form"
-import { FieldKit } from "form/field-kit"
-import { FormSection } from "layout"`}
-  note="Form sections and layout chrome live in the layout package. Apps also need next-intl messages for field labels if you use translated error keys."
+<DocsKitInstall
+  registryItem="form"
+  packages={["form", "layout", "ui"]}
+  importExample={`import { FormKit } from "@/lib/feature-kit/form"
+import { FieldKit } from "@/lib/feature-kit/form/field-kit"
+import { FormSection } from "@/lib/feature-kit/layout"`}
+  note="Apps need next-intl messages for field labels if you use translated error keys."
 />
 
 ## Choose an API

@@ -49,16 +49,8 @@ Patterns below mirror production apps (dashboard headers, settings, data tables,
 
 ## Installation
 
-Add the workspace packages to your app:
-
-<DocsPackageInstall
-  packages={["layout", "ui"]}
-  workspaceNote="In this monorepo, depend on workspace:* in package.json and list layout + ui in transpilePackages (see Manual installation)."
-/>
-
-### Manual installation
-
-<DocsInstall
+<DocsKitInstall
+  registryItem="breadcrumb"
   packages={["layout", "ui"]}
   importExample={`import { Breadcrumbs, BreadcrumbsSkeleton } from "layout"
 import {
@@ -69,8 +61,8 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/packages/ui/components/breadcrumb"`}
-  note="layout re-exports route helpers from layout/breadcrumb. Mount Breadcrumbs in a client layout with next-intl messages for breadcrumb.* keys."
+} from "@/components/ui/breadcrumb"`}
+  note="Mount Breadcrumbs in a client layout with next-intl messages for breadcrumb.* keys."
 />
 
 ## Anatomy

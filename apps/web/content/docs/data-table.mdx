@@ -15,16 +15,17 @@ Skip URL sync (`syncUrl={false}`) for embedded tables on detail pages or docs pr
 
 ## Installation
 
-<DocsInstall
-  packages={["data-table", "layout"]}
-  importExample={`import type { ColumnDef } from "data-table"
+<DocsKitInstall
+  registryItem="data-table"
+  packages={["data-table", "layout", "form", "ui"]}
+  importExample={`import type { ColumnDef } from "@/lib/feature-kit/data-table"
 import {
   DataTable,
   DataTableColumnHeader,
   DataTableNuqsAdapter,
   commonColumns,
-} from "data-table"`}
-  note="Wrap your app (or docs site) with DataTableNuqsAdapter when syncUrl is true. ConfirmationDialogProvider from layout is required for destructive bulk actions."
+} from "@/lib/feature-kit/data-table"`}
+  note="Wrap your app with DataTableNuqsAdapter when syncUrl is true. ConfirmationDialogProvider from layout is required for destructive bulk actions."
 />
 
 Mount providers once at the app root (see `apps/web/src/app/providers.tsx`):

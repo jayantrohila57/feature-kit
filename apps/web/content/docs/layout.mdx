@@ -21,15 +21,11 @@ It does not own routing, data fetching, or business rules. The host application 
 
 ## Installation
 
-<DocsInstall
-  packages={["layout"]}
-  importExample={`import {
-  Breadcrumbs,
-  GoBackButton,
-  FormSection,
-  EmptyState,
-} from "layout"
-import { ConfirmationDialogProvider, useConfirmationDialog } from "layout/confirmation-dialog"`}
+<DocsKitInstall
+  registryItem="layout"
+  packages={["layout", "ui"]}
+  importExample={`import { FormSection, EmptyState, GoBackButton } from "@/lib/feature-kit/layout"
+import { ConfirmationDialogProvider, useConfirmationDialog } from "@/lib/feature-kit/layout/confirmation-dialog"`}
 />
 
 Register **`ConfirmationDialogProvider`** once near the root (before any `useConfirmationDialog` call):

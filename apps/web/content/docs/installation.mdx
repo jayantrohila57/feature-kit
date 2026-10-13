@@ -3,7 +3,22 @@ title: Installation
 description: Add Feature Kit workspace packages to an application in this repository.
 ---
 
-Feature Kit is currently organized as a pnpm workspace. The supported local integration path is to use the workspace packages directly; the docs do not assume that the packages are published to npm.
+Feature Kit ships as a **pnpm workspace** and as a **shadcn registry** (`@feature-kit/*`) for external Next.js apps.
+
+## Registry (`@feature-kit`)
+
+<span id="registry" />
+
+Install kits with the shadcn CLI after configuring your registry namespace:
+
+```bash
+npx shadcn@latest add @feature-kit/theme
+npx shadcn@latest add @feature-kit/form
+```
+
+<DocsRegistrySetup />
+
+Each kit resolves to `https://feature-kits.vercel.app/r/<kit>.json` (or your deployment origin). See kit docs for registry item names: `form`, `data-table`, `dashboard-shell`, `layout`, `breadcrumb`, `auth`, `theme`, `uploader`.
 
 ## Clone the repository
 

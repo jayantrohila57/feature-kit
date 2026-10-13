@@ -1,0 +1,6 @@
+{
+	"$schema": "https://ui.shadcn.com/schema/registry.json",
+	"name": "feature-kit",
+	"homepage": "https://feature-kits.vercel.app",
+	"include": ["registry/.generated/registry.json"]
+}

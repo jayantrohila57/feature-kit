@@ -1,0 +1,55 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "feature-kit",
+  "homepage": "https://feature-kits.vercel.app",
+  "items": [
+    {
+      "name": "theme",
+      "title": "Theme kit",
+      "description": "next-themes provider, toggle, selector, and preference sync.",
+      "url": "https://feature-kits.vercel.app/r/theme.json"
+    },
+    {
+      "name": "breadcrumb",
+      "title": "Breadcrumb kit",
+      "description": "Route-derived breadcrumbs with ellipsis menu and copy URL.",
+      "url": "https://feature-kits.vercel.app/r/breadcrumb.json"
+    },
+    {
+      "name": "layout",
+      "title": "Layout kit",
+      "description": "Form sections, navigation helpers, confirmation dialog, and shared layout utilities.",
+      "url": "https://feature-kits.vercel.app/r/layout.json"
+    },
+    {
+      "name": "dashboard-shell",
+      "title": "Dashboard shell",
+      "description": "DashboardShell, header, sidebar nav, and account menu composition.",
+      "url": "https://feature-kits.vercel.app/r/dashboard-shell.json"
+    },
+    {
+      "name": "form",
+      "title": "Form kit",
+      "description": "FormKit and FieldKit — Zod schemas with React Hook Form.",
+      "url": "https://feature-kits.vercel.app/r/form.json"
+    },
+    {
+      "name": "data-table",
+      "title": "Data table kit",
+      "description": "TanStack Table wrapper with filters, bulk actions, and URL sync.",
+      "url": "https://feature-kits.vercel.app/r/data-table.json"
+    },
+    {
+      "name": "auth",
+      "title": "Auth kit",
+      "description": "better-auth wiring, sign-in/up modules, and demo-friendly memory adapter.",
+      "url": "https://feature-kits.vercel.app/r/auth.json"
+    },
+    {
+      "name": "uploader",
+      "title": "Uploader kit",
+      "description": "Spreadsheet import UI with validation and FormKit integration.",
+      "url": "https://feature-kits.vercel.app/r/uploader.json"
+    }
+  ]
+}
