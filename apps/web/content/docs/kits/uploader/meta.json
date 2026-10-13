@@ -1,0 +1,5 @@
+{
+	"title": "Uploader",
+	"icon": "Upload",
+	"pages": ["../../uploader", "...examples/uploader"]
+}

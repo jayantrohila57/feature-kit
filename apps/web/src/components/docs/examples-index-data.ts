@@ -36,6 +36,7 @@ export type ExampleCategory = {
 	items: ExampleItem[]
 }
 
+/** Mirrors sidebar kit groupings (Foundations theme + Kits). */
 export const EXAMPLE_CATEGORIES: ExampleCategory[] = [
 	{
 		id: "form",
@@ -128,34 +129,97 @@ export const EXAMPLE_CATEGORIES: ExampleCategory[] = [
 			},
 		],
 	},
-		{
-			id: "layout",
-			title: "Layout",
-			docsHref: "/docs/layout",
-			items: [
-				{
-					title: "Dashboard shell",
-					description: "Scenario index + API guide",
-					href: "/docs/dashboard-shell",
-					kit: "layout",
-					visual: "layout-dashboard",
-				},
-				{
-					title: "Shell — basic",
-					description: "Sidebar, header, breadcrumbs",
-					href: "/docs/examples/layout/shell-basic",
-					kit: "layout",
-					visual: "layout-dashboard",
-				},
-				{
-					title: "Shell — data table",
-					description: "Table page + theme header",
-					href: "/docs/examples/layout/shell-table",
-					kit: "layout",
-					visual: "table-basic",
-				},
-				{
-					title: "Breadcrumbs",
+	{
+		id: "layout",
+		title: "Layout",
+		docsHref: "/docs/layout",
+		items: [
+			{
+				title: "Dashboard shell guide",
+				description: "Composition + API reference",
+				href: "/docs/dashboard-shell",
+				kit: "layout",
+				visual: "layout-dashboard",
+			},
+			{
+				title: "Shell — basic",
+				description: "Sidebar, header, breadcrumbs",
+				href: "/docs/examples/layout/shell-basic",
+				kit: "layout",
+				visual: "layout-dashboard",
+			},
+			{
+				title: "Shell — icon sidebar",
+				description: "Collapsed rail by default",
+				href: "/docs/examples/layout/shell-icon-sidebar",
+				kit: "layout",
+				visual: "layout-dashboard",
+			},
+			{
+				title: "Shell — nested nav",
+				description: "Groups and active routes",
+				href: "/docs/examples/layout/shell-nested-nav",
+				kit: "layout",
+				visual: "layout-dashboard",
+			},
+			{
+				title: "Shell — mobile sheet",
+				description: "Small-viewport navigation",
+				href: "/docs/examples/layout/shell-mobile",
+				kit: "layout",
+				visual: "layout-dashboard",
+			},
+			{
+				title: "Shell — account menu",
+				description: "Session user dropdown",
+				href: "/docs/examples/layout/shell-account",
+				kit: "layout",
+				visual: "layout-dashboard",
+			},
+			{
+				title: "Shell — top nav",
+				description: "No sidebar",
+				href: "/docs/examples/layout/shell-top-nav",
+				kit: "layout",
+				visual: "layout-dashboard",
+			},
+			{
+				title: "Shell — auth split",
+				description: "Sign-in column + aside",
+				href: "/docs/examples/layout/shell-auth-split",
+				kit: "layout",
+				visual: "layout-dashboard",
+			},
+			{
+				title: "Shell — settings",
+				description: "Secondary nav in main",
+				href: "/docs/examples/layout/shell-settings",
+				kit: "layout",
+				visual: "layout-dashboard",
+			},
+			{
+				title: "Shell — content layouts",
+				description: "Grid, flex, form section",
+				href: "/docs/examples/layout/shell-content",
+				kit: "layout",
+				visual: "layout-dashboard",
+			},
+			{
+				title: "Shell — skeleton",
+				description: "Loading placeholders",
+				href: "/docs/examples/layout/shell-skeleton",
+				kit: "layout",
+				visual: "layout-dashboard",
+			},
+			{
+				title: "Shell — data table",
+				description: "Table + theme header",
+				href: "/docs/examples/layout/shell-table",
+				kit: "layout",
+				visual: "table-basic",
+			},
+			{
+				title: "Breadcrumbs",
 				description: "Trail + back affordance",
 				href: "/docs/examples/layout/breadcrumbs",
 				kit: "layout",

@@ -1,0 +1,5 @@
+{
+	"title": "Foundations",
+	"defaultOpen": true,
+	"pages": ["../ui", "theme"]
+}

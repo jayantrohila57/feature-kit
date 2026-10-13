@@ -1,0 +1,5 @@
+{
+	"title": "Layout",
+	"icon": "LayoutGrid",
+	"pages": ["../../layout", "../../dashboard-shell", "...examples/layout"]
+}

@@ -1,0 +1,5 @@
+{
+	"title": "Data table",
+	"icon": "Table2",
+	"pages": ["../../data-table", "...examples/table"]
+}

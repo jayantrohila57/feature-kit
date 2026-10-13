@@ -1,19 +1,18 @@
 {
 	"pages": [
+		"---Get started---",
 		"index",
 		"getting-started",
-		"architecture",
 		"installation",
+		"architecture",
 		"providers",
-		"ui",
-		"form",
-		"data-table",
-		"layout",
-		"dashboard-shell",
-		"auth",
-		"theme",
-		"uploader",
 		"changelog",
-		"...examples"
+		"foundations",
+		"---Kits---",
+		"kits/form",
+		"kits/table",
+		"kits/layout",
+		"kits/auth",
+		"kits/uploader"
 	]
 }

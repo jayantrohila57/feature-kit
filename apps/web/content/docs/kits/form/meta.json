@@ -1,0 +1,5 @@
+{
+	"title": "Form",
+	"icon": "FormInput",
+	"pages": ["../../form", "...examples/form"]
+}
