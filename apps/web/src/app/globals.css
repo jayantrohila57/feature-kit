@@ -59,8 +59,15 @@ html {
 	height: auto !important;
 	min-height: calc(var(--fd-docs-height) - var(--fd-docs-row-2));
 	max-height: calc(var(--fd-docs-height) - var(--fd-docs-row-2)) !important;
-	border-inline-start: 1px solid var(--sidebar-border);
+	/* Mirror #nd-sidebar aside border-e (1px sidebar-border) */
+	border-inline-start-width: 1px;
+	border-inline-start-style: solid;
+	border-inline-start-color: var(--sidebar-border);
 	padding-inline-start: 1rem;
+}
+
+#nd-docs-layout [grid-area="site-footer"] {
+	justify-self: stretch;
 }
 
 #nd-page {
