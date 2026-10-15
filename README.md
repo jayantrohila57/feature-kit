@@ -37,3 +37,9 @@ Open [http://localhost:3000](http://localhost:3000), then **[`/docs`](http://loc
 ## License
 
 MIT
+
+## Sponsor
+
+If you find this project useful, consider supporting its development:
+
+[![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-db61a2?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/jayantrohila57)
