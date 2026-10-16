@@ -2,13 +2,26 @@
 
 **Live docs:** [feature-kits.vercel.app](https://feature-kits.vercel.app)
 
-Feature Kits (repo and registry namespace: `feature-kit`) is a set of open-source UI kits for product engineering:
+Feature Kits (repo and registry namespace: `feature-kit`) is a set of open-source UI kits for product engineering.
 
-- **form** — schema-driven fields, `FieldKit`, and `FormKit` (React Hook Form + Zod)
-- **data-table** — TanStack Table toolbar, filters, pagination, selection, and bulk actions
-- **layout** — breadcrumbs, utility icon buttons (back, docs, shared tooltip/loading), form section chrome, and shared empty/confirm patterns used by the kits
-- **uploader** — spreadsheet import dialog, parse/validate, and template download
-- **ui** — shadcn-style primitives (Field\*, inputs, overlays)
+## Kits
+
+Registry items (from `registry.json`), installable from `https://feature-kits.vercel.app/r/<name>.json`:
+
+| Kit | What it includes |
+| --- | --- |
+| `form` | FormKit and FieldKit — Zod schemas with React Hook Form |
+| `data-table` | TanStack Table wrapper with filters, bulk actions, and URL sync |
+| `layout` | Form sections, navigation helpers, confirmation dialog, and shared layout utilities |
+| `dashboard-shell` | DashboardShell, header, sidebar nav, and account menu composition |
+| `breadcrumb` | Route-derived breadcrumbs with ellipsis menu and copy URL |
+| `auth` | Better Auth wiring, sign-in/up modules, and a demo-friendly memory adapter |
+| `theme` | next-themes provider, toggle, selector, and preference sync |
+| `uploader` | Spreadsheet import UI with validation and FormKit integration |
+
+Blocks: `blocks-dashboard-overview`, `blocks-data-table-crud`, `blocks-detail-page`, `blocks-settings-area`, `blocks-auth-pages`, `blocks-uploader-import`, `blocks-app-states`, `blocks-top-nav-app`.
+
+Shared primitives live in `packages/ui` (shadcn-style Field\*, inputs, overlays) and `packages/format`.
 
 ## Repository layout
 
@@ -18,6 +31,8 @@ feature/form
 feature/data-table
 feature/layout
 feature/uploader
+feature/auth
+feature/theme
 feature/export
 feature/preferences
 packages/ui
