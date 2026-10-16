@@ -28,9 +28,9 @@ export async function GET(request: Request) {
 	const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>Feature Kit Changelog</title>
+    <title>Feature Kits Changelog</title>
     <link>${escapeXml(channelLink)}</link>
-    <description>Latest updates and announcements for Feature Kit docs and packages.</description>
+    <description>Latest updates and announcements for Feature Kits docs and packages.</description>
     <language>en</language>
     ${items}
   </channel>

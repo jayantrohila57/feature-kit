@@ -23,7 +23,7 @@ export function LayoutShellBrand() {
 				</div>
 			}
 			subtitle="Playground"
-			title="Feature Kit"
+			title="Feature Kits"
 		/>
 	)
 }

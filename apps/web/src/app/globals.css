@@ -28,12 +28,12 @@ html {
 	justify-items: stretch;
 }
 
-/* Full-width header row: sticky sidebar/TOC must offset below Feature Kit header (h-14) */
+/* Full-width header row: sticky sidebar/TOC must offset below Feature Kits header (h-14) */
 #nd-docs-layout {
 	--fd-header-height: 3.5rem;
 }
 
-/* Search lives in Feature Kit docs header; hide Fumadocs sidebar chrome triggers */
+/* Search lives in Feature Kits docs header; hide Fumadocs sidebar chrome triggers */
 #nd-docs-layout #nd-sidebar [data-search-full],
 #nd-docs-layout #nd-sidebar [data-search],
 #nd-docs-layout [data-sidebar-panel] [data-search] {

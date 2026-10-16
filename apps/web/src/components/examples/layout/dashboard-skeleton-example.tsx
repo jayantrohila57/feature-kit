@@ -18,7 +18,7 @@ export function DashboardSkeletonExample() {
 							</div>
 						}
 						subtitle="Loading…"
-						title="Feature Kit"
+						title="Feature Kits"
 					/>
 				}>
 				<div className="grid gap-4">

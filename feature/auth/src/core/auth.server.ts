@@ -22,7 +22,7 @@ const socialProviders =
 		: {}
 
 export const auth = betterAuth({
-	appName: "Feature Kit",
+	appName: "Feature Kits",
 	secret: process.env["BETTER_AUTH_SECRET"] ?? "feature-kit-demo-auth-secret",
 	baseURL: getAuthBaseUrl(),
 	database: memoryAdapter({}),

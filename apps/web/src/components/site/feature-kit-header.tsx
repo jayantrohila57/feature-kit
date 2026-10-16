@@ -32,7 +32,7 @@ type FeatureKitBrandLinkProps = Omit<ComponentProps<typeof Link>, "href"> & {
 export function FeatureKitBrandLink({ className, href = "/", ...props }: FeatureKitBrandLinkProps) {
 	return (
 		<Link
-			aria-label="Feature Kit home"
+			aria-label="Feature Kits home"
 			className={cn(
 				"inline-flex shrink-0 items-center gap-2 rounded-lg px-3 py-2.5 font-semibold text-sm tracking-tight hover:bg-muted dark:hover:bg-muted/50",
 				className,
@@ -40,7 +40,7 @@ export function FeatureKitBrandLink({ className, href = "/", ...props }: Feature
 			href={href}
 			{...props}>
 			<LambdaIcon className="size-4 shrink-0 text-primary" strokeWidth={2.25} />
-			<span>Feature Kit</span>
+			<span>Feature Kits</span>
 		</Link>
 	)
 }

@@ -1,4 +1,4 @@
-# Feature Kit Documentation Rewrite Plan
+# Feature Kits Documentation Rewrite Plan
 
 **Status:** Draft for implementation  
 **Date:** 2026-10-07  
@@ -8,14 +8,14 @@
 
 ## 1. Objective
 
-Rebuild the Feature Kit documentation so it feels like a mature developer product rather than an internal package reference.
+Rebuild the Feature Kits documentation so it feels like a mature developer product rather than an internal package reference.
 
 The target experience should combine:
 
 - the clarity and progressive disclosure of shadcn/ui documentation,
 - the copy-friendly, source-oriented mindset of modern open-code documentation,
 - the practical workflow coverage expected from production admin applications,
-- and the actual APIs and architecture already present in Feature Kit.
+- and the actual APIs and architecture already present in Feature Kits.
 
 The result should help a developer answer five questions quickly:
 
@@ -33,7 +33,7 @@ The documentation should teach developers how to use the kits, not merely descri
 
 ### Recommended positioning direction
 
-Feature Kit should be presented as a collection of **opinionated, composable building blocks for real product workflows**.
+Feature Kits should be presented as a collection of **opinionated, composable building blocks for real product workflows**.
 
 Avoid positioning it as a generic UI component library. The repository already has a lower-level `ui` package, while the feature packages solve workflow-level problems:
 
@@ -99,7 +99,7 @@ Borrow these principles:
 - excellent code presentation and copyability,
 - documentation that teaches the underlying composition model.
 
-Do **not** copy shadcn's sentences, taglines, page copy, example text, or brand language. Write Feature Kit-specific language around Feature Kit's own architecture and product philosophy.
+Do **not** copy shadcn's sentences, taglines, page copy, example text, or brand language. Write Feature Kits-specific language around Feature Kits's own architecture and product philosophy.
 
 ---
 
@@ -207,8 +207,8 @@ The current project is a pnpm monorepo and the packages are workspace packages. 
 
 **Fix:** Separate documentation into:
 
-1. **Using Feature Kit in this repository**
-2. **Using Feature Kit from another application**
+1. **Using Feature Kits in this repository**
+2. **Using Feature Kits from another application**
 3. **Publishing / consuming packages** — only when actually supported
 
 Never document a fictional package installation flow.
@@ -515,7 +515,7 @@ It also mirrors the strongest part of shadcn's model: a predictable path from co
 
 ### Replace the current introduction with four jobs
 
-#### Job 1: Explain Feature Kit
+#### Job 1: Explain Feature Kits
 
 Answer in two or three sentences:
 
@@ -624,7 +624,7 @@ Create tabs or clearly separated sections for:
 
 - **Clone the repository**
 - **Use a workspace package in an existing app**
-- **Contribute to Feature Kit**
+- **Contribute to Feature Kits**
 
 Do not use npm installation commands until packages are actually published and supported that way.
 
@@ -691,7 +691,7 @@ Add uploader and supporting packages where they actually belong after confirming
 
 ### Document ownership boundaries
 
-This is especially important for Feature Kit:
+This is especially important for Feature Kits:
 
 | Concern | Owned by |
 |---|---|
@@ -772,7 +772,7 @@ Then explain:
 
 Show when developers should:
 
-- use a Feature Kit component,
+- use a Feature Kits component,
 - use a lower-level UI primitive,
 - create a local wrapper,
 - contribute a shared primitive.
@@ -1649,7 +1649,7 @@ Create these examples:
 
 Add a section that combines multiple kits into realistic product screens.
 
-These examples are especially valuable because Feature Kit is about workflow composition.
+These examples are especially valuable because Feature Kits is about workflow composition.
 
 ### Workflow 1: User management
 
@@ -1888,7 +1888,7 @@ should find:
 
 # 20. AI / LLM-Ready Documentation
 
-Take inspiration from the direction of modern open-code documentation, but make it Feature Kit-specific.
+Take inspiration from the direction of modern open-code documentation, but make it Feature Kits-specific.
 
 The documentation should be easy for coding agents to consume.
 
@@ -1914,7 +1914,7 @@ Create a short `ai.mdx` or `llms.mdx` reference page explaining:
 - where public APIs are defined,
 - how examples map to packages,
 - how to avoid using internal files,
-- and how to compose Feature Kit components.
+- and how to compose Feature Kits components.
 
 Do not turn the entire documentation into prompts. Keep normal human documentation primary and make the structure machine-readable as a side effect of good documentation design.
 
@@ -1968,7 +1968,7 @@ The goal is not to write a generic accessibility essay. Document the accessibili
 
 # 22. Client / Server Documentation
 
-Feature Kit is closely tied to React/Next.js application architecture, so every relevant page should identify execution boundaries.
+Feature Kits is closely tied to React/Next.js application architecture, so every relevant page should identify execution boundaries.
 
 Use a visible convention:
 
@@ -2586,10 +2586,10 @@ The rewrite should explicitly study these shadcn patterns while remaining origin
 
 Reference the shadcn introduction's focus on explaining the philosophy before dumping implementation details.
 
-Apply that idea to Feature Kit with its own philosophy:
+Apply that idea to Feature Kits with its own philosophy:
 
 ```text
-Feature Kit is workflow-level composition.
+Feature Kits is workflow-level composition.
 UI is primitive-level composition.
 Applications own business behavior.
 ```
@@ -2608,13 +2608,13 @@ Focused examples
 API / notes
 ```
 
-Apply this to each Feature Kit capability.
+Apply this to each Feature Kits capability.
 
 ### Forms
 
 Reference shadcn's approach of teaching forms through schemas, field composition, validation, and multiple field examples.
 
-Feature Kit should go further on:
+Feature Kits should go further on:
 
 - FormKit,
 - FieldKit,
@@ -2636,7 +2636,7 @@ basic
 → reusable patterns
 ```
 
-Feature Kit should extend the same progression with:
+Feature Kits should extend the same progression with:
 
 - URL state,
 - cross-page selection,
@@ -2654,7 +2654,7 @@ Reference shadcn's semantic-token model rather than documenting only raw CSS val
 
 Reference shadcn's emphasis on copyable examples and task-focused blocks.
 
-Feature Kit should use this pattern for **workflow examples** instead of generic UI blocks.
+Feature Kits should use this pattern for **workflow examples** instead of generic UI blocks.
 
 ---
 
@@ -2862,7 +2862,7 @@ I can inspect the full API without leaving the page.
         ↓
 I know what happens in loading/error/empty states.
         ↓
-I can combine it with another Feature Kit capability.
+I can combine it with another Feature Kits capability.
 ```
 
 That should be the standard for every major page.
@@ -2893,7 +2893,7 @@ The documentation rewrite is complete when:
 - [ ] Documentation links are validated in CI.
 - [ ] Example code is validated in CI where practical.
 - [ ] Documentation can be consumed easily by humans and coding agents.
-- [ ] The language is original to Feature Kit and does not reproduce shadcn copy.
+- [ ] The language is original to Feature Kits and does not reproduce shadcn copy.
 
 ---
 
@@ -2901,7 +2901,7 @@ The documentation rewrite is complete when:
 
 The main change is not "write more documentation."
 
-The change is to move Feature Kit documentation from:
+The change is to move Feature Kits documentation from:
 
 ```text
 package reference
@@ -2915,7 +2915,7 @@ workflow documentation + source examples + API reference
 
 The documentation should show the **progression from primitive to feature to application workflow**.
 
-Shadcn is the strongest reference for the presentation model because its docs make the source, preview, installation, usage, examples, and composition model easy to follow. Feature Kit should adopt those strengths while making the content specifically about its own feature-level abstractions and production admin workflows.
+Shadcn is the strongest reference for the presentation model because its docs make the source, preview, installation, usage, examples, and composition model easy to follow. Feature Kits should adopt those strengths while making the content specifically about its own feature-level abstractions and production admin workflows.
 
 The final docs should be useful to a developer who has never seen the repository and still be precise enough for an experienced maintainer to use as the canonical reference for the codebase.
 
@@ -2923,16 +2923,16 @@ The final docs should be useful to a developer who has never seen the repository
 
 # 47. Reference Sources Used for This Plan
 
-## Feature Kit
+## Feature Kits
 
-- Feature Kit documentation: `https://feature-kits.vercel.app/docs`
-- Feature Kit getting started: `https://feature-kits.vercel.app/docs/getting-started`
-- Feature Kit form docs: `https://feature-kits.vercel.app/docs/form`
-- Feature Kit data table docs: `https://feature-kits.vercel.app/docs/data-table`
-- Feature Kit layout docs: `https://feature-kits.vercel.app/docs/layout`
-- Feature Kit uploader docs: `https://feature-kits.vercel.app/docs/uploader`
-- Feature Kit examples: `https://feature-kits.vercel.app/docs/examples`
-- Feature Kit repository: `https://github.com/jayantrohila57/feature-kit`
+- Feature Kits documentation: `https://feature-kits.vercel.app/docs`
+- Feature Kits getting started: `https://feature-kits.vercel.app/docs/getting-started`
+- Feature Kits form docs: `https://feature-kits.vercel.app/docs/form`
+- Feature Kits data table docs: `https://feature-kits.vercel.app/docs/data-table`
+- Feature Kits layout docs: `https://feature-kits.vercel.app/docs/layout`
+- Feature Kits uploader docs: `https://feature-kits.vercel.app/docs/uploader`
+- Feature Kits examples: `https://feature-kits.vercel.app/docs/examples`
+- Feature Kits repository: `https://github.com/jayantrohila57/feature-kit`
 
 ## shadcn/ui
 
@@ -2951,4 +2951,4 @@ The final docs should be useful to a developer who has never seen the repository
 
 # 48. One-Sentence North Star
 
-> **Every Feature Kit page should teach a developer how to make a real product screen, not just tell them what a component's props are.**
+> **Every Feature Kits page should teach a developer how to make a real product screen, not just tell them what a component's props are.**

@@ -20,7 +20,7 @@ const variants: { id: AuthVariant; label: string }[] = [
 function AuthMarketingAside() {
 	return (
 		<div className="flex h-full flex-col justify-end p-8">
-			<p className="font-medium text-lg">Feature Kit</p>
+			<p className="font-medium text-lg">Feature Kits</p>
 			<p className="mt-2 max-w-sm text-muted-foreground text-sm">
 				Auth blocks compose `AuthCardLayout` with sign-in, sign-up, and recovery forms from the auth kit.
 			</p>

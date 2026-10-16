@@ -59,7 +59,7 @@ export function DashboardShellExample() {
 								</div>
 							}
 							subtitle="Playground"
-							title="Feature Kit"
+							title="Feature Kits"
 						/>
 						<SidebarMenuButton asChild className="hidden group-data-[collapsible=icon]:flex" size="sm">
 							<SidebarTrigger />

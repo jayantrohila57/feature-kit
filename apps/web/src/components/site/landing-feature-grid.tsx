@@ -10,7 +10,7 @@ export function LandingFeatureGrid() {
 			aria-labelledby="landing-feature-grid-heading">
 			<div className="w-full">
 				<h2 id="landing-feature-grid-heading" className="sr-only">
-					Feature Kit capabilities
+					Feature Kits capabilities
 				</h2>
 				<ul className="flex flex-col gap-8 md:flex-row md:gap-0 md:divide-x md:divide-border">
 					{kitLinks.map((kit) => {

@@ -1,8 +1,8 @@
-# Featureskit
+# Feature Kits
 
 **Live docs:** [feature-kits.vercel.app](https://feature-kits.vercel.app)
 
-Featureskit (repo and registry namespace: `feature-kit`) is a set of open-source UI kits for product engineering:
+Feature Kits (repo and registry namespace: `feature-kit`) is a set of open-source UI kits for product engineering:
 
 - **form** — schema-driven fields, `FieldKit`, and `FormKit` (React Hook Form + Zod)
 - **data-table** — TanStack Table toolbar, filters, pagination, selection, and bulk actions

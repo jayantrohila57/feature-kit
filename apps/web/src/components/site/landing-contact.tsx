@@ -144,7 +144,7 @@ export function LandingContact() {
 						Get in touch with the project
 					</h2>
 					<p className="text-muted-foreground text-sm md:text-base">
-						Feature Kit is open source—use the docs to get running, GitHub for bugs and releases, and
+						Feature Kits is open source—use the docs to get running, GitHub for bugs and releases, and
 						discussions when you want a second opinion on wiring kits.
 					</p>
 				</div>

@@ -11,7 +11,7 @@ export function LayoutShellAuthSplitExample() {
 			<AuthSplitShell
 				aside={
 					<div className="flex h-full flex-col justify-end p-8">
-						<p className="font-medium text-lg">Feature Kit</p>
+						<p className="font-medium text-lg">Feature Kits</p>
 						<p className="mt-2 max-w-sm text-muted-foreground text-sm">
 							Split auth layout for sign-in flows. The aside is hidden on small screens.
 						</p>

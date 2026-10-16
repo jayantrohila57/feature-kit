@@ -45,7 +45,7 @@ const FAQ_CATEGORIES: FaqCategory[] = [
 				question: "What do I need installed?",
 				answer: (
 					<>
-						Feature Kit expects <strong className="font-medium">Node.js 24+</strong> and{" "}
+						Feature Kits expects <strong className="font-medium">Node.js 24+</strong> and{" "}
 						<strong className="font-medium">pnpm 9+</strong>. The repo is a pnpm workspace—use{" "}
 						<code className="rounded-xs bg-muted px-1 py-0.5 font-mono text-[0.85em]">pnpm install</code>{" "}
 						at the root so every <code className="rounded-xs bg-muted px-1 py-0.5 font-mono text-[0.85em]">feature/*</code>{" "}
@@ -197,7 +197,7 @@ const FAQ_CATEGORIES: FaqCategory[] = [
 				question: "Can I copy kits into my own monorepo?",
 				answer: (
 					<>
-						Yes—Feature Kit is meant as copy-friendly source, not a opaque SDK. Copy the kit folders you need from{" "}
+						Yes—Feature Kits is meant as copy-friendly source, not a opaque SDK. Copy the kit folders you need from{" "}
 						<code className="rounded-xs bg-muted px-1 py-0.5 font-mono text-[0.85em]">feature/*</code>, wire workspace
 						aliases like this repo, and adjust imports. Use{" "}
 						<Link className="text-primary underline-offset-4 hover:underline" href="/docs/examples">
@@ -242,7 +242,7 @@ const FAQ_CATEGORIES: FaqCategory[] = [
 		items: [
 			{
 				id: "open-source",
-				question: "Is Feature Kit open source?",
+				question: "Is Feature Kits open source?",
 				answer: (
 					<>
 						Yes. Source and releases are on{" "}
