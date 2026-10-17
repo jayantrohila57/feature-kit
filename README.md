@@ -1,4 +1,8 @@
+<p align="center"><img src=".github/brand/readme-banner.png" alt="Feature Kits: Composable form, data-table and layout kits for React and Next.js." width="100%" /></p>
+
 # Feature Kits
+
+**Composable form, data-table and layout kits for React and Next.js. Shipped as a shadcn registry.**
 
 **Live docs:** [feature-kits.vercel.app](https://feature-kits.vercel.app)
 
@@ -70,6 +74,24 @@ pnpm dev
 Open [http://localhost:3000](http://localhost:3000), then **[`/docs`](http://localhost:3000/docs)** for kit overviews and live previews (FormKit, FieldKit, DataTable, Uploader, layout utilities, and more). Legacy `/examples`, `/form`, and `/table` redirect into the docs.
 
 **Documentation** — Fumadocs MDX in `apps/web/content/docs` (no sidebar; horizontal kit nav). Runnable demos are embedded on kit pages and under `/docs/examples/*`.
+
+## Brand
+
+<img src=".github/brand/logo-lockup-on-light.png#gh-light-mode-only" alt="Feature Kits logo" height="56" /><img src=".github/brand/logo-lockup-on-dark.png#gh-dark-mode-only" alt="Feature Kits logo" height="56" />
+
+**Composable form, data-table and layout kits for React and Next.js.**
+
+Brand assets live in [`.github/brand`](.github/brand): logo mark (SVG and PNG), wordmark (SVG), light and dark lockups, app icons (512, 192 and 32 px), an Open Graph image (1200×630), a GitHub social preview (1280×640), this README banner, an X/LinkedIn banner (1500×500) and a palette sheet.
+
+| Role | Hex | Source |
+| --- | --- | --- |
+| Brand primary (mark, CTA) | `#3b5fef` | `BRAND_PRIMARY / --primary` |
+| Surface dark | `#1a1625` | `BRAND_SURFACE_DARK` |
+| Surface light | `#f4f3f8` | `BRAND_SURFACE_LIGHT` |
+| Background (light) | `#fbfaf8` | `--background` |
+| Foreground | `#0a0a0a` | `--foreground` |
+
+Type: System UI sans in the app (`system-ui, sans-serif` in the OG image); brand images are set in Inter, with Geist Mono for code.
 
 ## License
 
